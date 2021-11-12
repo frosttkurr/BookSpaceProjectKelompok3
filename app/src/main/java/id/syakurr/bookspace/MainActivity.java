@@ -4,7 +4,9 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -12,35 +14,21 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
-    private Button login;
-    private EditText username, password;
-    private TextView daftar;
+    private static int SPLASH_SCREEN_TIME = 3000;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_main);
 
-        login = (Button)findViewById(R.id.btn_login);
-        username = (EditText)findViewById(R.id.username);
-        password = (EditText)findViewById(R.id.password);
-        daftar = (TextView)findViewById(R.id.link_daftar);
-
-        login.setOnClickListener(new View.OnClickListener() {
+        new Handler().postDelayed(new Runnable() {
             @Override
-            public void onClick(View v) {
-                if (username.length() == 0 || password.length() == 0) {
-                    Toast.makeText(MainActivity.this, "Lengkapi Username atau Password!", Toast.LENGTH_SHORT).show();
-                }
+            public void run() {
+                Intent gotoLogin = new Intent(MainActivity.this, LoginActivity.class);
+                MainActivity.this.startActivity(gotoLogin);
+                MainActivity.this.finish();
             }
-        });
-
-        daftar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent gotoRegist = new Intent(MainActivity.this, DaftarActivity.class);
-                startActivity(gotoRegist);
-            }
-        });
+        }, SPLASH_SCREEN_TIME);
     }
 }

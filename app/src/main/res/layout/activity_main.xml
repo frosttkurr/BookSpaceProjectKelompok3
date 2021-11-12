@@ -10,94 +10,27 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:gravity="center"
         android:orientation="vertical"
+        android:gravity="center"
+        android:paddingTop="55dp"
+        android:paddingBottom="15dp"
         android:paddingHorizontal="55dp"
-        tools:layout_editor_absoluteX="-16dp"
-        tools:layout_editor_absoluteY="0dp">
-
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
             android:id="@+id/logo"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="85dp"
+            android:layout_marginBottom="10dp"
             app:srcCompat="@drawable/logo_bookspace" />
 
-        <LinearLayout
+        <ImageView
+            android:id="@+id/asset"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:orientation="vertical">
-
-            <EditText
-                android:id="@+id/username"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
-                android:background="@drawable/form_pink"
-                android:hint="Username"
-                android:inputType="textPersonName"
-                android:maxLength="10"
-                android:minHeight="48dp"
-                android:paddingLeft="20dp"
-                android:paddingRight="20dp"
-                android:paddingTop="10dp"
-                android:paddingBottom="10dp"
-                android:textColor="@color/purple"
-                android:textColorHint="@color/purple_85"
-                android:textSize="16dp" />
-
-            <EditText
-                android:id="@+id/password"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="15dp"
-                android:background="@drawable/form_pink"
-                android:hint="Password"
-                android:inputType="textPassword"
-                android:minHeight="48dp"
-                android:paddingLeft="20dp"
-                android:paddingRight="20dp"
-                android:paddingTop="10dp"
-                android:paddingBottom="10dp"
-                android:textColor="@color/purple"
-                android:textColorHint="@color/purple_85"
-                android:textSize="16dp" />
-
-            <Button
-                android:id="@+id/btn_login"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingHorizontal="45dp"
-                app:backgroundTint="@null"
-                android:background="@drawable/button_pink"
-                android:textColor="@color/white"
-                android:layout_marginBottom="10dp"
-                android:text="Login" />
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:id="@+id/label_daftar"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Belum punya akun? "
-                    android:textColor="@color/purple" />
-
-                <TextView
-                    android:id="@+id/link_daftar"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textStyle="bold"
-                    android:textColor="@color/purple"
-                    android:text="Daftar" />
-            </LinearLayout>
-
-        </LinearLayout>
-
+            android:layout_height="300dp"
+            app:srcCompat="@drawable/asset1" />
     </LinearLayout>
-
 </androidx.constraintlayout.widget.ConstraintLayout>
