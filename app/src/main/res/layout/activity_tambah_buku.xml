@@ -4,6 +4,107 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/bg_nofill03"
     tools:context=".TambahBukuActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:paddingVertical="40dp"
+        android:paddingHorizontal="55dp">
+
+        <TextView
+            android:id="@+id/label_add_kategori"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/purple"
+            android:textSize="25dp"
+            android:textStyle="bold"
+            android:layout_marginBottom="10dp"
+            android:text="Tambah Kategori" />
+
+        <ImageView
+            android:id="@+id/icon_profile"
+            android:layout_width="wrap_content"
+            android:layout_height="100dp"
+            android:layout_marginBottom="15dp"
+            app:srcCompat="@drawable/add_category" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/label_buku"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="2dp"
+                android:paddingHorizontal="20dp"
+                android:text="Judul Buku"
+                android:textColor="@color/purple"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/input_buku"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="15dp"
+                android:background="@drawable/form_pink"
+                android:hint="Judul Buku"
+                android:inputType="textPersonName"
+                android:minHeight="48dp"
+                android:paddingLeft="20dp"
+                android:paddingTop="10dp"
+                android:paddingRight="20dp"
+                android:paddingBottom="10dp"
+                android:textColor="@color/purple"
+                android:textColorHint="@color/purple_85"
+                android:textSize="15dp" />
+
+            <TextView
+                android:id="@+id/label_kategori"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/purple"
+                android:paddingHorizontal="20dp"
+                android:textStyle="bold"
+                android:layout_marginBottom="2dp"
+                android:text="Kategori Buku" />
+
+            <EditText
+                android:id="@+id/input_kategori"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp"
+                android:background="@drawable/form_pink"
+                android:hint="Kategori Buku"
+                android:inputType="textPersonName"
+                android:minHeight="48dp"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
+                android:textColor="@color/purple"
+                android:textColorHint="@color/purple_85"
+                android:textSize="15dp" />
+
+            <Button
+                android:id="@+id/btn_pinjam"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/button_pink"
+                android:paddingHorizontal="45dp"
+                android:text="Tambah Data"
+                android:textColor="@color/white"
+                app:backgroundTint="@null" />
+
+        </LinearLayout>
+
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

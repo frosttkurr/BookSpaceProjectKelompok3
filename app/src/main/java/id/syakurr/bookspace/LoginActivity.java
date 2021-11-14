@@ -30,6 +30,17 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if (username.length() == 0 || password.length() == 0) {
                     Toast.makeText(LoginActivity.this, "Lengkapi Username atau Password!", Toast.LENGTH_SHORT).show();
+                } else if (username.getText().toString().equals("syakurrhmn") && password.getText().toString().equals("qwerty123")) {
+                    Intent gotoLoby = new Intent(LoginActivity.this, LobbyActivity.class);
+                    gotoLoby.putExtra("username", username.getText().toString());
+                    gotoLoby.putExtra("nik", "5772053313200102");
+                    gotoLoby.putExtra("nama", "Muhammad Syakurrahman");
+                    gotoLoby.putExtra("alamat", "Jimbaran");
+                    gotoLoby.putExtra("jeniskelamin", "Laki-Laki");
+                    gotoLoby.putExtra("email", "inialamatvalid@gmail.com");
+                    startActivity(gotoLoby);
+                } else {
+                    Toast.makeText(LoginActivity.this, "Username atau Password salah!", Toast.LENGTH_SHORT).show();
                 }
             }
         });

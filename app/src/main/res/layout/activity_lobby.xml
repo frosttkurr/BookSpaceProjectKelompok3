@@ -260,14 +260,14 @@
                         android:orientation="vertical">
 
                         <ImageView
-                            android:id="@+id/btn_tambah"
+                            android:id="@+id/btn_pinjam"
                             android:layout_width="match_parent"
                             android:layout_height="75dp"
                             android:layout_marginBottom="5dp"
                             app:srcCompat="@drawable/add_book" />
 
                         <TextView
-                            android:id="@+id/label_tambah"
+                            android:id="@+id/label_pinjam"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginBottom="2dp"
@@ -311,14 +311,14 @@
                         android:orientation="vertical">
 
                         <ImageView
-                            android:id="@+id/add_kategori"
+                            android:id="@+id/btn_tambah"
                             android:layout_width="match_parent"
                             android:layout_height="75dp"
                             android:layout_marginBottom="5dp"
                             app:srcCompat="@drawable/add_category" />
 
                         <TextView
-                            android:id="@+id/label_add_kategori"
+                            android:id="@+id/label_tambah"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginBottom="2dp"

@@ -4,6 +4,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -11,6 +12,7 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -19,7 +21,10 @@ public class DaftarActivity extends AppCompatActivity {
     private EditText nik, nama, alamat, username, email, password;
     private RadioGroup jenis_kelamin;
     private RadioButton jk;
+    private SeekBar minat_baca;
     private CheckBox check_term;
+    private String strSeekbar;
+    private int valueSeekbar = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,7 +39,26 @@ public class DaftarActivity extends AppCompatActivity {
         email = (EditText)findViewById(R.id.email);
         password = (EditText)findViewById(R.id.password);
         jenis_kelamin = (RadioGroup)findViewById(R.id.jenis_kelamin);
+        minat_baca = (SeekBar)findViewById(R.id.seekbar);
         check_term = (CheckBox)findViewById(R.id.check_term);
+
+        minat_baca.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                valueSeekbar = progress;
+                strSeekbar = Integer.toString(valueSeekbar) + "%";
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+
+            }
+        });
 
         if (!check_term.isChecked()){
             daftar.setAlpha(.5f);
@@ -100,11 +124,21 @@ public class DaftarActivity extends AppCompatActivity {
                             "Alamat : " +alamat.getText().toString()+ "\n" +
                             "Jenis Kelamin : " +jk.getText().toString()+ "\n" +
                             "Email : " +email.getText().toString()+ "\n" +
-                            "Username : " +username.getText().toString()+ "\n")
+                            "Username : " +username.getText().toString()+ "\n" +
+                            "Minat Membaca : "+strSeekbar.toString()+ "\n")
                 .setPositiveButton("Konfirmasi", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         Toast.makeText(DaftarActivity.this, "Pendaftaran Berhasil", Toast.LENGTH_SHORT).show();
+                        Intent gotoLoby = new Intent(DaftarActivity.this, LobbyActivity.class);
+                        gotoLoby.putExtra("nik", nik.getText().toString());
+                        gotoLoby.putExtra("nama", nama.getText().toString() );
+                        gotoLoby.putExtra("alamat", alamat.getText().toString());
+                        gotoLoby.putExtra("jeniskelamin", jk.getText().toString());
+                        gotoLoby.putExtra("email", email.getText().toString());
+                        gotoLoby.putExtra("username", username.getText().toString());
+                        gotoLoby.putExtra("minatbaca", strSeekbar.toString());
+                        startActivity(gotoLoby);
                     }
                 })
                 .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {

@@ -4,66 +4,39 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/bg_nofill02"
-    tools:context=".PinjamActivity">
+    android:background="@drawable/bg_nofill01"
+    tools:context=".ProfileActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center"
         android:orientation="vertical"
-        android:paddingVertical="35dp"
+        android:paddingVertical="30dp"
         android:paddingHorizontal="55dp">
 
         <TextView
-            android:id="@+id/label_add_peminjaman"
+            android:id="@+id/label_profile"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/purple"
-            android:textSize="25dp"
+            android:textSize="35dp"
             android:textStyle="bold"
             android:layout_marginBottom="10dp"
-            android:text="Tambah Peminjaman" />
+            android:text="Profile" />
 
         <ImageView
             android:id="@+id/icon_profile"
             android:layout_width="wrap_content"
             android:layout_height="100dp"
-            android:layout_marginBottom="15dp"
-            app:srcCompat="@drawable/add_book" />
+            android:layout_marginBottom="10dp"
+            app:srcCompat="@drawable/user" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
             android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/label_buku"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="2dp"
-                android:paddingHorizontal="20dp"
-                android:text="Judul Buku"
-                android:textColor="@color/purple"
-                android:textStyle="bold" />
-
-            <EditText
-                android:id="@+id/input_buku"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
-                android:background="@drawable/form_pink"
-                android:hint="Judul Buku"
-                android:inputType="textPersonName"
-                android:minHeight="48dp"
-                android:paddingLeft="20dp"
-                android:paddingTop="10dp"
-                android:paddingRight="20dp"
-                android:paddingBottom="10dp"
-                android:textColor="@color/purple"
-                android:textColorHint="@color/purple_85"
-                android:textSize="15dp" />
 
             <TextView
                 android:id="@+id/label_nik"
@@ -73,24 +46,20 @@
                 android:paddingHorizontal="20dp"
                 android:textStyle="bold"
                 android:layout_marginBottom="2dp"
-                android:text="NIK Peminjam" />
+                android:text="NIK" />
 
-            <EditText
-                android:id="@+id/input_nik"
+            <TextView
+                android:id="@+id/profile_nik"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
                 android:background="@drawable/form_pink"
-                android:hint="NIK Peminjam"
-                android:inputType="numberDecimal"
+                android:text="NIK"
                 android:minHeight="48dp"
-                android:paddingLeft="20dp"
-                android:paddingRight="20dp"
-                android:paddingTop="10dp"
-                android:paddingBottom="10dp"
+                android:paddingHorizontal="20dp"
+                android:paddingVertical="15dp"
                 android:textColor="@color/purple"
-                android:textColorHint="@color/purple_85"
-                android:textSize="15dp" />
+                android:textSize="16dp" />
 
             <TextView
                 android:id="@+id/label_nama"
@@ -100,24 +69,90 @@
                 android:paddingHorizontal="20dp"
                 android:textStyle="bold"
                 android:layout_marginBottom="2dp"
-                android:text="Nama Peminjam" />
+                android:text="Nama Lengkap" />
 
-            <EditText
-                android:id="@+id/input_nama"
+            <TextView
+                android:id="@+id/profile_nama"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
                 android:background="@drawable/form_pink"
-                android:hint="Nama Peminjam"
-                android:inputType="textPersonName"
+                android:text="Nama Lengkap"
                 android:minHeight="48dp"
-                android:paddingLeft="20dp"
-                android:paddingRight="20dp"
-                android:paddingTop="10dp"
-                android:paddingBottom="10dp"
+                android:paddingHorizontal="20dp"
+                android:paddingVertical="15dp"
                 android:textColor="@color/purple"
-                android:textColorHint="@color/purple_85"
-                android:textSize="15dp" />
+                android:textSize="16dp" />
+
+            <TextView
+                android:id="@+id/label_jk"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/purple"
+                android:paddingHorizontal="20dp"
+                android:textStyle="bold"
+                android:layout_marginBottom="2dp"
+                android:text="Jenis Kelamin" />
+
+            <TextView
+                android:id="@+id/profile_jk"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/form_pink"
+                android:minHeight="48dp"
+                android:paddingHorizontal="20dp"
+                android:paddingVertical="15dp"
+                android:text="Jenis Kelamin"
+                android:textColor="@color/purple"
+                android:textSize="16dp" />
+
+            <TextView
+                android:id="@+id/label_username"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/purple"
+                android:paddingHorizontal="20dp"
+                android:textStyle="bold"
+                android:layout_marginBottom="2dp"
+                android:text="Username" />
+
+            <TextView
+                android:id="@+id/profile_username"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/form_pink"
+                android:maxLength="10"
+                android:minHeight="48dp"
+                android:paddingHorizontal="20dp"
+                android:paddingVertical="15dp"
+                android:text="Username"
+                android:textColor="@color/purple"
+                android:textSize="16dp" />
+
+            <TextView
+                android:id="@+id/label_email"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/purple"
+                android:paddingHorizontal="20dp"
+                android:textStyle="bold"
+                android:layout_marginBottom="2dp"
+                android:text="Email" />
+
+            <TextView
+                android:id="@+id/profile_email"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/form_pink"
+                android:minHeight="48dp"
+                android:paddingHorizontal="20dp"
+                android:paddingVertical="15dp"
+                android:text="Email"
+                android:textColor="@color/purple"
+                android:textSize="16dp" />
 
             <TextView
                 android:id="@+id/label_alamat"
@@ -127,87 +162,46 @@
                 android:paddingHorizontal="20dp"
                 android:textStyle="bold"
                 android:layout_marginBottom="2dp"
-                android:text="Alamat Peminjam" />
+                android:text="Alamat" />
 
-            <EditText
-                android:id="@+id/input_alamat"
+            <TextView
+                android:id="@+id/profile_alamat"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
                 android:background="@drawable/form_pink"
-                android:hint="Alamat Peminjam"
-                android:inputType="textPersonName"
+                android:text="Alamat"
                 android:minHeight="48dp"
-                android:paddingLeft="20dp"
-                android:paddingRight="20dp"
-                android:paddingTop="10dp"
-                android:paddingBottom="10dp"
+                android:paddingHorizontal="20dp"
+                android:paddingVertical="15dp"
                 android:textColor="@color/purple"
-                android:textColorHint="@color/purple_85"
-                android:textSize="15dp" />
+                android:textSize="16dp" />
 
             <TextView
-                android:id="@+id/label_tgl_pinjam"
+                android:id="@+id/label_minatbaca"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textColor="@color/purple"
                 android:paddingHorizontal="20dp"
                 android:textStyle="bold"
                 android:layout_marginBottom="2dp"
-                android:text="Tanggal Pinjam" />
-
-            <EditText
-                android:id="@+id/tanggal_pinjam"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/form_pink"
-                android:hint="Tanggal Pinjam"
-                android:minHeight="48dp"
-                android:paddingLeft="20dp"
-                android:paddingRight="20dp"
-                android:paddingTop="10dp"
-                android:paddingBottom="10dp"
-                android:layout_marginBottom="10dp"
-                android:inputType="date"
-                android:textSize="15dp" />
+                android:text="Minat Membaca" />
 
             <TextView
-                android:id="@+id/label_tgl_kembali"
+                android:id="@+id/profile_minatbaca"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textColor="@color/purple"
-                android:paddingHorizontal="20dp"
-                android:textStyle="bold"
-                android:layout_marginBottom="2dp"
-                android:text="Tanggal Kembali" />
-
-            <EditText
-                android:id="@+id/tanggal_kembali"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/form_pink"
-                android:hint="Tanggal Kembali"
-                android:minHeight="48dp"
-                android:paddingLeft="20dp"
-                android:paddingRight="20dp"
-                android:paddingTop="10dp"
-                android:paddingBottom="10dp"
-                android:layout_marginBottom="20dp"
-                android:inputType="date"
-                android:textSize="15dp" />
-
-            <Button
-                android:id="@+id/btn_pinjam"
-                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
-                android:background="@drawable/button_pink"
-                android:paddingHorizontal="45dp"
-                android:text="Tambah Data"
-                android:textColor="@color/white"
-                app:backgroundTint="@null" />
+                android:background="@drawable/form_pink"
+                android:text="Minat Membaca"
+                android:minHeight="48dp"
+                android:paddingHorizontal="20dp"
+                android:paddingVertical="15dp"
+                android:textColor="@color/purple"
+                android:textSize="16dp" />
 
         </LinearLayout>
 
     </LinearLayout>
+
 </ScrollView>
