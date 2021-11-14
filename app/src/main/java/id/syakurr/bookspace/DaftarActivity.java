@@ -83,8 +83,10 @@ public class DaftarActivity extends AppCompatActivity {
                     Toast.makeText(DaftarActivity.this, "Password tidak boleh kosong!", Toast.LENGTH_SHORT).show();
                 } else if (password.length() < 8) {
                     Toast.makeText(DaftarActivity.this, "Password minimal 8 karakter!", Toast.LENGTH_SHORT).show();
+                } else if (nik.length() == 16 && nama.length() > 0 && alamat.length() > 0 && jenis_kelamin.getCheckedRadioButtonId() != -1
+                        && username.length() > 0 && email.length() > 0 && password.length() > 0) {
+                    dialogAlert();
                 }
-                dialogAlert();
             }
         });
     }

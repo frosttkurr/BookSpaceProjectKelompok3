@@ -10,6 +10,18 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.BookSpace">
         <activity
+            android:name=".TambahBukuActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ListPinjamActivity"
+            android:exported="false" />
+        <activity
+            android:name=".PinjamActivity"
+            android:exported="false" />
+        <activity
+            android:name=".LobbyActivity"
+            android:exported="false" />
+        <activity
             android:name=".LoginActivity"
             android:exported="false" />
         <activity
