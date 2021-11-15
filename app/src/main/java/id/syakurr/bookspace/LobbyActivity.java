@@ -58,11 +58,43 @@ public class LobbyActivity extends AppCompatActivity {
             }
         });
 
+        edukasi.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent goListEdukasi = new Intent(LobbyActivity.this,BukuEdukasiActivity.class);
+                startActivity(goListEdukasi);
+            }
+        });
+
+        ilmiah.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent goListIlmiah = new Intent(LobbyActivity.this,BukuIlmiahActivity.class);
+                startActivity(goListIlmiah);
+            }
+        });
+
+        fiksi.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent goListFiksi = new Intent(LobbyActivity.this,BukuFiksiActivity.class);
+                startActivity(goListFiksi);
+            }
+        });
+
         data_pinjam.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent goAddPinjam = new Intent(LobbyActivity.this,PinjamActivity.class);
                 startActivity(goAddPinjam);
+            }
+        });
+
+        lihat_pinjam.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent goListPinjam = new Intent(LobbyActivity.this,ListPinjamActivity.class);
+                startActivity(goListPinjam);
             }
         });
 

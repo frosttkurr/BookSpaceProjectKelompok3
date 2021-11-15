@@ -5,10 +5,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/bg_fill02"
-    tools:context=".ListPinjamActivity">
+    tools:context=".BukuEdukasiActivity">
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/list_pinjam"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 </ScrollView>
