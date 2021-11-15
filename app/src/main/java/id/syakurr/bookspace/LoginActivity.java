@@ -37,7 +37,8 @@ public class LoginActivity extends AppCompatActivity {
                     gotoLoby.putExtra("nama", "Muhammad Syakurrahman");
                     gotoLoby.putExtra("alamat", "Jimbaran");
                     gotoLoby.putExtra("jeniskelamin", "Laki-Laki");
-                    gotoLoby.putExtra("email", "inialamatvalid@gmail.com");
+                    gotoLoby.putExtra("email", "syakurrhmn@gmail.com");
+                    gotoLoby.putExtra("minatbaca", "93%");
                     startActivity(gotoLoby);
                 } else {
                     Toast.makeText(LoginActivity.this, "Username atau Password salah!", Toast.LENGTH_SHORT).show();

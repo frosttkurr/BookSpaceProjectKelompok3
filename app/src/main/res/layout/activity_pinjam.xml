@@ -29,7 +29,7 @@
             android:id="@+id/icon_profile"
             android:layout_width="wrap_content"
             android:layout_height="100dp"
-            android:layout_marginBottom="15dp"
+            android:layout_marginBottom="10dp"
             app:srcCompat="@drawable/add_book" />
 
         <LinearLayout
@@ -49,7 +49,7 @@
                 android:textStyle="bold" />
 
             <EditText
-                android:id="@+id/input_buku"
+                android:id="@+id/input_judul"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
@@ -118,6 +118,41 @@
                 android:textColor="@color/purple"
                 android:textColorHint="@color/purple_85"
                 android:textSize="15dp" />
+
+            <TextView
+                android:id="@+id/label_jk"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="2dp"
+                android:paddingHorizontal="20dp"
+                android:text="Jenis Kelamin"
+                android:textColor="@color/purple"
+                android:textStyle="bold" />
+
+            <RadioGroup
+                android:id="@+id/jk"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <RadioButton
+                    android:id="@+id/jk_lk"
+                    android:checked="true"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="10dp"
+                    android:text="Laki-Laki"
+                    android:textColor="@color/pink" />
+
+                <RadioButton
+                    android:id="@+id/jk_pr"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Perempuan"
+                    android:textColor="@color/pink" />
+            </RadioGroup>
 
             <TextView
                 android:id="@+id/label_alamat"
@@ -192,9 +227,34 @@
                 android:paddingRight="20dp"
                 android:paddingTop="10dp"
                 android:paddingBottom="10dp"
-                android:layout_marginBottom="20dp"
+                android:layout_marginBottom="10dp"
                 android:inputType="date"
                 android:textSize="15dp" />
+
+            <TextView
+                android:id="@+id/label_minatbaca"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/purple"
+                android:paddingHorizontal="20dp"
+                android:textStyle="bold"
+                android:layout_marginBottom="5dp"
+                android:text="Minat Membaca (1-100%)" />
+
+            <SeekBar
+                android:id="@+id/skala_minatbaca"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="3dp" />
+
+            <CheckBox
+                android:id="@+id/syarat_pinjam"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:textColor="@color/pink"
+                android:text="Saya tunduk kepada ketentuan dan syarat peminjaman buku"
+                android:textSize="12dp" />
 
             <Button
                 android:id="@+id/btn_pinjam"

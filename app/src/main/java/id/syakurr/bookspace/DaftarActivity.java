@@ -23,7 +23,7 @@ public class DaftarActivity extends AppCompatActivity {
     private RadioButton jk;
     private SeekBar minat_baca;
     private CheckBox check_term;
-    private String strSeekbar;
+    private String strSeekbar = "0";
     private int valueSeekbar = 0;
 
     @Override
@@ -62,7 +62,7 @@ public class DaftarActivity extends AppCompatActivity {
 
         if (!check_term.isChecked()){
             daftar.setAlpha(.5f);
-            daftar.setClickable(false);
+            daftar.setEnabled(false);
         }
 
         check_term.setOnClickListener(new View.OnClickListener() {
@@ -70,10 +70,10 @@ public class DaftarActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if (!check_term.isChecked()){
                     daftar.setAlpha(.5f);
-                    daftar.setClickable(false);
+                    daftar.setEnabled(false);
                 } else {
                     daftar.setAlpha(1);
-                    daftar.setClickable(true);
+                    daftar.setEnabled(true);
                 }
             }
         });
@@ -107,8 +107,9 @@ public class DaftarActivity extends AppCompatActivity {
                     Toast.makeText(DaftarActivity.this, "Password tidak boleh kosong!", Toast.LENGTH_SHORT).show();
                 } else if (password.length() < 8) {
                     Toast.makeText(DaftarActivity.this, "Password minimal 8 karakter!", Toast.LENGTH_SHORT).show();
-                } else if (nik.length() == 16 && nama.length() > 0 && alamat.length() > 0 && jenis_kelamin.getCheckedRadioButtonId() != -1
-                        && username.length() > 0 && email.length() > 0 && password.length() > 0) {
+                } else if (strSeekbar.toString().equals("0")) {
+                    Toast.makeText(DaftarActivity.this, "Minat Baca tidak boleh kosong!", Toast.LENGTH_SHORT).show();
+                } else {
                     dialogAlert();
                 }
             }
