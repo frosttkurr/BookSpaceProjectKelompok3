@@ -15,7 +15,7 @@ public class DBHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL("CREATE TABLE tb_buku(id INTEGER PRIMARY KEY AUTOINCREMENT, judul TEXT, kategori TEXT)");
-        db.execSQL("CREATE TABLE tb_pinjam(id INTEGER PRIMARY KEY AUTOINCREMENT, nik TEXT, nama TEXT, judul TEXT, alamat TEXT, tgl_pinjam TEXT, tgl_kembali TEXT)");
+        db.execSQL("CREATE TABLE tb_pinjam(id INTEGER PRIMARY KEY AUTOINCREMENT, nik TEXT, nama TEXT, judul TEXT, alamat TEXT, tgl_pinjam TEXT, tgl_kembali TEXT, status TEXT)");
     }
 
     @Override
@@ -32,9 +32,19 @@ public class DBHelper extends SQLiteOpenHelper {
         return db.insert("tb_buku", null, values) > 0;
     }
 
+    public Cursor tampilkanBukuEdukasi() {
+        SQLiteDatabase db = getReadableDatabase();
+        return db.rawQuery("Select * from tb_buku where kategori = 'EDUKASI'", null);
+    }
+
     public Cursor tampilkanBukuIlmiah() {
         SQLiteDatabase db = getReadableDatabase();
-        return db.rawQuery("Select * from tb_buku where kategori = " + "Ilmiah", null);
+        return db.rawQuery("Select * from tb_buku where kategori = 'ILMIAH'", null);
+    }
+
+    public Cursor tampilkanBukuFiksi() {
+        SQLiteDatabase db = getReadableDatabase();
+        return db.rawQuery("Select * from tb_buku where kategori = 'FIKSI'", null);
     }
 
     public boolean tambahPinjam(PinjamHandler pinjamHandler) {

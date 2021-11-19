@@ -2,7 +2,7 @@ package id.syakurr.bookspace;
 
 public class PinjamHandler {
     private int id;
-    private String judul, nik, nama, jenis_kelamin, alamat, tgl_pinjam, tgl_kembali, minat_baca, syarat_pinjam;
+    private String judul, nik, nama, jenis_kelamin, alamat, tgl_pinjam, tgl_kembali, minat_baca, syarat_pinjam, status;
 
     public int getId() {
         return id;
@@ -82,5 +82,13 @@ public class PinjamHandler {
 
     public void setSyarat_pinjam(String syarat_pinjam) {
         this.syarat_pinjam = syarat_pinjam;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 }

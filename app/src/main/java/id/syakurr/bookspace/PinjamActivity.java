@@ -15,7 +15,7 @@ import android.widget.SeekBar;
 import android.widget.Toast;
 
 public class PinjamActivity extends AppCompatActivity {
-    private String judul_buku, nik_peminjam, nama_peminjam, jk_peminjam, alamat_peminjam, strTgl_pinjam, syarat_pinjam, strTgl_kembali, minat_baca = "0";
+    private String judul_buku, nik_peminjam, nama_peminjam, jk_peminjam, alamat_peminjam, strTgl_pinjam, syarat_pinjam, strTgl_kembali, minat_baca = "0", status = "DIPINJAM";
     private EditText judul, nik, nama, alamat, tgl_pinjam, tgl_kembali;
     private Button btnPinjam;
     private RadioGroup jenis_kelamin;
@@ -144,6 +144,7 @@ public class PinjamActivity extends AppCompatActivity {
                         pinjamHandler.setTgl_kembali(strTgl_kembali.toUpperCase());
                         pinjamHandler.setMinat_baca(minat_baca.toString().toUpperCase());
                         pinjamHandler.setSyarat_pinjam(syarat_pinjam.toString().toUpperCase());
+                        pinjamHandler.setStatus(status.toString().toUpperCase());
 
                         boolean tambahPinjam = dbHelper.tambahPinjam(pinjamHandler);
 

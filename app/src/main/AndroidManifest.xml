@@ -10,6 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.BookSpace">
         <activity
+            android:name=".DetailPinjamActivity"
+            android:exported="false" />
+        <activity
             android:name=".BukuFiksiActivity"
             android:exported="false" />
         <activity
