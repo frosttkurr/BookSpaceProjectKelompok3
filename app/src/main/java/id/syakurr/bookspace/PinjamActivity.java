@@ -4,6 +4,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -132,8 +133,7 @@ public class PinjamActivity extends AppCompatActivity {
                         "Tgl Pinjam : " +strTgl_pinjam+ "\n" +
                         "Tgl Kembali : " +strTgl_kembali+ "\n" +
                         "Minat Membaca : "+minat_baca.toString()+ "\n" +
-                        "Syarat Pinjam : "+syarat_pinjam.toString()+ "\n" +
-                        "Status : "+status.toString()+ "\n")
+                        "Syarat Pinjam : "+syarat_pinjam.toString()+ "\n")
                 .setPositiveButton("Konfirmasi", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
@@ -148,7 +148,7 @@ public class PinjamActivity extends AppCompatActivity {
                         pinjamHandler.setTgl_kembali(strTgl_kembali.toUpperCase());
                         pinjamHandler.setMinat_baca(minat_baca.toString().toUpperCase());
                         pinjamHandler.setSyarat_pinjam(syarat_pinjam.toString().toUpperCase());
-                        pinjamHandler.setStatus(strTgl_kembali.toUpperCase());
+                        pinjamHandler.setStatus(status.toString());
 
                         boolean tambahPinjam = dbHelper.tambahPinjam(pinjamHandler);
 
@@ -165,6 +165,9 @@ public class PinjamActivity extends AppCompatActivity {
                         alamat.getText().clear();
                         tgl_pinjam.getText().clear();
                         tgl_kembali.getText().clear();
+
+                        Intent goListPinjam = new Intent(PinjamActivity.this,ListPinjamActivity.class);
+                        startActivity(goListPinjam);
                     }
                 })
                 .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {

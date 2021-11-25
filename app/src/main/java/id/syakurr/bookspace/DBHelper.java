@@ -56,6 +56,7 @@ public class DBHelper extends SQLiteOpenHelper {
         values.put("alamat", pinjamHandler.getAlamat());
         values.put("tgl_pinjam", pinjamHandler.getTgl_pinjam());
         values.put("tgl_kembali", pinjamHandler.getTgl_kembali());
+        values.put("status", pinjamHandler.getStatus());
         return db.insert("tb_pinjam", null, values) > 0;
     }
 
@@ -79,5 +80,12 @@ public class DBHelper extends SQLiteOpenHelper {
     public boolean hapusPinjam (int id_pinjam) {
         SQLiteDatabase db = getReadableDatabase();
         return db.delete("tb_pinjam", "id" + "=" + id_pinjam, null) > 0;
+    }
+
+    public boolean kembaliPinjam(PinjamHandler pinjamHandler, int id_pinjam) {
+        SQLiteDatabase db = getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put("status", pinjamHandler.getStatus());
+        return db.update("tb_pinjam", values, "id" + "=" + id_pinjam, null) > 0;
     }
 }

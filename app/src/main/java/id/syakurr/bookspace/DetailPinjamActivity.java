@@ -19,7 +19,7 @@ import android.widget.Toast;
 import java.util.ArrayList;
 
 public class DetailPinjamActivity extends AppCompatActivity {
-    private String judul_buku, nik_peminjam, nama_peminjam, jk_peminjam, alamat_peminjam, strTgl_pinjam, strTgl_kembali, status;
+    private String strTgl_kembali, status;
     private EditText judul, nik, nama, alamat, tgl_pinjam, tgl_kembali;
     private Button btnKembali, btnEdit, btnHapus;
     private Integer id = 0;
@@ -118,7 +118,7 @@ public class DetailPinjamActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 AlertDialog.Builder dialogAlertBuilder = new AlertDialog.Builder(DetailPinjamActivity.this);
-                dialogAlertBuilder.setTitle("Konfirmasi Suntingan");
+                dialogAlertBuilder.setTitle("Konfirmasi");
                 dialogAlertBuilder
                         .setMessage("Yakin menghapus data?")
                         .setPositiveButton("Konfirmasi", new DialogInterface.OnClickListener() {
@@ -132,6 +132,43 @@ public class DetailPinjamActivity extends AppCompatActivity {
                                     Toast.makeText(DetailPinjamActivity.this, "Hapus Peminjaman Berhasil", Toast.LENGTH_SHORT).show();
                                 } else {
                                     Toast.makeText(DetailPinjamActivity.this, "Hapus Peminjaman Gagal", Toast.LENGTH_SHORT).show();
+                                }
+                                dbHelper.close();
+                                Intent goListPinjam = new Intent(DetailPinjamActivity.this,ListPinjamActivity.class);
+                                startActivity(goListPinjam);
+                            }
+                        })
+                        .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                dialogInterface.cancel();
+                            }
+                        });
+                AlertDialog dialog = dialogAlertBuilder.create();
+                dialog.show();
+            }
+        });
+
+        btnKembali.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AlertDialog.Builder dialogAlertBuilder = new AlertDialog.Builder(DetailPinjamActivity.this);
+                dialogAlertBuilder.setTitle("Konfirmasi");
+                dialogAlertBuilder
+                        .setMessage("Konfirmasi Pengembalian?")
+                        .setPositiveButton("Konfirmasi", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                status = "DIKEMBALIKAN";
+                                DBHelper dbHelper = new DBHelper(getApplicationContext());
+                                PinjamHandler pinjamHandler = new PinjamHandler();
+                                pinjamHandler.setStatus(status.toString());
+
+                                boolean kembaliPinjam = dbHelper.kembaliPinjam(pinjamHandler,id);
+
+                                if (kembaliPinjam) {
+                                    Toast.makeText(DetailPinjamActivity.this, "Kembali Peminjaman Berhasil", Toast.LENGTH_SHORT).show();
+                                } else {
+                                    Toast.makeText(DetailPinjamActivity.this, "Kembali Peminjaman Gagal", Toast.LENGTH_SHORT).show();
                                 }
                                 dbHelper.close();
                                 Intent goListPinjam = new Intent(DetailPinjamActivity.this,ListPinjamActivity.class);
