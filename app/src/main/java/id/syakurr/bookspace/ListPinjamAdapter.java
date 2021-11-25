@@ -1,10 +1,12 @@
 package id.syakurr.bookspace;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -21,6 +23,7 @@ public class ListPinjamAdapter extends RecyclerView.Adapter<ListPinjamAdapter.Vi
         TextView itemNama;
         TextView itemTglPinjam;
         TextView itemStatus;
+        Integer itemId;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -53,6 +56,16 @@ public class ListPinjamAdapter extends RecyclerView.Adapter<ListPinjamAdapter.Vi
         holder.itemNama.setText(String.valueOf(pinjamHandler.getNama()));
         holder.itemTglPinjam.setText(String.valueOf(pinjamHandler.getTgl_pinjam()));
         holder.itemStatus.setText(String.valueOf(pinjamHandler.getStatus()));
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+//                Toast.makeText(holder.itemView.getContext(), String.valueOf(pinjamHandler.getId()), Toast.LENGTH_SHORT).show();
+                Integer itemId = Integer.valueOf(pinjamHandler.getId());
+                Intent gotoDetail = new Intent(holder.itemView.getContext(), DetailPinjamActivity.class);
+                gotoDetail.putExtra("id", itemId);
+                holder.itemView.getContext().startActivity(gotoDetail);
+            }
+        });
     }
 
     @Override

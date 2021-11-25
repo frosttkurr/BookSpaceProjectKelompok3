@@ -1,9 +1,11 @@
 package id.syakurr.bookspace;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.media.Image;
@@ -35,9 +37,9 @@ public class ListPinjamActivity extends AppCompatActivity {
         Cursor cursor = dh.tampilkanPinjam();
         cursor.moveToFirst();
         if (cursor.getCount() > 0) {
-//            noData.setVisibility(View.GONE); //hilangin gak ada data tapi tampilin data
             while (!cursor.isAfterLast()) {
                 PinjamHandler pinjamHandlerList = new PinjamHandler();
+                pinjamHandlerList.setId((cursor.getInt(cursor.getColumnIndexOrThrow("id"))));
                 pinjamHandlerList.setJudul((cursor.getString(cursor.getColumnIndexOrThrow("judul"))));
                 pinjamHandlerList.setNama((cursor.getString(cursor.getColumnIndexOrThrow("nama"))));
                 pinjamHandlerList.setAlamat((cursor.getString(cursor.getColumnIndexOrThrow("alamat"))));
@@ -48,18 +50,7 @@ public class ListPinjamActivity extends AppCompatActivity {
                 cursor.moveToNext();
             }
             dh.close();
-        } else if (cursor.getCount() == 0) {
-//            noData.setVisibility(View.VISIBLE); //nampilin gak ada data
         }
-
-//        detail_pinjam.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent gotoDetail = new Intent(ListPinjamActivity.this, DetailPinjamActivity.class);
-//                ListPinjamActivity.this.startActivity(gotoDetail);
-//                ListPinjamActivity.this.finish();
-//            }
-//        });
 
         recyclerView.setHasFixedSize(true);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(this);

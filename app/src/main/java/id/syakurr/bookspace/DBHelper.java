@@ -63,4 +63,21 @@ public class DBHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = getReadableDatabase();
         return db.rawQuery("Select * from tb_pinjam order by tgl_pinjam", null);
     }
+
+    public Cursor detailPinjam(int id_pinjam) {
+        SQLiteDatabase db = getReadableDatabase();
+        return db.rawQuery("Select * from tb_pinjam where id = " + id_pinjam, null);
+    }
+
+    public boolean suntingPinjam(PinjamHandler pinjamHandler, int id_pinjam) {
+        SQLiteDatabase db = getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put("tgl_kembali", pinjamHandler.getTgl_kembali());
+        return db.update("tb_pinjam", values, "id" + "=" + id_pinjam, null) > 0;
+    }
+
+    public boolean hapusPinjam (int id_pinjam) {
+        SQLiteDatabase db = getReadableDatabase();
+        return db.delete("tb_pinjam", "id" + "=" + id_pinjam, null) > 0;
+    }
 }

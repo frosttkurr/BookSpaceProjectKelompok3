@@ -15,7 +15,7 @@ import android.widget.SeekBar;
 import android.widget.Toast;
 
 public class PinjamActivity extends AppCompatActivity {
-    private String judul_buku, nik_peminjam, nama_peminjam, jk_peminjam, alamat_peminjam, strTgl_pinjam, syarat_pinjam, strTgl_kembali, minat_baca = "0", status = "DIPINJAM";
+    private String judul_buku, nik_peminjam, nama_peminjam, jk_peminjam, alamat_peminjam, strTgl_pinjam, syarat_pinjam, strTgl_kembali, minat_baca = "0", status;
     private EditText judul, nik, nama, alamat, tgl_pinjam, tgl_kembali;
     private Button btnPinjam;
     private RadioGroup jenis_kelamin;
@@ -92,6 +92,7 @@ public class PinjamActivity extends AppCompatActivity {
 
                 if(syarat.isChecked()){
                     syarat_pinjam = "Setuju";
+                    status = "DIPINJAM";
                 } else {
                     syarat_pinjam = "Tidak Setuju";
                 }
@@ -108,6 +109,8 @@ public class PinjamActivity extends AppCompatActivity {
                     Toast.makeText(PinjamActivity.this, "Alamat tidak boleh kosong!", Toast.LENGTH_SHORT).show();
                 } else if (tgl_pinjam.length() == 0) {
                     Toast.makeText(PinjamActivity.this, "Tanggal Pinjam tidak boleh kosong!", Toast.LENGTH_SHORT).show();
+                } else if (tgl_kembali.length() == 0) {
+                    Toast.makeText(PinjamActivity.this, "Tanggal Kembali tidak boleh kosong!", Toast.LENGTH_SHORT).show();
                 } else if (minat_baca.toString().equals("0")) {
                     Toast.makeText(PinjamActivity.this, "Minat Baca tidak boleh kosong!", Toast.LENGTH_SHORT).show();
                 } else {
@@ -129,7 +132,8 @@ public class PinjamActivity extends AppCompatActivity {
                         "Tgl Pinjam : " +strTgl_pinjam+ "\n" +
                         "Tgl Kembali : " +strTgl_kembali+ "\n" +
                         "Minat Membaca : "+minat_baca.toString()+ "\n" +
-                        "Syarat Pinjam : "+syarat_pinjam.toString()+ "\n")
+                        "Syarat Pinjam : "+syarat_pinjam.toString()+ "\n" +
+                        "Status : "+status.toString()+ "\n")
                 .setPositiveButton("Konfirmasi", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
@@ -144,7 +148,7 @@ public class PinjamActivity extends AppCompatActivity {
                         pinjamHandler.setTgl_kembali(strTgl_kembali.toUpperCase());
                         pinjamHandler.setMinat_baca(minat_baca.toString().toUpperCase());
                         pinjamHandler.setSyarat_pinjam(syarat_pinjam.toString().toUpperCase());
-                        pinjamHandler.setStatus(status.toString().toUpperCase());
+                        pinjamHandler.setStatus(strTgl_kembali.toUpperCase());
 
                         boolean tambahPinjam = dbHelper.tambahPinjam(pinjamHandler);
 
