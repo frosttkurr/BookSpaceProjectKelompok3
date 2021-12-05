@@ -1,9 +1,11 @@
-package id.syakurr.bookspace;
+package id.syakurr.bookspace.activity.home;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.widget.TextView;
+
+import id.syakurr.bookspace.R;
 
 public class AboutActivity extends AppCompatActivity {
     private TextView about, nim, nama;

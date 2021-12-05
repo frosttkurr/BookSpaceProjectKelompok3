@@ -1,10 +1,13 @@
-package id.syakurr.bookspace;
+package id.syakurr.bookspace.database;
 
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+
+import id.syakurr.bookspace.model.BukuHandler;
+import id.syakurr.bookspace.model.PinjamHandler;
 
 public class DBHelper extends SQLiteOpenHelper {
     public DBHelper (Context context) {

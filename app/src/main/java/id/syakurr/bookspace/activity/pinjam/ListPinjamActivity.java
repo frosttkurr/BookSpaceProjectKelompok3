@@ -1,21 +1,18 @@
-package id.syakurr.bookspace;
+package id.syakurr.bookspace.activity.pinjam;
 
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.content.DialogInterface;
-import android.content.Intent;
 import android.database.Cursor;
-import android.media.Image;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 import java.util.ArrayList;
+
+import id.syakurr.bookspace.database.DBHelper;
+import id.syakurr.bookspace.adapter.pinjam.ListPinjamAdapter;
+import id.syakurr.bookspace.model.PinjamHandler;
+import id.syakurr.bookspace.R;
 
 public class ListPinjamActivity extends AppCompatActivity {
     private DBHelper database;

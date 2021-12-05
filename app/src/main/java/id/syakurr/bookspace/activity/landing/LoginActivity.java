@@ -1,4 +1,4 @@
-package id.syakurr.bookspace;
+package id.syakurr.bookspace.activity.landing;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -9,6 +9,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import id.syakurr.bookspace.R;
+import id.syakurr.bookspace.activity.home.LobbyActivity;
 
 public class LoginActivity extends AppCompatActivity {
     private Button login;

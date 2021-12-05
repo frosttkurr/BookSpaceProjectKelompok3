@@ -1,4 +1,4 @@
-package id.syakurr.bookspace;
+package id.syakurr.bookspace.adapter.buku;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -10,6 +10,9 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
+
+import id.syakurr.bookspace.model.BukuHandler;
+import id.syakurr.bookspace.R;
 
 public class BukuEdukasiAdapter extends RecyclerView.Adapter<BukuEdukasiAdapter.ViewHolder> {
     private List<BukuHandler> bukuHandlerList;

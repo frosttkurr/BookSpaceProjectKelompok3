@@ -10,43 +10,43 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.BookSpace">
         <activity
-            android:name=".AboutActivity"
+            android:name=".activity.home.AboutActivity"
             android:exported="false" />
         <activity
-            android:name=".DetailPinjamActivity"
+            android:name=".activity.pinjam.DetailPinjamActivity"
             android:exported="false" />
         <activity
-            android:name=".BukuFiksiActivity"
+            android:name=".activity.buku.BukuFiksiActivity"
             android:exported="false" />
         <activity
-            android:name=".BukuIlmiahActivity"
+            android:name=".activity.buku.BukuIlmiahActivity"
             android:exported="false" />
         <activity
-            android:name=".BukuEdukasiActivity"
+            android:name=".activity.buku.BukuEdukasiActivity"
             android:exported="false" />
         <activity
-            android:name=".ProfileActivity"
+            android:name=".activity.home.ProfileActivity"
             android:exported="false" />
         <activity
-            android:name=".TambahBukuActivity"
+            android:name=".activity.buku.TambahBukuActivity"
             android:exported="false" />
         <activity
-            android:name=".ListPinjamActivity"
+            android:name=".activity.pinjam.ListPinjamActivity"
             android:exported="false" />
         <activity
-            android:name=".PinjamActivity"
+            android:name=".activity.pinjam.PinjamActivity"
             android:exported="false" />
         <activity
-            android:name=".LobbyActivity"
+            android:name=".activity.home.LobbyActivity"
             android:exported="false" />
         <activity
-            android:name=".LoginActivity"
+            android:name=".activity.landing.LoginActivity"
             android:exported="false" />
         <activity
-            android:name=".DaftarActivity"
+            android:name=".activity.landing.DaftarActivity"
             android:exported="false" />
         <activity
-            android:name=".MainActivity"
+            android:name=".activity.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

@@ -1,4 +1,4 @@
-package id.syakurr.bookspace;
+package id.syakurr.bookspace.activity.home;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -8,6 +8,8 @@ import android.util.Log;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import id.syakurr.bookspace.R;
 
 public class ProfileActivity extends AppCompatActivity {
     private String strNik,strNama, strUsername, strJenisKelamin, strEmail, strAlamat, strMinatBaca;

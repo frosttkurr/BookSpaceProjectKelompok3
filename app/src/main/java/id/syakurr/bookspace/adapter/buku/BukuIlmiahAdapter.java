@@ -1,4 +1,4 @@
-package id.syakurr.bookspace;
+package id.syakurr.bookspace.adapter.buku;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -11,7 +11,10 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
-public class BukuFiksiAdapter extends RecyclerView.Adapter<BukuFiksiAdapter.ViewHolder> {
+import id.syakurr.bookspace.model.BukuHandler;
+import id.syakurr.bookspace.R;
+
+public class BukuIlmiahAdapter extends RecyclerView.Adapter<BukuIlmiahAdapter.ViewHolder> {
     private List<BukuHandler> bukuHandlerList;
     private Context context;
     private RecyclerView recyclerView;
@@ -22,12 +25,12 @@ public class BukuFiksiAdapter extends RecyclerView.Adapter<BukuFiksiAdapter.View
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            itemJudul = itemView.findViewById(R.id.judul_fiksi);
-            itemKategori = itemView.findViewById(R.id.value_kategori_fiksi);
+            itemJudul = itemView.findViewById(R.id.judul_ilmiah);
+            itemKategori = itemView.findViewById(R.id.value_kategori_ilmiah);
         }
     }
 
-    public BukuFiksiAdapter(List<BukuHandler> bukuHandlerList, Context context, RecyclerView recyclerView) {
+    public BukuIlmiahAdapter(List<BukuHandler> bukuHandlerList, Context context, RecyclerView recyclerView) {
         this.bukuHandlerList = bukuHandlerList;
         this.context = context;
         this.recyclerView = recyclerView;
@@ -35,15 +38,15 @@ public class BukuFiksiAdapter extends RecyclerView.Adapter<BukuFiksiAdapter.View
 
     @NonNull
     @Override
-    public BukuFiksiAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public BukuIlmiahAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
-        View view = layoutInflater.inflate(R.layout.list_fiksi, parent, false);
-        BukuFiksiAdapter.ViewHolder viewHolder = new BukuFiksiAdapter.ViewHolder(view);
+        View view = layoutInflater.inflate(R.layout.list_ilmiah, parent, false);
+        BukuIlmiahAdapter.ViewHolder viewHolder = new BukuIlmiahAdapter.ViewHolder(view);
         return viewHolder;
     }
 
     @Override
-    public void onBindViewHolder(@NonNull BukuFiksiAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull BukuIlmiahAdapter.ViewHolder holder, int position) {
         BukuHandler bukuHandler = bukuHandlerList.get(position);
         holder.itemJudul.setText(String.valueOf(bukuHandler.getJudul()));
         holder.itemKategori.setText(String.valueOf(bukuHandler.getKategori()));

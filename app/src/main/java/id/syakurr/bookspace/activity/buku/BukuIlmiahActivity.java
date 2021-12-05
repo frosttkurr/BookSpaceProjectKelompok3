@@ -1,4 +1,4 @@
-package id.syakurr.bookspace;
+package id.syakurr.bookspace.activity.buku;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -9,22 +9,27 @@ import android.os.Bundle;
 
 import java.util.ArrayList;
 
-public class BukuFiksiActivity extends AppCompatActivity {
+import id.syakurr.bookspace.model.BukuHandler;
+import id.syakurr.bookspace.adapter.buku.BukuIlmiahAdapter;
+import id.syakurr.bookspace.database.DBHelper;
+import id.syakurr.bookspace.R;
+
+public class BukuIlmiahActivity extends AppCompatActivity {
     private DBHelper database;
     protected RecyclerView recyclerView;
-    protected RecyclerView.Adapter bukuFiksiAdapter;
+    protected RecyclerView.Adapter bukuIlmiahAdapter;
     private ArrayList<BukuHandler> bukuHandler = new ArrayList<BukuHandler>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_buku_fiksi);
+        setContentView(R.layout.activity_buku_ilmiah);
 
         database = new DBHelper(this);
-        recyclerView = (RecyclerView)findViewById(R.id.list_fiksi);
+        recyclerView = (RecyclerView)findViewById(R.id.list_ilmiah);
 
         final DBHelper dh = new DBHelper(getApplicationContext());
-        Cursor cursor = dh.tampilkanBukuFiksi();
+        Cursor cursor = dh.tampilkanBukuIlmiah();
         cursor.moveToFirst();
         if (cursor.getCount() > 0) {
             while (!cursor.isAfterLast()) {
@@ -40,7 +45,7 @@ public class BukuFiksiActivity extends AppCompatActivity {
         recyclerView.setHasFixedSize(true);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(mLayoutManager);
-        bukuFiksiAdapter = new BukuFiksiAdapter(bukuHandler, BukuFiksiActivity.this, recyclerView);
-        recyclerView.setAdapter(bukuFiksiAdapter);
+        bukuIlmiahAdapter = new BukuIlmiahAdapter(bukuHandler, BukuIlmiahActivity.this, recyclerView);
+        recyclerView.setAdapter(bukuIlmiahAdapter);
     }
 }

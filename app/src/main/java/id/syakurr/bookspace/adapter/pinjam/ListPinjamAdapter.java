@@ -1,4 +1,4 @@
-package id.syakurr.bookspace;
+package id.syakurr.bookspace.adapter.pinjam;
 
 import android.content.Context;
 import android.content.Intent;
@@ -6,12 +6,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
+
+import id.syakurr.bookspace.model.PinjamHandler;
+import id.syakurr.bookspace.R;
+import id.syakurr.bookspace.activity.pinjam.DetailPinjamActivity;
 
 public class ListPinjamAdapter extends RecyclerView.Adapter<ListPinjamAdapter.ViewHolder> {
     private List<PinjamHandler> pinjamHandlerList;

@@ -1,4 +1,4 @@
-package id.syakurr.bookspace;
+package id.syakurr.bookspace.model;
 
 public class PinjamHandler {
     private int id;

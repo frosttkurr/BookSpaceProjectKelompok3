@@ -1,17 +1,14 @@
-package id.syakurr.bookspace;
+package id.syakurr.bookspace.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
-import android.view.View;
 import android.view.WindowManager;
-import android.widget.Button;
-import android.widget.CheckBox;
-import android.widget.EditText;
-import android.widget.TextView;
-import android.widget.Toast;
+
+import id.syakurr.bookspace.R;
+import id.syakurr.bookspace.activity.landing.LoginActivity;
 
 public class MainActivity extends AppCompatActivity {
     private static int SPLASH_SCREEN_TIME = 3000;

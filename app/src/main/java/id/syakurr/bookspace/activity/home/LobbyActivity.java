@@ -1,15 +1,22 @@
-package id.syakurr.bookspace;
+package id.syakurr.bookspace.activity.home;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
-import android.media.Image;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import id.syakurr.bookspace.R;
+import id.syakurr.bookspace.activity.buku.BukuEdukasiActivity;
+import id.syakurr.bookspace.activity.buku.BukuFiksiActivity;
+import id.syakurr.bookspace.activity.buku.BukuIlmiahActivity;
+import id.syakurr.bookspace.activity.buku.TambahBukuActivity;
+import id.syakurr.bookspace.activity.pinjam.ListPinjamActivity;
+import id.syakurr.bookspace.activity.pinjam.PinjamActivity;
 
 public class LobbyActivity extends AppCompatActivity {
     private TextView label_name, label_alamat;
@@ -62,7 +69,7 @@ public class LobbyActivity extends AppCompatActivity {
         edukasi.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent goListEdukasi = new Intent(LobbyActivity.this,BukuEdukasiActivity.class);
+                Intent goListEdukasi = new Intent(LobbyActivity.this, BukuEdukasiActivity.class);
                 startActivity(goListEdukasi);
             }
         });
@@ -70,7 +77,7 @@ public class LobbyActivity extends AppCompatActivity {
         ilmiah.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent goListIlmiah = new Intent(LobbyActivity.this,BukuIlmiahActivity.class);
+                Intent goListIlmiah = new Intent(LobbyActivity.this, BukuIlmiahActivity.class);
                 startActivity(goListIlmiah);
             }
         });
@@ -78,7 +85,7 @@ public class LobbyActivity extends AppCompatActivity {
         fiksi.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent goListFiksi = new Intent(LobbyActivity.this,BukuFiksiActivity.class);
+                Intent goListFiksi = new Intent(LobbyActivity.this, BukuFiksiActivity.class);
                 startActivity(goListFiksi);
             }
         });
@@ -86,7 +93,7 @@ public class LobbyActivity extends AppCompatActivity {
         data_pinjam.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent goAddPinjam = new Intent(LobbyActivity.this,PinjamActivity.class);
+                Intent goAddPinjam = new Intent(LobbyActivity.this, PinjamActivity.class);
                 startActivity(goAddPinjam);
             }
         });
@@ -94,7 +101,7 @@ public class LobbyActivity extends AppCompatActivity {
         lihat_pinjam.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent goListPinjam = new Intent(LobbyActivity.this,ListPinjamActivity.class);
+                Intent goListPinjam = new Intent(LobbyActivity.this, ListPinjamActivity.class);
                 startActivity(goListPinjam);
             }
         });
@@ -102,7 +109,7 @@ public class LobbyActivity extends AppCompatActivity {
         add_category.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent goAddKategori = new Intent(LobbyActivity.this,TambahBukuActivity.class);
+                Intent goAddKategori = new Intent(LobbyActivity.this, TambahBukuActivity.class);
                 startActivity(goAddKategori);
             }
         });

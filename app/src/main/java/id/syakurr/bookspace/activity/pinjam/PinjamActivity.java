@@ -1,4 +1,4 @@
-package id.syakurr.bookspace;
+package id.syakurr.bookspace.activity.pinjam;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -14,6 +14,10 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.SeekBar;
 import android.widget.Toast;
+
+import id.syakurr.bookspace.database.DBHelper;
+import id.syakurr.bookspace.model.PinjamHandler;
+import id.syakurr.bookspace.R;
 
 public class PinjamActivity extends AppCompatActivity {
     private String judul_buku, nik_peminjam, nama_peminjam, jk_peminjam, alamat_peminjam, strTgl_pinjam, syarat_pinjam, strTgl_kembali, minat_baca = "0", status;
