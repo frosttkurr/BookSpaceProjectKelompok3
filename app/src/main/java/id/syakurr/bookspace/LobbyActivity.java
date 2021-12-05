@@ -14,7 +14,7 @@ import android.widget.Toast;
 public class LobbyActivity extends AppCompatActivity {
     private TextView label_name, label_alamat;
     private String nik, nama, username, jenis_kelamin, email, alamat, minat_baca;
-    private ImageView profile, edukasi, ilmiah, fiksi, data_pinjam, lihat_pinjam, add_category;
+    private ImageView profile, edukasi, ilmiah, fiksi, data_pinjam, lihat_pinjam, add_category, tentang;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,6 +30,7 @@ public class LobbyActivity extends AppCompatActivity {
         data_pinjam = (ImageView)findViewById(R.id.btn_pinjam);
         lihat_pinjam = (ImageView)findViewById(R.id.btn_list);
         add_category = (ImageView)findViewById(R.id.btn_tambah);
+        tentang = (ImageView)findViewById(R.id.btn_tentang);
 
         Intent getData = getIntent();
         nik = getData.getStringExtra("nik");
@@ -103,6 +104,14 @@ public class LobbyActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent goAddKategori = new Intent(LobbyActivity.this,TambahBukuActivity.class);
                 startActivity(goAddKategori);
+            }
+        });
+
+        tentang.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent gotoAbout = new Intent(LobbyActivity.this,AboutActivity.class);
+                startActivity(gotoAbout);
             }
         });
     }
