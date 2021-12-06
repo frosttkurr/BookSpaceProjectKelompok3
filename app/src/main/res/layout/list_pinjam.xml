@@ -58,7 +58,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="6dp"
-                    android:text="Nama: "
+                    android:text="Nama           :"
                     android:textColor="@color/purple"
                     android:textSize="15sp"
                     android:textStyle="bold" />
@@ -84,7 +84,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="6dp"
-                    android:text="Tgl Pinjam:"
+                    android:text="Tgl Pinjam   :"
                     android:textColor="@color/purple"
                     android:textSize="15sp"
                     android:textStyle="bold" />
@@ -110,7 +110,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="6dp"
-                    android:text="Tgl Kembali:"
+                    android:text="Tgl Kembali :"
                     android:textColor="@color/purple"
                     android:textSize="15sp"
                     android:textStyle="bold" />
@@ -136,7 +136,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="6dp"
-                    android:text="Status:"
+                    android:text="Status          :"
                     android:textColor="@color/purple"
                     android:textSize="15sp"
                     android:textStyle="bold" />
