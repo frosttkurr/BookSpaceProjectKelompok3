@@ -33,23 +33,6 @@
             android:orientation="vertical">
 
             <EditText
-                android:id="@+id/nik"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
-                android:background="@drawable/form_pink"
-                android:hint="NIK"
-                android:inputType="numberDecimal"
-                android:minHeight="48dp"
-                android:paddingLeft="20dp"
-                android:paddingRight="20dp"
-                android:paddingTop="10dp"
-                android:paddingBottom="10dp"
-                android:textColor="@color/purple"
-                android:textColorHint="@color/purple_85"
-                android:textSize="16dp" />
-
-            <EditText
                 android:id="@+id/nama"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -106,6 +89,23 @@
                     android:text="Perempuan"
                     android:textColor="@color/pink" />
             </RadioGroup>
+
+            <EditText
+                android:id="@+id/notelpon"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/form_pink"
+                android:hint="No Telpon"
+                android:inputType="numberDecimal"
+                android:minHeight="48dp"
+                android:paddingLeft="20dp"
+                android:paddingTop="10dp"
+                android:paddingRight="20dp"
+                android:paddingBottom="10dp"
+                android:textColor="@color/purple"
+                android:textColorHint="@color/purple_85"
+                android:textSize="16dp" />
 
             <EditText
                 android:id="@+id/email"

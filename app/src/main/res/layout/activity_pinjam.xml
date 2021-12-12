@@ -66,33 +66,6 @@
                 android:textSize="15dp" />
 
             <TextView
-                android:id="@+id/label_nik"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textColor="@color/purple"
-                android:paddingHorizontal="20dp"
-                android:textStyle="bold"
-                android:layout_marginBottom="2dp"
-                android:text="NIK Peminjam" />
-
-            <EditText
-                android:id="@+id/input_nik"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
-                android:background="@drawable/form_pink"
-                android:hint="NIK Peminjam"
-                android:inputType="numberDecimal"
-                android:minHeight="48dp"
-                android:paddingLeft="20dp"
-                android:paddingRight="20dp"
-                android:paddingTop="10dp"
-                android:paddingBottom="10dp"
-                android:textColor="@color/purple"
-                android:textColorHint="@color/purple_85"
-                android:textSize="15dp" />
-
-            <TextView
                 android:id="@+id/label_nama"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -114,6 +87,33 @@
                 android:paddingLeft="20dp"
                 android:paddingRight="20dp"
                 android:paddingTop="10dp"
+                android:paddingBottom="10dp"
+                android:textColor="@color/purple"
+                android:textColorHint="@color/purple_85"
+                android:textSize="15dp" />
+
+            <TextView
+                android:id="@+id/label_nohp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="2dp"
+                android:paddingHorizontal="20dp"
+                android:text="Nomor Telepon"
+                android:textColor="@color/purple"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/input_notelp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/form_pink"
+                android:hint="No Telepon"
+                android:inputType="numberDecimal"
+                android:minHeight="48dp"
+                android:paddingLeft="20dp"
+                android:paddingTop="10dp"
+                android:paddingRight="20dp"
                 android:paddingBottom="10dp"
                 android:textColor="@color/purple"
                 android:textColorHint="@color/purple_85"

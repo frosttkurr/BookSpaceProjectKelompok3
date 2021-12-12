@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="id.syakurr.bookspace">
+    package="id.kelompok3.bookspace">
 
     <application
         android:allowBackup="true"
@@ -10,7 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.BookSpace">
         <activity
-            android:name=".activity.home.AboutActivity"
+            android:name=".activity.buku.BukuSejarahActivity"
             android:exported="false" />
         <activity
             android:name=".activity.pinjam.DetailPinjamActivity"
@@ -23,6 +23,15 @@
             android:exported="false" />
         <activity
             android:name=".activity.buku.BukuEdukasiActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activity.buku.BukuBisnisActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activity.buku.BukuMajalahActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activity.buku.BukuNovelActivity"
             android:exported="false" />
         <activity
             android:name=".activity.home.ProfileActivity"

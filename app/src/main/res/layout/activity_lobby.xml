@@ -54,36 +54,33 @@
 
         </LinearLayout>
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:paddingLeft="35dp"
+            android:paddingVertical="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="15dp"
+            android:orientation="horizontal">
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical">
+            <TextView
+                android:id="@+id/label_kategori"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/pink"
+                android:textStyle="bold"
+                android:textSize="25dp"
+                android:text="Kategori Buku" />
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:paddingLeft="35dp"
-                    android:paddingVertical="5dp"
-                    android:layout_marginBottom="10dp"
-                    android:orientation="horizontal">
+        </LinearLayout>
 
-                    <TextView
-                        android:id="@+id/label_kategori"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textColor="@color/pink"
-                        android:textStyle="bold"
-                        android:textSize="25dp"
-                        android:text="Kategori Buku" />
-
-                </LinearLayout>
+        <HorizontalScrollView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:scrollbars="none"            >
 
                 <LinearLayout
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="center"
                     android:layout_marginBottom="5dp"
@@ -93,6 +90,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:gravity="center"
+                        android:layout_marginLeft="25dp"
                         android:layout_marginRight="15dp"
                         android:orientation="vertical">
 
@@ -103,7 +101,7 @@
                             app:cardCornerRadius="15dp">
 
                             <ImageView
-                                android:id="@+id/cover3"
+                                android:id="@+id/cover_edukasi"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 app:srcCompat="@drawable/bookcover_3" />
@@ -144,7 +142,7 @@
                             app:cardCornerRadius="15dp">
 
                             <ImageView
-                                android:id="@+id/cover1"
+                                android:id="@+id/cover_ilmiah"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 app:srcCompat="@drawable/bookcover_2" />
@@ -175,6 +173,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:gravity="center"
+                        android:layout_marginRight="15dp"
                         android:orientation="vertical">
 
                         <androidx.cardview.widget.CardView
@@ -184,7 +183,7 @@
                             app:cardCornerRadius="15dp">
 
                             <ImageView
-                                android:id="@+id/cover2"
+                                android:id="@+id/cover_fiksi"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 app:srcCompat="@drawable/bookcover_1" />
@@ -211,11 +210,173 @@
 
                     </LinearLayout>
 
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:layout_marginRight="15dp"
+                        android:orientation="vertical">
+
+                        <androidx.cardview.widget.CardView
+                            android:layout_width="100dp"
+                            android:layout_height="150dp"
+                            android:layout_marginBottom="10dp"
+                            app:cardCornerRadius="15dp">
+
+                            <ImageView
+                                android:id="@+id/cover_sejarah"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                app:srcCompat="@drawable/bookcover_5" />
+                        </androidx.cardview.widget.CardView>
+
+                        <TextView
+                            android:id="@+id/sejarah"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="2dp"
+                            android:text="Sejarah"
+                            android:textColor="@color/pink"
+                            android:textSize="18dp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/keterangan_sejarah"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Buku Sejarah"
+                            android:textColor="@color/pink"
+                            android:textSize="12dp"
+                            android:textStyle="normal" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:layout_marginRight="15dp"
+                        android:orientation="vertical">
+
+                        <androidx.cardview.widget.CardView
+                            android:layout_width="100dp"
+                            android:layout_height="150dp"
+                            android:layout_marginBottom="10dp"
+                            app:cardCornerRadius="15dp">
+
+                            <ImageView
+                                android:id="@+id/cover_bisnis"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                app:srcCompat="@drawable/bookcover_4" />
+                        </androidx.cardview.widget.CardView>
+
+                        <TextView
+                            android:id="@+id/bisnis"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="2dp"
+                            android:text="Bisnis"
+                            android:textColor="@color/pink"
+                            android:textSize="18dp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/keterangan_bisnis"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Buku Bisnis"
+                            android:textColor="@color/pink"
+                            android:textSize="12dp"
+                            android:textStyle="normal" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:layout_marginRight="15dp"
+                        android:orientation="vertical">
+
+                        <androidx.cardview.widget.CardView
+                            android:layout_width="100dp"
+                            android:layout_height="150dp"
+                            android:layout_marginBottom="10dp"
+                            app:cardCornerRadius="15dp">
+
+                            <ImageView
+                                android:id="@+id/cover_novel"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                app:srcCompat="@drawable/bookcover_6" />
+                        </androidx.cardview.widget.CardView>
+
+                        <TextView
+                            android:id="@+id/novel"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="2dp"
+                            android:text="Novel"
+                            android:textColor="@color/pink"
+                            android:textSize="18dp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/keterangan_novel"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Novel"
+                            android:textColor="@color/pink"
+                            android:textSize="12dp"
+                            android:textStyle="normal" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:layout_marginRight="15dp"
+                        android:orientation="vertical">
+
+                        <androidx.cardview.widget.CardView
+                            android:layout_width="100dp"
+                            android:layout_height="150dp"
+                            android:layout_marginBottom="10dp"
+                            app:cardCornerRadius="15dp">
+
+                            <ImageView
+                                android:id="@+id/cover_majalah"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                app:srcCompat="@drawable/bookcover_2" />
+                        </androidx.cardview.widget.CardView>
+
+                        <TextView
+                            android:id="@+id/majalah"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="2dp"
+                            android:text="Majalah"
+                            android:textColor="@color/pink"
+                            android:textSize="18dp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/keterangan_majalah"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Majalah"
+                            android:textColor="@color/pink"
+                            android:textSize="12dp"
+                            android:textStyle="normal" />
+
+                    </LinearLayout>
+
                 </LinearLayout>
 
-            </LinearLayout>
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
+        </HorizontalScrollView>
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -329,37 +490,6 @@
 
                     </LinearLayout>
 
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:gravity="center"
-                        android:orientation="vertical">
-
-                        <ImageView
-                            android:id="@+id/btn_tentang"
-                            android:layout_width="match_parent"
-                            android:layout_height="75dp"
-                            android:layout_marginBottom="5dp"
-                            app:srcCompat="@drawable/info" />
-
-                        <TextView
-                            android:id="@+id/label_tentang"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginBottom="2dp"
-                            android:text="Tentang Aplikasi"
-                            android:textColor="@color/pink"
-                            android:textSize="15dp"
-                            android:textStyle="bold" />
-
-                    </LinearLayout>
                 </LinearLayout>
 
             </LinearLayout>
