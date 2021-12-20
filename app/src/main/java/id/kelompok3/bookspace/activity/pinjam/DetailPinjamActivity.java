@@ -3,16 +3,20 @@ package id.kelompok3.bookspace.activity.pinjam;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.DatePickerDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import java.text.DateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 
 import id.kelompok3.bookspace.database.DBHelper;
 import id.kelompok3.bookspace.model.PinjamHandler;
@@ -67,6 +71,26 @@ public class DetailPinjamActivity extends AppCompatActivity {
             }
         }
 
+        tgl_kembali.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Calendar getCalendar = Calendar.getInstance();
+                DatePickerDialog datePickerDialog = new DatePickerDialog(DetailPinjamActivity.this, new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                        Calendar setCalendar = Calendar.getInstance();
+                        setCalendar.set(Calendar.YEAR, year);
+                        setCalendar.set(Calendar.MONTH, month);
+                        setCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+
+                        String setCurrentDate = DateFormat.getDateInstance().format(setCalendar.getTime());
+                        tgl_kembali.setText(setCurrentDate);
+                    }
+                },getCalendar.get(Calendar.YEAR), getCalendar.get(Calendar.MONTH), getCalendar.get(Calendar.DAY_OF_MONTH));
+                datePickerDialog.show();
+            }
+        });
+
         btnEdit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -95,12 +119,12 @@ public class DetailPinjamActivity extends AppCompatActivity {
 
                                     if (suntingPinjam) {
                                         Toast.makeText(DetailPinjamActivity.this, "Sunting Peminjaman Berhasil", Toast.LENGTH_SHORT).show();
+                                        Intent goListPinjam = new Intent(DetailPinjamActivity.this,ListPinjamActivity.class);
+                                        startActivity(goListPinjam);
                                     } else {
                                         Toast.makeText(DetailPinjamActivity.this, "Sunting Peminjaman Gagal", Toast.LENGTH_SHORT).show();
                                     }
                                     dbHelper.close();
-                                    Intent goListPinjam = new Intent(DetailPinjamActivity.this,ListPinjamActivity.class);
-                                    startActivity(goListPinjam);
                                 }
                             })
                             .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
@@ -130,12 +154,12 @@ public class DetailPinjamActivity extends AppCompatActivity {
 
                                 if (hapusPinjam) {
                                     Toast.makeText(DetailPinjamActivity.this, "Hapus Peminjaman Berhasil", Toast.LENGTH_SHORT).show();
+                                    Intent goListPinjam = new Intent(DetailPinjamActivity.this,ListPinjamActivity.class);
+                                    startActivity(goListPinjam);
                                 } else {
                                     Toast.makeText(DetailPinjamActivity.this, "Hapus Peminjaman Gagal", Toast.LENGTH_SHORT).show();
                                 }
                                 dbHelper.close();
-                                Intent goListPinjam = new Intent(DetailPinjamActivity.this,ListPinjamActivity.class);
-                                startActivity(goListPinjam);
                             }
                         })
                         .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
@@ -167,12 +191,12 @@ public class DetailPinjamActivity extends AppCompatActivity {
 
                                 if (kembaliPinjam) {
                                     Toast.makeText(DetailPinjamActivity.this, "Kembali Peminjaman Berhasil", Toast.LENGTH_SHORT).show();
+                                    Intent goListPinjam = new Intent(DetailPinjamActivity.this,ListPinjamActivity.class);
+                                    startActivity(goListPinjam);
                                 } else {
                                     Toast.makeText(DetailPinjamActivity.this, "Kembali Peminjaman Gagal", Toast.LENGTH_SHORT).show();
                                 }
                                 dbHelper.close();
-                                Intent goListPinjam = new Intent(DetailPinjamActivity.this,ListPinjamActivity.class);
-                                startActivity(goListPinjam);
                             }
                         })
                         .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {

@@ -3,6 +3,7 @@ package id.kelompok3.bookspace.activity.home;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -21,6 +22,7 @@ import id.kelompok3.bookspace.activity.buku.TambahBukuActivity;
 import id.kelompok3.bookspace.activity.buku.BukuSejarahActivity;
 import id.kelompok3.bookspace.activity.pinjam.ListPinjamActivity;
 import id.kelompok3.bookspace.activity.pinjam.PinjamActivity;
+import id.kelompok3.bookspace.database.DBHelper;
 
 public class LobbyActivity extends AppCompatActivity {
     private TextView label_name, label_alamat;
@@ -47,13 +49,16 @@ public class LobbyActivity extends AppCompatActivity {
         add_category = (ImageView)findViewById(R.id.btn_tambah);
 
         Intent getData = getIntent();
-        no_telp = getData.getStringExtra("no_telp");
-        nama = getData.getStringExtra("nama");
-        username = getData.getStringExtra("username");
-        jenis_kelamin = getData.getStringExtra("jeniskelamin");
-        email = getData.getStringExtra("email");
-        alamat = getData.getStringExtra("alamat");
-        minat_baca = getData.getStringExtra("minatbaca");
+        String id = getData.getStringExtra("id");
+
+        DBHelper dbHelper = new DBHelper(this);
+
+        Cursor cursor = dbHelper.tampilkanPenggunaDariID(id);
+
+        while (cursor.moveToNext()) {
+            nama = cursor.getString(1);
+            alamat = cursor.getString(2);
+        }
 
         label_name.setText(nama);
         label_alamat.setText(alamat);
@@ -62,13 +67,7 @@ public class LobbyActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent gotoProfile = new Intent(LobbyActivity.this, ProfileActivity.class);
-                gotoProfile.putExtra("nama", nama);
-                gotoProfile.putExtra("alamat", alamat);
-                gotoProfile.putExtra("jeniskelamin", jenis_kelamin);
-                gotoProfile.putExtra("no_telp", no_telp);
-                gotoProfile.putExtra("email", email);
-                gotoProfile.putExtra("username", username);
-                gotoProfile.putExtra("minatbaca", minat_baca);
+                gotoProfile.putExtra("id", id);
                 startActivity(gotoProfile);
             }
         });

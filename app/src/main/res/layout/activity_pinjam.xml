@@ -193,6 +193,7 @@
 
             <EditText
                 android:id="@+id/tanggal_pinjam"
+                android:focusable="false"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/form_pink"
@@ -218,6 +219,7 @@
 
             <EditText
                 android:id="@+id/tanggal_kembali"
+                android:focusable="false"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/form_pink"

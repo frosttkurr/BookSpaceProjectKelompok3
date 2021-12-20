@@ -191,14 +191,25 @@
                 android:id="@+id/profile_minatbaca"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
+                android:layout_marginBottom="20dp"
                 android:background="@drawable/form_pink"
                 android:text="Minat Membaca"
                 android:minHeight="48dp"
-                android:paddingHorizontal="20dp"
+                android:paddingHorizontal="15dp"
                 android:paddingVertical="15dp"
                 android:textColor="@color/purple"
                 android:textSize="16dp" />
+
+            <Button
+                android:id="@+id/btn_hapus_profile"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/button_purple"
+                android:paddingHorizontal="45dp"
+                android:text="Hapus Akun"
+                android:textColor="@color/white"
+                app:backgroundTint="@null" />
 
         </LinearLayout>
 

@@ -3,17 +3,22 @@ package id.kelompok3.bookspace.activity.pinjam;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.DatePickerDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.SeekBar;
 import android.widget.Toast;
+
+import java.text.DateFormat;
+import java.util.Calendar;
 
 import id.kelompok3.bookspace.database.DBHelper;
 import id.kelompok3.bookspace.model.PinjamHandler;
@@ -78,6 +83,46 @@ public class PinjamActivity extends AppCompatActivity {
                     btnPinjam.setAlpha(1);
                     btnPinjam.setEnabled(true);
                 }
+            }
+        });
+
+        tgl_pinjam.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Calendar getCalendar = Calendar.getInstance();
+                DatePickerDialog datePickerDialog = new DatePickerDialog(PinjamActivity.this, new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                        Calendar setCalendar = Calendar.getInstance();
+                        setCalendar.set(Calendar.YEAR, year);
+                        setCalendar.set(Calendar.MONTH, month);
+                        setCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+
+                        String setCurrentDate = DateFormat.getDateInstance().format(setCalendar.getTime());
+                        tgl_pinjam.setText(setCurrentDate);
+                    }
+                },getCalendar.get(Calendar.YEAR), getCalendar.get(Calendar.MONTH), getCalendar.get(Calendar.DAY_OF_MONTH));
+                datePickerDialog.show();
+            }
+        });
+
+        tgl_kembali.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Calendar getCalendar = Calendar.getInstance();
+                DatePickerDialog datePickerDialog = new DatePickerDialog(PinjamActivity.this, new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                        Calendar setCalendar = Calendar.getInstance();
+                        setCalendar.set(Calendar.YEAR, year);
+                        setCalendar.set(Calendar.MONTH, month);
+                        setCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+
+                        String setCurrentDate = DateFormat.getDateInstance().format(setCalendar.getTime());
+                        tgl_kembali.setText(setCurrentDate);
+                    }
+                },getCalendar.get(Calendar.YEAR), getCalendar.get(Calendar.MONTH), getCalendar.get(Calendar.DAY_OF_MONTH));
+                datePickerDialog.show();
             }
         });
 
@@ -147,10 +192,10 @@ public class PinjamActivity extends AppCompatActivity {
                         pinjamHandler.setNama(nama_peminjam.toUpperCase());
                         pinjamHandler.setJenis_kelamin(jk_peminjam.toUpperCase());
                         pinjamHandler.setAlamat(alamat_peminjam.toUpperCase());
-                        pinjamHandler.setNo_telp(notelp_peminjam.toUpperCase());
-                        pinjamHandler.setTgl_pinjam(strTgl_pinjam.toUpperCase());
-                        pinjamHandler.setTgl_kembali(strTgl_kembali.toUpperCase());
-                        pinjamHandler.setMinat_baca(minat_baca.toString().toUpperCase());
+                        pinjamHandler.setNo_telp(notelp_peminjam);
+                        pinjamHandler.setTgl_pinjam(strTgl_pinjam);
+                        pinjamHandler.setTgl_kembali(strTgl_kembali);
+                        pinjamHandler.setMinat_baca(minat_baca.toString());
                         pinjamHandler.setSyarat_pinjam(syarat_pinjam.toString().toUpperCase());
                         pinjamHandler.setStatus(status.toString());
 

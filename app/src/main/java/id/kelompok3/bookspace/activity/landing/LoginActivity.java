@@ -12,6 +12,7 @@ import android.widget.Toast;
 
 import id.kelompok3.bookspace.R;
 import id.kelompok3.bookspace.activity.home.LobbyActivity;
+import id.kelompok3.bookspace.database.DBHelper;
 
 public class LoginActivity extends AppCompatActivity {
     private Button login;
@@ -31,18 +32,20 @@ public class LoginActivity extends AppCompatActivity {
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                DBHelper db = new DBHelper(getApplicationContext());
+                String strUsername = username.getText().toString();
+                String strPassword = password.getText().toString();
+
                 if (username.length() == 0 || password.length() == 0) {
                     Toast.makeText(LoginActivity.this, "Lengkapi Username atau Password!", Toast.LENGTH_SHORT).show();
-                } else if (username.getText().toString().equals("syakurrhmn") && password.getText().toString().equals("qwerty123")) {
-                    Intent gotoLoby = new Intent(LoginActivity.this, LobbyActivity.class);
-                    gotoLoby.putExtra("username", username.getText().toString());
-                    gotoLoby.putExtra("nama", "Muhammad Syakurrahman");
-                    gotoLoby.putExtra("alamat", "Jimbaran");
-                    gotoLoby.putExtra("jeniskelamin", "Laki-Laki");
-                    gotoLoby.putExtra("no_telp", "081234567890");
-                    gotoLoby.putExtra("email", "syakurrhmn@gmail.com");
-                    gotoLoby.putExtra("minatbaca", "93%");
-                    startActivity(gotoLoby);
+                } else if (db.cekUsername(strUsername)) {
+                    if (db.cekUsernameDanPassword(strUsername, strPassword)>0){
+                        Intent gotoLoby = new Intent(LoginActivity.this, LobbyActivity.class);
+                        gotoLoby.putExtra("id", String.valueOf(db.cekUsernameDanPassword(strUsername, strPassword)));
+                        startActivity(gotoLoby);
+                    }else{
+                        Toast.makeText(LoginActivity.this, "Password Salah!", Toast.LENGTH_SHORT).show();
+                    }
                 } else {
                     Toast.makeText(LoginActivity.this, "Username atau Password salah!", Toast.LENGTH_SHORT).show();
                 }

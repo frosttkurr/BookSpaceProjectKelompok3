@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -16,8 +17,12 @@ import android.widget.SeekBar;
 import android.widget.Toast;
 
 import id.kelompok3.bookspace.R;
+import id.kelompok3.bookspace.activity.buku.TambahBukuActivity;
 import id.kelompok3.bookspace.activity.home.LobbyActivity;
 import id.kelompok3.bookspace.activity.pinjam.PinjamActivity;
+import id.kelompok3.bookspace.database.DBHelper;
+import id.kelompok3.bookspace.model.BukuHandler;
+import id.kelompok3.bookspace.model.PenggunaHandler;
 
 public class DaftarActivity extends AppCompatActivity {
     private Button daftar;
@@ -133,16 +138,30 @@ public class DaftarActivity extends AppCompatActivity {
                 .setPositiveButton("Konfirmasi", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        Toast.makeText(DaftarActivity.this, "Pendaftaran Berhasil", Toast.LENGTH_SHORT).show();
-                        Intent gotoLoby = new Intent(DaftarActivity.this, LobbyActivity.class);
-                        gotoLoby.putExtra("nama", nama.getText().toString() );
-                        gotoLoby.putExtra("alamat", alamat.getText().toString());
-                        gotoLoby.putExtra("jeniskelamin", jk.getText().toString());
-                        gotoLoby.putExtra("no_telpon", no_telpon.getText().toString());
-                        gotoLoby.putExtra("email", email.getText().toString());
-                        gotoLoby.putExtra("username", username.getText().toString());
-                        gotoLoby.putExtra("minatbaca", strSeekbar.toString());
-                        startActivity(gotoLoby);
+                        DBHelper dbHelper = new DBHelper(getApplicationContext());
+                        PenggunaHandler penggunaHandler = new PenggunaHandler();
+                        penggunaHandler.setNama_lengkap(nama.getText().toString());
+                        penggunaHandler.setAlamat(alamat.getText().toString());
+                        penggunaHandler.setJenis_kelamin(jk.getText().toString());
+                        penggunaHandler.setNo_telpon(no_telpon.getText().toString());
+                        penggunaHandler.setEmail(email.getText().toString());
+                        penggunaHandler.setUsername(username.getText().toString());
+                        penggunaHandler.setPassword(password.getText().toString());
+                        penggunaHandler.setMinat_membaca(strSeekbar.toString());
+
+                        boolean tambahPengguna = dbHelper.tambahPengguna(penggunaHandler);
+
+                        if (tambahPengguna) {
+                            Toast.makeText(DaftarActivity.this, "Registrasi Berhasil", Toast.LENGTH_SHORT).show();
+                            String id = getLastID();
+
+                            Intent gotoLoby = new Intent(DaftarActivity.this, LobbyActivity.class);
+                            gotoLoby.putExtra("id", id);
+                            startActivity(gotoLoby);
+                        } else {
+                            Toast.makeText(DaftarActivity.this, "Registrasi Gagal", Toast.LENGTH_SHORT).show();
+                        }
+                        dbHelper.close();
                     }
                 })
                 .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
@@ -153,5 +172,16 @@ public class DaftarActivity extends AppCompatActivity {
         AlertDialog dialog = dialogAlertBuilder.create();
 
         dialog.show();
+    }
+
+    private String getLastID(){
+        String id = new String();
+        DBHelper db = new DBHelper(this);
+        Cursor cursor = db.tampilkanLastID();
+
+        while (cursor.moveToNext()) {
+            id = cursor.getString(0);
+        }
+        return id;
     }
 }
