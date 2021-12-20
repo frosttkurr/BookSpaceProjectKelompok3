@@ -20,6 +20,7 @@ import id.kelompok3.bookspace.activity.buku.BukuMajalahActivity;
 import id.kelompok3.bookspace.activity.buku.BukuNovelActivity;
 import id.kelompok3.bookspace.activity.buku.TambahBukuActivity;
 import id.kelompok3.bookspace.activity.buku.BukuSejarahActivity;
+import id.kelompok3.bookspace.activity.landing.LoginActivity;
 import id.kelompok3.bookspace.activity.pinjam.ListPinjamActivity;
 import id.kelompok3.bookspace.activity.pinjam.PinjamActivity;
 import id.kelompok3.bookspace.database.DBHelper;
@@ -27,7 +28,7 @@ import id.kelompok3.bookspace.database.DBHelper;
 public class LobbyActivity extends AppCompatActivity {
     private TextView label_name, label_alamat;
     private String no_telp, nama, username, jenis_kelamin, email, alamat, minat_baca;
-    private ImageView profile, edukasi, ilmiah, fiksi, sejarah, bisnis, novel, majalah, data_pinjam, lihat_pinjam, add_category;
+    private ImageView profile, edukasi, ilmiah, fiksi, sejarah, bisnis, novel, majalah, data_pinjam, lihat_pinjam, add_category, about, logout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,7 +47,9 @@ public class LobbyActivity extends AppCompatActivity {
         majalah = (ImageView)findViewById(R.id.cover_majalah);
         data_pinjam = (ImageView)findViewById(R.id.btn_pinjam);
         lihat_pinjam = (ImageView)findViewById(R.id.btn_list);
+        about = (ImageView)findViewById(R.id.btn_about);
         add_category = (ImageView)findViewById(R.id.btn_tambah);
+        logout = (ImageView)findViewById(R.id.icon_logout);
 
         Intent getData = getIntent();
         String id = getData.getStringExtra("id");
@@ -149,6 +152,23 @@ public class LobbyActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent goAddKategori = new Intent(LobbyActivity.this, TambahBukuActivity.class);
                 startActivity(goAddKategori);
+            }
+        });
+
+        about.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent gotoAbout = new Intent(LobbyActivity.this, AboutActivity.class);
+                startActivity(gotoAbout);
+            }
+        });
+
+        logout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getApplicationContext(), "Berhasil Logout", Toast.LENGTH_SHORT).show();
+                Intent goLogin = new Intent(LobbyActivity.this, LoginActivity.class);
+                startActivity(goLogin);
             }
         });
     }

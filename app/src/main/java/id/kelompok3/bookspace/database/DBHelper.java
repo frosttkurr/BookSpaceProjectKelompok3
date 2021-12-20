@@ -6,6 +6,9 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import java.text.DateFormat;
+import java.util.Date;
+
 import id.kelompok3.bookspace.model.BukuHandler;
 import id.kelompok3.bookspace.model.PenggunaHandler;
 import id.kelompok3.bookspace.model.PinjamHandler;
@@ -20,7 +23,7 @@ public class DBHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         db.execSQL("CREATE TABLE tb_buku(id INTEGER PRIMARY KEY AUTOINCREMENT, judul TEXT, kategori TEXT)");
         db.execSQL("CREATE TABLE tb_pinjam(id INTEGER PRIMARY KEY AUTOINCREMENT, nama TEXT, judul TEXT, alamat TEXT, no_telpon TEXT, tgl_pinjam TEXT, tgl_kembali TEXT, status TEXT)");
-        db.execSQL("CREATE TABLE tb_pengguna(id INTEGER PRIMARY KEY AUTOINCREMENT, nama_lengkap TEXT, alamat TEXT, jenis_kelamin TEXT, no_telpon TEXT, email TEXT, username TEXT, password TEXT, minat_membaca TEXT)");
+        db.execSQL("CREATE TABLE tb_pengguna(id INTEGER PRIMARY KEY AUTOINCREMENT, nama_lengkap TEXT, alamat TEXT, jenis_kelamin TEXT, no_telpon TEXT, email TEXT, username TEXT, password TEXT, minat_membaca TEXT, deleted_at TEXT)");
     }
 
     @Override
@@ -46,7 +49,7 @@ public class DBHelper extends SQLiteOpenHelper {
 
     public boolean cekUsername(String username){
         SQLiteDatabase db = getReadableDatabase();
-        Cursor cursor = db.rawQuery("SELECT * FROM tb_pengguna WHERE username = ?", new String[]{username});
+        Cursor cursor = db.rawQuery("SELECT * FROM tb_pengguna WHERE deleted_at is null AND username = ?", new String[]{username});
         if (cursor.getCount()>0){
             return true;
         }else {
@@ -92,8 +95,10 @@ public class DBHelper extends SQLiteOpenHelper {
     }
 
     public boolean hapusPengguna (String id) {
-        SQLiteDatabase db = getReadableDatabase();
-        return db.delete("tb_pengguna", "id" + "=" + id, null) > 0;
+        SQLiteDatabase db = getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put("deleted_at", DateFormat.getDateInstance().format(new Date()));
+        return db.update("tb_pengguna", values, "id" + "=" + id, null) > 0;
     }
 
     public boolean tambahBuku(BukuHandler bukuHandler) {
