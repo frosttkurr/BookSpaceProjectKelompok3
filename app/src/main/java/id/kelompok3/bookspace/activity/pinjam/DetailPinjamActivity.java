@@ -17,17 +17,25 @@ import android.widget.Toast;
 import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
+import id.kelompok3.bookspace.adapter.pinjam.ListPinjamAdapter;
 import id.kelompok3.bookspace.database.DBHelper;
+import id.kelompok3.bookspace.database.DetailPinjamRequestData;
+import id.kelompok3.bookspace.database.PinjamRequestData;
+import id.kelompok3.bookspace.database.RetroHelper;
 import id.kelompok3.bookspace.model.PinjamHandler;
 import id.kelompok3.bookspace.R;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class DetailPinjamActivity extends AppCompatActivity {
     private String strTgl_kembali, status;
     private EditText judul, no_telp, nama, alamat, tgl_pinjam, tgl_kembali;
     private Button btnKembali, btnEdit, btnHapus;
     private Integer id = 0;
-    private ArrayList<PinjamHandler> pinjamHandler = new ArrayList<PinjamHandler>();
+    private List<PinjamHandler> pinjamHandler = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -206,6 +214,23 @@ public class DetailPinjamActivity extends AppCompatActivity {
                         });
                 AlertDialog dialog = dialogAlertBuilder.create();
                 dialog.show();
+            }
+        });
+    }
+
+    public void retrieveData(){
+        DetailPinjamRequestData detailPinjamRequestData = RetroHelper.connectRetrofit().create(DetailPinjamRequestData.class);
+        Call<List<PinjamHandler>> getDetailPinjam = detailPinjamRequestData.detailPinjamRetrieveData();
+
+        getDetailPinjam.enqueue(new Callback<List<PinjamHandler>>() {
+            @Override
+            public void onResponse(Call<List<PinjamHandler>> call, Response<List<PinjamHandler>> response) {
+                pinjamHandler = response.body();
+            }
+
+            @Override
+            public void onFailure(Call<List<PinjamHandler>> call, Throwable t) {
+                Toast.makeText(DetailPinjamActivity.this, "Gagal mengambil data detail pinjaman : "+ t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
     }

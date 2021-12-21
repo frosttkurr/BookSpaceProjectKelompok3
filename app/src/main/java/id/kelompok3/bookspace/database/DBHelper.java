@@ -59,7 +59,7 @@ public class DBHelper extends SQLiteOpenHelper {
 
     public boolean cekEmail(String email){
         SQLiteDatabase db = getReadableDatabase();
-        Cursor cursor = db.rawQuery("SELECT * FROM tb_pengguna WHERE email = ?", new String[]{email});
+        Cursor cursor = db.rawQuery("SELECT * FROM tb_pengguna WHERE deleted_at is null AND email = ?", new String[]{email});
         if (cursor.getCount()>0){
             return true;
         }else {
@@ -75,17 +75,6 @@ public class DBHelper extends SQLiteOpenHelper {
             id = Integer.valueOf(cursor.getString(0));
         }
         return id;
-    }
-
-    public Cursor tampilkanLastID(){
-        String query = "SELECT MAX(id) FROM tb_pengguna";
-        SQLiteDatabase db = this.getReadableDatabase();
-
-        Cursor cursor = null;
-        if(db != null){
-            cursor = db.rawQuery(query, null);
-        }
-        return cursor;
     }
 
     public Cursor tampilkanPenggunaDariID(String id){

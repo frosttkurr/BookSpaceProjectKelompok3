@@ -5,7 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.database.Cursor;
+import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -17,12 +17,9 @@ import android.widget.SeekBar;
 import android.widget.Toast;
 
 import id.kelompok3.bookspace.R;
-import id.kelompok3.bookspace.activity.buku.TambahBukuActivity;
-import id.kelompok3.bookspace.activity.home.LobbyActivity;
-import id.kelompok3.bookspace.activity.pinjam.PinjamActivity;
 import id.kelompok3.bookspace.database.DBHelper;
-import id.kelompok3.bookspace.model.BukuHandler;
 import id.kelompok3.bookspace.model.PenggunaHandler;
+import id.kelompok3.bookspace.database.RetroHelper;
 
 public class DaftarActivity extends AppCompatActivity {
     private Button daftar;
@@ -33,11 +30,15 @@ public class DaftarActivity extends AppCompatActivity {
     private CheckBox check_term;
     private String strSeekbar = "0";
     private int valueSeekbar = 0;
+    private ConnectivityManager connectivityManager;
+    private RetroHelper apiHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_daftar);
+
+        apiHelper = new RetroHelper();
 
         daftar = (Button)findViewById(R.id.btn_daftar);
         no_telpon = (EditText)findViewById(R.id.notelpon);
@@ -153,11 +154,8 @@ public class DaftarActivity extends AppCompatActivity {
 
                         if (tambahPengguna) {
                             Toast.makeText(DaftarActivity.this, "Registrasi Berhasil", Toast.LENGTH_SHORT).show();
-                            String id = getLastID();
-
-                            Intent gotoLoby = new Intent(DaftarActivity.this, LobbyActivity.class);
-                            gotoLoby.putExtra("id", id);
-                            startActivity(gotoLoby);
+                            Intent gotoLogin = new Intent(DaftarActivity.this, LoginActivity.class);
+                            startActivity(gotoLogin);
                         } else {
                             Toast.makeText(DaftarActivity.this, "Registrasi Gagal", Toast.LENGTH_SHORT).show();
                         }
@@ -172,16 +170,5 @@ public class DaftarActivity extends AppCompatActivity {
         AlertDialog dialog = dialogAlertBuilder.create();
 
         dialog.show();
-    }
-
-    private String getLastID(){
-        String id = new String();
-        DBHelper db = new DBHelper(this);
-        Cursor cursor = db.tampilkanLastID();
-
-        while (cursor.moveToNext()) {
-            id = cursor.getString(0);
-        }
-        return id;
     }
 }

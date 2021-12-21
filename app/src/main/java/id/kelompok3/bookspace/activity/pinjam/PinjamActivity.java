@@ -18,7 +18,9 @@ import android.widget.SeekBar;
 import android.widget.Toast;
 
 import java.text.DateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
 import id.kelompok3.bookspace.database.DBHelper;
 import id.kelompok3.bookspace.model.PinjamHandler;
@@ -33,6 +35,7 @@ public class PinjamActivity extends AppCompatActivity {
     private SeekBar minat;
     private CheckBox syarat;
     private int valueSeekbar = 0;
+    private List<PinjamHandler> pinjamHandlerList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

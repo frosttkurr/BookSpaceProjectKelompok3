@@ -1,8 +1,11 @@
 package id.kelompok3.bookspace.model;
 
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+
 public class PinjamHandler {
     private int id;
-    private String judul, no_telp, nama, jenis_kelamin, alamat, tgl_pinjam, tgl_kembali, minat_baca, syarat_pinjam, status;
+    private String judul, no_telp, nama, jenis_kelamin, alamat, tgl_pinjam, tgl_kembali, minat_baca, syarat_pinjam, status, created_at, updated_at;
 
     public int getId() {
         return id;
@@ -90,5 +93,21 @@ public class PinjamHandler {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public String getCreated_at() {
+        return created_at;
+    }
+
+    public void setCreated_at(String created_at) {
+        this.created_at = created_at;
+    }
+
+    public String getUpdated_at() {
+        return updated_at;
+    }
+
+    public void setUpdated_at(String updated_at) {
+        this.updated_at = updated_at;
     }
 }
