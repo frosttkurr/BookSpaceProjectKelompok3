@@ -186,14 +186,14 @@ public class PinjamActivity extends AppCompatActivity {
         AlertDialog.Builder dialogAlertBuilder = new AlertDialog.Builder(PinjamActivity.this);
         dialogAlertBuilder.setTitle("Konfirmasi Pinjaman");
         dialogAlertBuilder
-                .setMessage("Judul          : " +judul_buku+ "\n" +
-                        "Nama               : " +nama_peminjam+ "\n" +
+                .setMessage("Judul                      : " +judul_buku+ "\n" +
+                        "Nama                     : " +nama_peminjam+ "\n" +
                         "Jenis Kelamin      : " +jk_peminjam+ "\n" +
-                        "Alamat             : " +alamat_peminjam+ "\n" +
-                        "No Telpon          : " +notelp_peminjam+ "\n" +
-                        "Tgl Pinjam         : " +tgl_pinjam.getText().toString()+ "\n" +
-                        "Tgl Kembali        : " +tgl_kembali.getText().toString()+ "\n" +
-                        "Minat Membaca      : "+minat_baca.toString()+ "\n" +
+                        "Alamat                   : " +alamat_peminjam+ "\n" +
+                        "No Telpon             : " +notelp_peminjam+ "\n" +
+                        "Tgl Pinjam            : " +tgl_pinjam.getText().toString()+ "\n" +
+                        "Tgl Kembali          : " +tgl_kembali.getText().toString()+ "\n" +
+                        "Minat Membaca : "+minat_baca.toString()+ "\n" +
                         "Syarat Pinjam      : "+syarat_pinjam.toString()+ "\n")
                 .setPositiveButton("Konfirmasi", new DialogInterface.OnClickListener() {
                     @Override
@@ -251,7 +251,7 @@ public class PinjamActivity extends AppCompatActivity {
             public void onResponse(Call<PinjamHandler> call, Response<PinjamHandler> response) {
                 Boolean statusAPI = response.body().isStatusAPI();
                 String message = response.body().getMessage();
-                if (statusAPI != null) {
+                if (statusAPI) {
                     Toast.makeText(PinjamActivity.this, ""+ message, Toast.LENGTH_LONG).show();
                 } else {
                     Toast.makeText(PinjamActivity.this, "Gagal menambah data pinjaman", Toast.LENGTH_LONG).show();

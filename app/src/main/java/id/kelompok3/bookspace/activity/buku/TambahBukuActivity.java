@@ -51,7 +51,7 @@ public class TambahBukuActivity extends AppCompatActivity {
         AlertDialog.Builder dialogAlertBuilder = new AlertDialog.Builder(TambahBukuActivity.this);
         dialogAlertBuilder.setTitle("Konfirmasi Data");
         dialogAlertBuilder
-                .setMessage("Judul : " +judul_buku+ "\n" +
+                .setMessage("Judul      : " +judul_buku+ "\n" +
                         "Kategori : " +kategori_buku.toUpperCase()+ "\n")
                 .setPositiveButton("Konfirmasi", new DialogInterface.OnClickListener() {
                     @Override
