@@ -71,7 +71,7 @@ public class BukuEdukasiActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<List<BukuHandler>> call, Throwable t) {
-                Toast.makeText(BukuEdukasiActivity.this, "Gagal mengambil data pinjaman : "+ t.getMessage(), Toast.LENGTH_LONG).show();
+                Toast.makeText(BukuEdukasiActivity.this, "Gagal mengambil data buku : "+ t.getMessage(), Toast.LENGTH_LONG).show();
             }
         });
     }

@@ -10,8 +10,11 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/logo"
         android:supportsRtl="true"
-        android:usesCleartextTraffic="true"
-        android:theme="@style/Theme.BookSpace">
+        android:theme="@style/Theme.BookSpace"
+        android:usesCleartextTraffic="true">
+        <activity
+            android:name=".activity.buku.DetailBukuActivity"
+            android:exported="false" />
         <activity
             android:name=".activity.home.AboutActivity"
             android:exported="false" />

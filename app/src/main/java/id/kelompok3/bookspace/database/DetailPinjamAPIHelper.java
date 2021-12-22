@@ -13,26 +13,26 @@ import retrofit2.http.PUT;
 import retrofit2.http.Path;
 
 public interface DetailPinjamAPIHelper {
-    @GET("pinjam/{id}")
+    @GET("pinjam/{id}/detail")
     Call<List<PinjamHandler>> detailPinjamRetrieveData(
             @Path("id") Integer id
     );
 
     @FormUrlEncoded
-    @PUT("pinjam/update/{id}")
+    @PUT("pinjam/{id}/update")
     Call<PinjamHandler> detailPinjamUpdateData(
             @Path("id") Integer id,
             @Field("tgl_kembali") String strTgl_kembali
     );
 
     @FormUrlEncoded
-    @PUT("pinjam/return/{id}")
+    @PUT("pinjam/{id}/return")
     Call<PinjamHandler> detailPinjamReturnData(
             @Path("id") Integer id,
             @Field("status") String status
     );
 
-    @DELETE("pinjam/delete/{id}")
+    @DELETE("pinjam/{id}/delete")
     Call<PinjamHandler> detailPinjamDeleteData(
             @Path("id") Integer id
     );

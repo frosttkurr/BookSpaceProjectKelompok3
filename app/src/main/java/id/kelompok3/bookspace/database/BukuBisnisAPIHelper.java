@@ -7,6 +7,6 @@ import retrofit2.Call;
 import retrofit2.http.GET;
 
 public interface BukuBisnisAPIHelper {
-    @GET("buku/bisnis")
+    @GET("/buku/bisnis")
     Call<List<BukuHandler>> bukuBisnisRetrieveData();
 }

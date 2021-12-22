@@ -174,4 +174,22 @@ public class DBHelper extends SQLiteOpenHelper {
         values.put("status", pinjamHandler.getStatus());
         return db.update("tb_pinjam", values, "id" + "=" + id_pinjam, null) > 0;
     }
+
+    public Cursor detailBuku(int id_buku) {
+        SQLiteDatabase db = getReadableDatabase();
+        return db.rawQuery("Select * from tb_buku where id = " + id_buku, null);
+    }
+
+    public boolean suntingBuku(BukuHandler bukuHandler, int id_buku) {
+        SQLiteDatabase db = getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put("judul", bukuHandler.getJudul());
+        values.put("kategori", bukuHandler.getKategori());
+        return db.update("tb_buku", values, "id" + "=" + id_buku, null) > 0;
+    }
+
+    public boolean hapusBuku (int id_buku) {
+        SQLiteDatabase db = getReadableDatabase();
+        return db.delete("tb_buku", "id" + "=" + id_buku, null) > 0;
+    }
 }
