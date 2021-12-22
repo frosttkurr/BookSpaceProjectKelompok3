@@ -1,6 +1,5 @@
 package id.kelompok3.bookspace.activity.buku;
 
-import android.database.Cursor;
 import android.os.Bundle;
 import android.widget.Toast;
 
@@ -13,10 +12,7 @@ import java.util.List;
 
 import id.kelompok3.bookspace.R;
 import id.kelompok3.bookspace.adapter.buku.BukuBisnisAdapter;
-import id.kelompok3.bookspace.adapter.buku.BukuNovelAdapter;
-import id.kelompok3.bookspace.adapter.buku.BukuSejarahAdapter;
-import id.kelompok3.bookspace.database.BukuBisnisRequestData;
-import id.kelompok3.bookspace.database.BukuSejarahRequestData;
+import id.kelompok3.bookspace.database.BukuBisnisAPIHelper;
 import id.kelompok3.bookspace.database.DBHelper;
 import id.kelompok3.bookspace.database.RetroHelper;
 import id.kelompok3.bookspace.model.BukuHandler;
@@ -61,7 +57,7 @@ public class BukuBisnisActivity extends AppCompatActivity {
     }
 
     public void retrieveData(){
-        BukuBisnisRequestData bukuBisnisRequestData = RetroHelper.connectRetrofit().create(BukuBisnisRequestData.class);
+        BukuBisnisAPIHelper bukuBisnisRequestData = RetroHelper.connectRetrofit().create(BukuBisnisAPIHelper.class);
         Call<List<BukuHandler>> getBukuSejarah = bukuBisnisRequestData.bukuBisnisRetrieveData();
 
         getBukuSejarah.enqueue(new Callback<List<BukuHandler>>() {

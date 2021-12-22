@@ -19,10 +19,8 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
-import id.kelompok3.bookspace.adapter.pinjam.ListPinjamAdapter;
 import id.kelompok3.bookspace.database.DBHelper;
-import id.kelompok3.bookspace.database.DetailPinjamRequestData;
-import id.kelompok3.bookspace.database.PinjamRequestData;
+import id.kelompok3.bookspace.database.DetailPinjamAPIHelper;
 import id.kelompok3.bookspace.database.RetroHelper;
 import id.kelompok3.bookspace.model.PinjamHandler;
 import id.kelompok3.bookspace.R;
@@ -34,7 +32,7 @@ public class DetailPinjamActivity extends AppCompatActivity {
     private String strTgl_kembali, status;
     private EditText judul, no_telp, nama, alamat, tgl_pinjam, tgl_kembali;
     private Button btnKembali, btnEdit, btnHapus;
-    private Integer id = 0;
+    private Integer id;
     private List<PinjamHandler> pinjamHandler = new ArrayList<>();
 
     @Override
@@ -62,21 +60,22 @@ public class DetailPinjamActivity extends AppCompatActivity {
         id = getData.getIntExtra("id", 0);
 
         if (id > 0) {
-            final DBHelper dh = new DBHelper(getApplicationContext());
-            Cursor cursor = dh.detailPinjam(id);
-            cursor.moveToFirst();
-            if (cursor.getCount() > 0) {
-                while (!cursor.isAfterLast()) {
-                    judul.setText((cursor.getString(cursor.getColumnIndexOrThrow("judul"))));
-                    nama.setText((cursor.getString(cursor.getColumnIndexOrThrow("nama"))));
-                    alamat.setText((cursor.getString(cursor.getColumnIndexOrThrow("alamat"))));
-                    no_telp.setText((cursor.getString(cursor.getColumnIndexOrThrow("no_telpon"))));
-                    tgl_pinjam.setText((cursor.getString(cursor.getColumnIndexOrThrow("tgl_pinjam"))));
-                    tgl_kembali.setText((cursor.getString(cursor.getColumnIndexOrThrow("tgl_kembali"))));
-                    cursor.moveToNext();
-                }
-                dh.close();
-            }
+//            final DBHelper dh = new DBHelper(getApplicationContext());
+//            Cursor cursor = dh.detailPinjam(id);
+//            cursor.moveToFirst();
+//            if (cursor.getCount() > 0) {
+//                while (!cursor.isAfterLast()) {
+//                    judul.setText((cursor.getString(cursor.getColumnIndexOrThrow("judul"))));
+//                    nama.setText((cursor.getString(cursor.getColumnIndexOrThrow("nama"))));
+//                    alamat.setText((cursor.getString(cursor.getColumnIndexOrThrow("alamat"))));
+//                    no_telp.setText((cursor.getString(cursor.getColumnIndexOrThrow("no_telpon"))));
+//                    tgl_pinjam.setText((cursor.getString(cursor.getColumnIndexOrThrow("tgl_pinjam"))));
+//                    tgl_kembali.setText((cursor.getString(cursor.getColumnIndexOrThrow("tgl_kembali"))));
+//                    cursor.moveToNext();
+//                }
+//                dh.close();
+//            }
+            retrieveData();
         }
 
         tgl_kembali.setOnClickListener(new View.OnClickListener() {
@@ -219,7 +218,7 @@ public class DetailPinjamActivity extends AppCompatActivity {
     }
 
     public void retrieveData(){
-        DetailPinjamRequestData detailPinjamRequestData = RetroHelper.connectRetrofit().create(DetailPinjamRequestData.class);
+        DetailPinjamAPIHelper detailPinjamRequestData = RetroHelper.connectRetrofit().create(DetailPinjamAPIHelper.class);
         Call<List<PinjamHandler>> getDetailPinjam = detailPinjamRequestData.detailPinjamRetrieveData();
 
         getDetailPinjam.enqueue(new Callback<List<PinjamHandler>>() {

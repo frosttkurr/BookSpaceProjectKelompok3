@@ -4,23 +4,18 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.database.Cursor;
 import android.os.Bundle;
 import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import id.kelompok3.bookspace.activity.pinjam.ListPinjamActivity;
-import id.kelompok3.bookspace.adapter.pinjam.ListPinjamAdapter;
-import id.kelompok3.bookspace.database.BukuIlmiahRequestData;
-import id.kelompok3.bookspace.database.PinjamRequestData;
+import id.kelompok3.bookspace.database.BukuIlmiahAPIHelper;
 import id.kelompok3.bookspace.database.RetroHelper;
 import id.kelompok3.bookspace.model.BukuHandler;
 import id.kelompok3.bookspace.adapter.buku.BukuIlmiahAdapter;
 import id.kelompok3.bookspace.database.DBHelper;
 import id.kelompok3.bookspace.R;
-import id.kelompok3.bookspace.model.PinjamHandler;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -62,7 +57,7 @@ public class BukuIlmiahActivity extends AppCompatActivity {
     }
 
     public void retrieveData(){
-        BukuIlmiahRequestData bukuIlmiahRequestData = RetroHelper.connectRetrofit().create(BukuIlmiahRequestData.class);
+        BukuIlmiahAPIHelper bukuIlmiahRequestData = RetroHelper.connectRetrofit().create(BukuIlmiahAPIHelper.class);
         Call<List<BukuHandler>> getBukuIlmiah = bukuIlmiahRequestData.bukuIlmiahRetrieveData();
 
         getBukuIlmiah.enqueue(new Callback<List<BukuHandler>>() {

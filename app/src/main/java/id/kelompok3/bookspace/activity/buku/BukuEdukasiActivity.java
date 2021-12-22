@@ -4,7 +4,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.database.Cursor;
 import android.os.Bundle;
 import android.widget.Toast;
 
@@ -12,10 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import id.kelompok3.bookspace.adapter.buku.BukuEdukasiAdapter;
-import id.kelompok3.bookspace.adapter.buku.BukuFiksiAdapter;
-import id.kelompok3.bookspace.adapter.buku.BukuIlmiahAdapter;
-import id.kelompok3.bookspace.database.BukuEdukasiRequestData;
-import id.kelompok3.bookspace.database.BukuIlmiahRequestData;
+import id.kelompok3.bookspace.database.BukuEdukasiAPIHelper;
 import id.kelompok3.bookspace.database.RetroHelper;
 import id.kelompok3.bookspace.model.BukuHandler;
 import id.kelompok3.bookspace.database.DBHelper;
@@ -61,8 +57,8 @@ public class BukuEdukasiActivity extends AppCompatActivity {
     }
 
     public void retrieveData(){
-        BukuEdukasiRequestData bukuEdukasiRequestData = RetroHelper.connectRetrofit().create(BukuEdukasiRequestData.class);
-        Call<List<BukuHandler>> getBukuEdukasi = bukuEdukasiRequestData.bukuIlmiahRetrieveData();
+        BukuEdukasiAPIHelper bukuEdukasiRequestData = RetroHelper.connectRetrofit().create(BukuEdukasiAPIHelper.class);
+        Call<List<BukuHandler>> getBukuEdukasi = bukuEdukasiRequestData.bukuEdukasiRetrieveData();
 
         getBukuEdukasi.enqueue(new Callback<List<BukuHandler>>() {
             @Override

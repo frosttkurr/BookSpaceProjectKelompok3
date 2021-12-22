@@ -6,6 +6,8 @@ import com.google.gson.annotations.SerializedName;
 public class PinjamHandler {
     private int id;
     private String judul, no_telp, nama, jenis_kelamin, alamat, tgl_pinjam, tgl_kembali, minat_baca, syarat_pinjam, status, created_at, updated_at;
+    private boolean statusAPI;
+    private String message;
 
     public int getId() {
         return id;
@@ -109,5 +111,21 @@ public class PinjamHandler {
 
     public void setUpdated_at(String updated_at) {
         this.updated_at = updated_at;
+    }
+
+    public boolean isStatusAPI() {
+        return statusAPI;
+    }
+
+    public void setStatusAPI(boolean statusAPI) {
+        this.statusAPI = statusAPI;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
     }
 }

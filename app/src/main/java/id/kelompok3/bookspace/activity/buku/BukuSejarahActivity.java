@@ -4,7 +4,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.database.Cursor;
 import android.os.Bundle;
 import android.widget.Toast;
 
@@ -12,11 +11,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import id.kelompok3.bookspace.R;
-import id.kelompok3.bookspace.adapter.buku.BukuFiksiAdapter;
-import id.kelompok3.bookspace.adapter.buku.BukuIlmiahAdapter;
 import id.kelompok3.bookspace.adapter.buku.BukuSejarahAdapter;
-import id.kelompok3.bookspace.database.BukuFiksiRequestData;
-import id.kelompok3.bookspace.database.BukuSejarahRequestData;
+import id.kelompok3.bookspace.database.BukuSejarahAPIHelper;
 import id.kelompok3.bookspace.database.DBHelper;
 import id.kelompok3.bookspace.database.RetroHelper;
 import id.kelompok3.bookspace.model.BukuHandler;
@@ -61,7 +57,7 @@ public class BukuSejarahActivity extends AppCompatActivity {
     }
 
     public void retrieveData(){
-        BukuSejarahRequestData bukuSejarahRequestData = RetroHelper.connectRetrofit().create(BukuSejarahRequestData.class);
+        BukuSejarahAPIHelper bukuSejarahRequestData = RetroHelper.connectRetrofit().create(BukuSejarahAPIHelper.class);
         Call<List<BukuHandler>> getBukuSejarah = bukuSejarahRequestData.bukuSejarahRetrieveData();
 
         getBukuSejarah.enqueue(new Callback<List<BukuHandler>>() {

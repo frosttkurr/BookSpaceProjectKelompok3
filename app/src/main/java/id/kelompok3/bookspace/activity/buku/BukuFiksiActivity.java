@@ -4,17 +4,14 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.database.Cursor;
 import android.os.Bundle;
 import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import id.kelompok3.bookspace.adapter.buku.BukuEdukasiAdapter;
 import id.kelompok3.bookspace.adapter.buku.BukuFiksiAdapter;
-import id.kelompok3.bookspace.database.BukuEdukasiRequestData;
-import id.kelompok3.bookspace.database.BukuFiksiRequestData;
+import id.kelompok3.bookspace.database.BukuFiksiAPIHelper;
 import id.kelompok3.bookspace.database.RetroHelper;
 import id.kelompok3.bookspace.model.BukuHandler;
 import id.kelompok3.bookspace.database.DBHelper;
@@ -60,7 +57,7 @@ public class BukuFiksiActivity extends AppCompatActivity {
     }
 
     public void retrieveData(){
-        BukuFiksiRequestData bukuFiksiRequestData = RetroHelper.connectRetrofit().create(BukuFiksiRequestData.class);
+        BukuFiksiAPIHelper bukuFiksiRequestData = RetroHelper.connectRetrofit().create(BukuFiksiAPIHelper.class);
         Call<List<BukuHandler>> getBukuFiksi = bukuFiksiRequestData.bukuFiksiRetrieveData();
 
         getBukuFiksi.enqueue(new Callback<List<BukuHandler>>() {

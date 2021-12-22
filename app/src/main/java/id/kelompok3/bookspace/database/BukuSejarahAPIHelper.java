@@ -6,7 +6,7 @@ import id.kelompok3.bookspace.model.BukuHandler;
 import retrofit2.Call;
 import retrofit2.http.GET;
 
-public interface BukuEdukasiRequestData {
-    @GET("buku/edukasi")
-    Call<List<BukuHandler>> bukuIlmiahRetrieveData();
+public interface BukuSejarahAPIHelper {
+    @GET("buku/sejarah")
+    Call<List<BukuHandler>> bukuSejarahRetrieveData();
 }

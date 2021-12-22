@@ -10,6 +10,11 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import id.kelompok3.bookspace.model.PinjamHandler;
@@ -56,10 +61,27 @@ public class ListPinjamAdapter extends RecyclerView.Adapter<ListPinjamAdapter.Vi
     @Override
     public void onBindViewHolder(@NonNull ListPinjamAdapter.ViewHolder holder, int position) {
         PinjamHandler pinjamHandler = pinjamHandlerList.get(position);
+
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        Date datePinjam = null;
+        Date dateKembali = null;
+        try {
+            datePinjam = format.parse(String.valueOf(pinjamHandler.getTgl_pinjam()));
+            dateKembali = format.parse(String.valueOf(pinjamHandler.getTgl_kembali()));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        Calendar calPinjam = Calendar.getInstance();
+        Calendar calKembali = Calendar.getInstance();
+        calPinjam.setTime(datePinjam);
+        calKembali.setTime(dateKembali);
+        String tglPinjam = DateFormat.getDateInstance().format(calPinjam.getTime());
+        String tglKembali = DateFormat.getDateInstance().format(calKembali.getTime());
+
         holder.itemJudul.setText(String.valueOf(pinjamHandler.getJudul()));
         holder.itemNama.setText(String.valueOf(pinjamHandler.getNama()));
-        holder.itemTglPinjam.setText(String.valueOf(pinjamHandler.getTgl_pinjam()));
-        holder.itemTglKembali.setText(String.valueOf(pinjamHandler.getTgl_kembali()));
+        holder.itemTglPinjam.setText(String.valueOf(tglPinjam));
+        holder.itemTglKembali.setText(String.valueOf(tglKembali));
         holder.itemStatus.setText(String.valueOf(pinjamHandler.getStatus()));
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override

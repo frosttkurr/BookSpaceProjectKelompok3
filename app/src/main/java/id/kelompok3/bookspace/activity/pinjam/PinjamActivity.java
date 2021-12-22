@@ -1,11 +1,13 @@
 package id.kelompok3.bookspace.activity.pinjam;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.DatePickerDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -18,16 +20,22 @@ import android.widget.SeekBar;
 import android.widget.Toast;
 
 import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
-import id.kelompok3.bookspace.database.DBHelper;
+import id.kelompok3.bookspace.database.PinjamAPIHelper;
+import id.kelompok3.bookspace.database.RetroHelper;
 import id.kelompok3.bookspace.model.PinjamHandler;
 import id.kelompok3.bookspace.R;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class PinjamActivity extends AppCompatActivity {
-    private String judul_buku, notelp_peminjam, nama_peminjam, jk_peminjam, alamat_peminjam, strTgl_pinjam, syarat_pinjam, strTgl_kembali, minat_baca = "0", status;
+    private String judul_buku, notelp_peminjam, nama_peminjam, jk_peminjam, alamat_peminjam, strTgl_pinjam, syarat_pinjam, strTgl_kembali, minat_baca = "0", status = "DIPINJAM";
     private EditText judul, no_telp, nama, alamat, tgl_pinjam, tgl_kembali;
     private Button btnPinjam;
     private RadioGroup jenis_kelamin;
@@ -35,7 +43,7 @@ public class PinjamActivity extends AppCompatActivity {
     private SeekBar minat;
     private CheckBox syarat;
     private int valueSeekbar = 0;
-    private List<PinjamHandler> pinjamHandlerList = new ArrayList<>();
+    private List<PinjamHandler> pinjamHandler = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -101,8 +109,10 @@ public class PinjamActivity extends AppCompatActivity {
                         setCalendar.set(Calendar.MONTH, month);
                         setCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
 
+                        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
                         String setCurrentDate = DateFormat.getDateInstance().format(setCalendar.getTime());
                         tgl_pinjam.setText(setCurrentDate);
+                        strTgl_pinjam = dateFormat.format(setCalendar.getTime()).toString();
                     }
                 },getCalendar.get(Calendar.YEAR), getCalendar.get(Calendar.MONTH), getCalendar.get(Calendar.DAY_OF_MONTH));
                 datePickerDialog.show();
@@ -121,8 +131,10 @@ public class PinjamActivity extends AppCompatActivity {
                         setCalendar.set(Calendar.MONTH, month);
                         setCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
 
+                        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
                         String setCurrentDate = DateFormat.getDateInstance().format(setCalendar.getTime());
                         tgl_kembali.setText(setCurrentDate);
+                        strTgl_kembali = dateFormat.format(setCalendar.getTime()).toString();
                     }
                 },getCalendar.get(Calendar.YEAR), getCalendar.get(Calendar.MONTH), getCalendar.get(Calendar.DAY_OF_MONTH));
                 datePickerDialog.show();
@@ -140,12 +152,9 @@ public class PinjamActivity extends AppCompatActivity {
                 nama_peminjam = nama.getText().toString();
                 jk_peminjam = jk.getText().toString();
                 alamat_peminjam = alamat.getText().toString();
-                strTgl_pinjam = tgl_pinjam.getText().toString();
-                strTgl_kembali = tgl_kembali.getText().toString();
 
                 if(syarat.isChecked()){
                     syarat_pinjam = "Setuju";
-                    status = "DIPINJAM";
                 } else {
                     syarat_pinjam = "Tidak Setuju";
                 }
@@ -177,39 +186,41 @@ public class PinjamActivity extends AppCompatActivity {
         AlertDialog.Builder dialogAlertBuilder = new AlertDialog.Builder(PinjamActivity.this);
         dialogAlertBuilder.setTitle("Konfirmasi Pinjaman");
         dialogAlertBuilder
-                .setMessage("Judul      : " +judul_buku+ "\n" +
-                        "Nama           : " +nama_peminjam+ "\n" +
-                        "Jenis Kelamin  : " +jk_peminjam+ "\n" +
-                        "Alamat         : " +alamat_peminjam+ "\n" +
-                        "No Telpon      : " +notelp_peminjam+ "\n" +
-                        "Tgl Pinjam     : " +strTgl_pinjam+ "\n" +
-                        "Tgl Kembali    : " +strTgl_kembali+ "\n" +
-                        "Minat Membaca  : "+minat_baca.toString()+ "\n" +
-                        "Syarat Pinjam  : "+syarat_pinjam.toString()+ "\n")
+                .setMessage("Judul          : " +judul_buku+ "\n" +
+                        "Nama               : " +nama_peminjam+ "\n" +
+                        "Jenis Kelamin      : " +jk_peminjam+ "\n" +
+                        "Alamat             : " +alamat_peminjam+ "\n" +
+                        "No Telpon          : " +notelp_peminjam+ "\n" +
+                        "Tgl Pinjam         : " +tgl_pinjam.getText().toString()+ "\n" +
+                        "Tgl Kembali        : " +tgl_kembali.getText().toString()+ "\n" +
+                        "Minat Membaca      : "+minat_baca.toString()+ "\n" +
+                        "Syarat Pinjam      : "+syarat_pinjam.toString()+ "\n")
                 .setPositiveButton("Konfirmasi", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        DBHelper dbHelper = new DBHelper(getApplicationContext());
-                        PinjamHandler pinjamHandler = new PinjamHandler();
-                        pinjamHandler.setJudul(judul_buku.toUpperCase());
-                        pinjamHandler.setNama(nama_peminjam.toUpperCase());
-                        pinjamHandler.setJenis_kelamin(jk_peminjam.toUpperCase());
-                        pinjamHandler.setAlamat(alamat_peminjam.toUpperCase());
-                        pinjamHandler.setNo_telp(notelp_peminjam);
-                        pinjamHandler.setTgl_pinjam(strTgl_pinjam);
-                        pinjamHandler.setTgl_kembali(strTgl_kembali);
-                        pinjamHandler.setMinat_baca(minat_baca.toString());
-                        pinjamHandler.setSyarat_pinjam(syarat_pinjam.toString().toUpperCase());
-                        pinjamHandler.setStatus(status.toString());
+//                        DBHelper dbHelper = new DBHelper(getApplicationContext());
+//                        PinjamHandler pinjamHandler = new PinjamHandler();
+//                        pinjamHandler.setJudul(judul_buku.toUpperCase());
+//                        pinjamHandler.setNama(nama_peminjam.toUpperCase());
+//                        pinjamHandler.setJenis_kelamin(jk_peminjam.toUpperCase());
+//                        pinjamHandler.setAlamat(alamat_peminjam.toUpperCase());
+//                        pinjamHandler.setNo_telp(notelp_peminjam);
+//                        pinjamHandler.setTgl_pinjam(strTgl_pinjam);
+//                        pinjamHandler.setTgl_kembali(strTgl_kembali);
+//                        pinjamHandler.setMinat_baca(minat_baca.toString());
+//                        pinjamHandler.setSyarat_pinjam(syarat_pinjam.toString().toUpperCase());
+//                        pinjamHandler.setStatus(status.toString());
+//
+//                        boolean tambahPinjam = dbHelper.tambahPinjam(pinjamHandler);
+//
+//                        if (tambahPinjam) {
+//                            Toast.makeText(PinjamActivity.this, "Tambah Peminjaman Berhasil", Toast.LENGTH_SHORT).show();
+//                        } else {
+//                            Toast.makeText(PinjamActivity.this, "Tambah Peminjaman Gagal", Toast.LENGTH_SHORT).show();
+//                        }
+//                        dbHelper.close();
 
-                        boolean tambahPinjam = dbHelper.tambahPinjam(pinjamHandler);
-
-                        if (tambahPinjam) {
-                            Toast.makeText(PinjamActivity.this, "Tambah Peminjaman Berhasil", Toast.LENGTH_SHORT).show();
-                        } else {
-                            Toast.makeText(PinjamActivity.this, "Tambah Peminjaman Gagal", Toast.LENGTH_SHORT).show();
-                        }
-                        dbHelper.close();
+                        createData();
 
                         judul.getText().clear();
                         no_telp.getText().clear();
@@ -229,5 +240,29 @@ public class PinjamActivity extends AppCompatActivity {
                 });
         AlertDialog dialog = dialogAlertBuilder.create();
         dialog.show();
+    }
+
+    public void createData(){
+        PinjamAPIHelper pinjamCreateData = RetroHelper.connectRetrofit().create(PinjamAPIHelper.class);
+        Call<PinjamHandler> addPinjam = pinjamCreateData.pinjamInsertData(nama_peminjam, judul_buku, alamat_peminjam, notelp_peminjam, strTgl_pinjam, strTgl_kembali, status);
+
+        addPinjam.enqueue(new Callback<PinjamHandler>() {
+            @Override
+            public void onResponse(Call<PinjamHandler> call, Response<PinjamHandler> response) {
+                Boolean statusAPI = response.body().isStatusAPI();
+                String message = response.body().getMessage();
+                if (statusAPI != null) {
+                    Toast.makeText(PinjamActivity.this, ""+ message, Toast.LENGTH_LONG).show();
+                } else {
+                    Toast.makeText(PinjamActivity.this, "Gagal menambah data pinjaman", Toast.LENGTH_LONG).show();
+                }
+                finish();
+            }
+
+            @Override
+            public void onFailure(Call<PinjamHandler> call, Throwable t) {
+                Toast.makeText(PinjamActivity.this, "Gagal menambah data pinjaman : "+ t.getMessage(), Toast.LENGTH_LONG).show();
+            }
+        });
     }
 }

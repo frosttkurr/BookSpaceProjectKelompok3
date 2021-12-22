@@ -10,7 +10,7 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.List;
 
-import id.kelompok3.bookspace.database.PinjamRequestData;
+import id.kelompok3.bookspace.database.PinjamAPIHelper;
 import id.kelompok3.bookspace.database.DBHelper;
 import id.kelompok3.bookspace.adapter.pinjam.ListPinjamAdapter;
 import id.kelompok3.bookspace.database.RetroHelper;
@@ -65,7 +65,7 @@ public class ListPinjamActivity extends AppCompatActivity {
     }
 
     public void retrieveData(){
-        PinjamRequestData pinjamData = RetroHelper.connectRetrofit().create(PinjamRequestData.class);
+        PinjamAPIHelper pinjamData = RetroHelper.connectRetrofit().create(PinjamAPIHelper.class);
         Call<List<PinjamHandler>> getListPinjam = pinjamData.pinjamRetrieveData();
 
         getListPinjam.enqueue(new Callback<List<PinjamHandler>>() {

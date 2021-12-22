@@ -6,7 +6,7 @@ import id.kelompok3.bookspace.model.PinjamHandler;
 import retrofit2.Call;
 import retrofit2.http.GET;
 
-public interface DetailPinjamRequestData {
+public interface DetailPinjamAPIHelper {
     @GET("pinjam/{id}")
     Call<List<PinjamHandler>> detailPinjamRetrieveData();
 }
