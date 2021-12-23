@@ -11,6 +11,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import id.kelompok3.bookspace.R;
 import id.kelompok3.bookspace.activity.buku.BukuBisnisActivity;
 import id.kelompok3.bookspace.activity.buku.BukuEdukasiActivity;
@@ -24,11 +27,19 @@ import id.kelompok3.bookspace.activity.landing.LoginActivity;
 import id.kelompok3.bookspace.activity.pinjam.ListPinjamActivity;
 import id.kelompok3.bookspace.activity.pinjam.PinjamActivity;
 import id.kelompok3.bookspace.database.DBHelper;
+import id.kelompok3.bookspace.database.PenggunaAPIHelper;
+import id.kelompok3.bookspace.database.RetroHelper;
+import id.kelompok3.bookspace.model.PenggunaHandler;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class LobbyActivity extends AppCompatActivity {
     private TextView label_name, label_alamat;
     private String no_telp, nama, username, jenis_kelamin, email, alamat, minat_baca;
     private ImageView profile, edukasi, ilmiah, fiksi, sejarah, bisnis, novel, majalah, data_pinjam, lihat_pinjam, add_category, about, logout;
+    private List<PenggunaHandler> penggunaHandler = new ArrayList<>();
+    private Integer id;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,25 +63,28 @@ public class LobbyActivity extends AppCompatActivity {
         logout = (ImageView)findViewById(R.id.icon_logout);
 
         Intent getData = getIntent();
-        String id = getData.getStringExtra("id");
+        String strId = getData.getStringExtra("id");
+        id = Integer.valueOf(strId);
 
-        DBHelper dbHelper = new DBHelper(this);
+//        DBHelper dbHelper = new DBHelper(this);
+//
+//        Cursor cursor = dbHelper.tampilkanPenggunaDariID(id);
+//
+//        while (cursor.moveToNext()) {
+//            nama = cursor.getString(1);
+//            alamat = cursor.getString(2);
+//        }
+//
+//        label_name.setText(nama);
+//        label_alamat.setText(alamat);
 
-        Cursor cursor = dbHelper.tampilkanPenggunaDariID(id);
-
-        while (cursor.moveToNext()) {
-            nama = cursor.getString(1);
-            alamat = cursor.getString(2);
-        }
-
-        label_name.setText(nama);
-        label_alamat.setText(alamat);
+        retrieveData();
 
         profile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent gotoProfile = new Intent(LobbyActivity.this, ProfileActivity.class);
-                gotoProfile.putExtra("id", id);
+                gotoProfile.putExtra("id", String.valueOf(id));
                 startActivity(gotoProfile);
             }
         });
@@ -169,6 +183,26 @@ public class LobbyActivity extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(), "Berhasil Logout", Toast.LENGTH_SHORT).show();
                 Intent goLogin = new Intent(LobbyActivity.this, LoginActivity.class);
                 startActivity(goLogin);
+            }
+        });
+    }
+
+    public void retrieveData(){
+        PenggunaAPIHelper penggunaRequestData = RetroHelper.connectRetrofit().create(PenggunaAPIHelper.class);
+        Call<List<PenggunaHandler>> getPengguna = penggunaRequestData.penggunaRetrieveData(id);
+
+        getPengguna.enqueue(new Callback<List<PenggunaHandler>>() {
+            @Override
+            public void onResponse(Call<List<PenggunaHandler>> call, Response<List<PenggunaHandler>> response) {
+                penggunaHandler = response.body();
+
+                label_name.setText(penggunaHandler.get(0).getNama_lengkap());
+                label_alamat.setText(penggunaHandler.get(0).getAlamat());
+            }
+
+            @Override
+            public void onFailure(Call<List<PenggunaHandler>> call, Throwable t) {
+                Toast.makeText(LobbyActivity.this, "Gagal mengambil data pengguna : "+ t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
     }

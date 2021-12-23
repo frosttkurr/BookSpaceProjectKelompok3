@@ -1,7 +1,22 @@
 package id.kelompok3.bookspace.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class PenggunaHandler {
+    private Integer id;
     private String nama_lengkap, alamat, jenis_kelamin, no_telpon, email, username, password, minat_membaca;
+    private Boolean statusAPI;
+    private String message;
+    private List<PenggunaHandler> data = new ArrayList<>();
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
     public String getNama_lengkap() {
         return nama_lengkap;
@@ -65,5 +80,29 @@ public class PenggunaHandler {
 
     public void setMinat_membaca(String minat_membaca) {
         this.minat_membaca = minat_membaca;
+    }
+
+    public Boolean getStatusAPI() {
+        return statusAPI;
+    }
+
+    public void setStatusAPI(Boolean statusAPI) {
+        this.statusAPI = statusAPI;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
+    }
+
+    public List<PenggunaHandler> getPenggunaHandler() {
+        return data;
+    }
+
+    public void setPenggunaHandler(List<PenggunaHandler> penggunaHandler) {
+        this.data = penggunaHandler;
     }
 }

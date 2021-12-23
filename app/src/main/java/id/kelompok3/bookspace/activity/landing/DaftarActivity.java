@@ -17,9 +17,16 @@ import android.widget.SeekBar;
 import android.widget.Toast;
 
 import id.kelompok3.bookspace.R;
+import id.kelompok3.bookspace.activity.pinjam.PinjamActivity;
 import id.kelompok3.bookspace.database.DBHelper;
+import id.kelompok3.bookspace.database.PenggunaAPIHelper;
+import id.kelompok3.bookspace.database.PinjamAPIHelper;
 import id.kelompok3.bookspace.model.PenggunaHandler;
 import id.kelompok3.bookspace.database.RetroHelper;
+import id.kelompok3.bookspace.model.PinjamHandler;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class DaftarActivity extends AppCompatActivity {
     private Button daftar;
@@ -139,27 +146,28 @@ public class DaftarActivity extends AppCompatActivity {
                 .setPositiveButton("Konfirmasi", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        DBHelper dbHelper = new DBHelper(getApplicationContext());
-                        PenggunaHandler penggunaHandler = new PenggunaHandler();
-                        penggunaHandler.setNama_lengkap(nama.getText().toString());
-                        penggunaHandler.setAlamat(alamat.getText().toString());
-                        penggunaHandler.setJenis_kelamin(jk.getText().toString());
-                        penggunaHandler.setNo_telpon(no_telpon.getText().toString());
-                        penggunaHandler.setEmail(email.getText().toString());
-                        penggunaHandler.setUsername(username.getText().toString());
-                        penggunaHandler.setPassword(password.getText().toString());
-                        penggunaHandler.setMinat_membaca(strSeekbar.toString());
-
-                        boolean tambahPengguna = dbHelper.tambahPengguna(penggunaHandler);
-
-                        if (tambahPengguna) {
-                            Toast.makeText(DaftarActivity.this, "Registrasi Berhasil", Toast.LENGTH_SHORT).show();
-                            Intent gotoLogin = new Intent(DaftarActivity.this, LoginActivity.class);
-                            startActivity(gotoLogin);
-                        } else {
-                            Toast.makeText(DaftarActivity.this, "Registrasi Gagal", Toast.LENGTH_SHORT).show();
-                        }
-                        dbHelper.close();
+//                        DBHelper dbHelper = new DBHelper(getApplicationContext());
+//                        PenggunaHandler penggunaHandler = new PenggunaHandler();
+//                        penggunaHandler.setNama_lengkap(nama.getText().toString());
+//                        penggunaHandler.setAlamat(alamat.getText().toString());
+//                        penggunaHandler.setJenis_kelamin(jk.getText().toString());
+//                        penggunaHandler.setNo_telpon(no_telpon.getText().toString());
+//                        penggunaHandler.setEmail(email.getText().toString());
+//                        penggunaHandler.setUsername(username.getText().toString());
+//                        penggunaHandler.setPassword(password.getText().toString());
+//                        penggunaHandler.setMinat_membaca(strSeekbar.toString());
+//
+//                        boolean tambahPengguna = dbHelper.tambahPengguna(penggunaHandler);
+//
+//                        if (tambahPengguna) {
+//                            Toast.makeText(DaftarActivity.this, "Registrasi Berhasil", Toast.LENGTH_SHORT).show();
+//                            Intent gotoLogin = new Intent(DaftarActivity.this, LoginActivity.class);
+//                            startActivity(gotoLogin);
+//                        } else {
+//                            Toast.makeText(DaftarActivity.this, "Registrasi Gagal", Toast.LENGTH_SHORT).show();
+//                        }
+//                        dbHelper.close();
+                        createData();
                     }
                 })
                 .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
@@ -170,5 +178,29 @@ public class DaftarActivity extends AppCompatActivity {
         AlertDialog dialog = dialogAlertBuilder.create();
 
         dialog.show();
+    }
+
+    public void createData(){
+        PenggunaAPIHelper penggunaCreateData = RetroHelper.connectRetrofit().create(PenggunaAPIHelper.class);
+        Call<PenggunaHandler> addPengguna = penggunaCreateData.penggunaInsertData(nama.getText().toString(), alamat.getText().toString(), jk.getText().toString(), no_telpon.getText().toString(), email.getText().toString(), username.getText().toString(), password.getText().toString(), strSeekbar.toString());
+
+        addPengguna.enqueue(new Callback<PenggunaHandler>() {
+            @Override
+            public void onResponse(Call<PenggunaHandler> call, Response<PenggunaHandler> response) {
+                Boolean statusAPI = response.body().getStatusAPI();
+                String message = response.body().getMessage();
+                if (statusAPI == true) {
+                    Toast.makeText(DaftarActivity.this, ""+ message, Toast.LENGTH_LONG).show();
+                    finish();
+                } else {
+                    Toast.makeText(DaftarActivity.this, "" + message, Toast.LENGTH_LONG).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<PenggunaHandler> call, Throwable t) {
+                Toast.makeText(DaftarActivity.this, "Gagal menambah data pengguna : "+ t.getMessage(), Toast.LENGTH_LONG).show();
+            }
+        });
     }
 }
