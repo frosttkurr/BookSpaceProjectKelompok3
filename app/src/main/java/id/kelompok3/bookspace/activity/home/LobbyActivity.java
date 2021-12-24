@@ -210,7 +210,7 @@ public class LobbyActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<List<PenggunaHandler>> call, Throwable t) {
-                Toast.makeText(LobbyActivity.this, "Anda offline : "+ t.getMessage(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(LobbyActivity.this, "Anda offline, hubungkan ulang ke server!", Toast.LENGTH_SHORT).show();
                 SessionHandler session = new SessionHandler();
                 session.logout(LobbyActivity.this);
                 Intent goLogin = new Intent(LobbyActivity.this, LoginActivity.class);

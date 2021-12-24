@@ -28,6 +28,7 @@ import id.kelompok3.bookspace.database.PenggunaAPIHelper;
 import id.kelompok3.bookspace.database.RetroHelper;
 import id.kelompok3.bookspace.model.BukuHandler;
 import id.kelompok3.bookspace.model.PenggunaHandler;
+import id.kelompok3.bookspace.model.SessionHandler;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -69,18 +70,6 @@ public class ProfileActivity extends AppCompatActivity {
                         .setPositiveButton("Konfirmasi", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
-//                                DBHelper dbHelper = new DBHelper(getApplicationContext());
-//
-//                                boolean hapusPengguna = dbHelper.hapusPengguna(String.valueOf(id));
-//
-//                                if (hapusPengguna) {
-//                                    Toast.makeText(ProfileActivity.this, "Hapus Profile Berhasil", Toast.LENGTH_SHORT).show();
-//                                    Intent goLogin = new Intent(ProfileActivity.this, LoginActivity.class);
-//                                    startActivity(goLogin);
-//                                } else {
-//                                    Toast.makeText(ProfileActivity.this, "Hapus Profile Gagal", Toast.LENGTH_SHORT).show();
-//                                }
-//                                dbHelper.close();
                                 deleteData();
                             }
                         })
@@ -115,28 +104,12 @@ public class ProfileActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<List<PenggunaHandler>> call, Throwable t) {
-                Toast.makeText(ProfileActivity.this, "Anda offline : "+ t.getMessage(), Toast.LENGTH_SHORT).show();
-//                DBHelper dbHelper = new DBHelper(ProfileActivity.this);
-//
-//                Cursor cursor = dbHelper.tampilkanPenggunaDariID(String.valueOf(id));
-//
-//                while (cursor.moveToNext()) {
-//                    strNama = cursor.getString(1);
-//                    strUsername = cursor.getString(6);
-//                    strJenisKelamin = cursor.getString(3);
-//                    strNo_telp = cursor.getString(4);
-//                    strEmail = cursor.getString(5);
-//                    strAlamat = cursor.getString(2);
-//                    strMinatBaca = cursor.getString(8);
-//                }
-//
-//                nama.setText(strNama);
-//                username.setText(strUsername);
-//                jenis_kelamin.setText(strJenisKelamin);
-//                no_telp.setText(strNo_telp);
-//                email.setText(strEmail);
-//                alamat.setText(strAlamat);
-//                minat_baca.setText(strMinatBaca);
+                Toast.makeText(ProfileActivity.this, "Anda offline, hubungkan ulang ke server!", Toast.LENGTH_SHORT).show();
+                SessionHandler session = new SessionHandler();
+                session.logout(ProfileActivity.this);
+                Intent goLogin = new Intent(ProfileActivity.this, LoginActivity.class);
+                startActivity(goLogin);
+                finish();
             }
         });
     }
@@ -153,8 +126,11 @@ public class ProfileActivity extends AppCompatActivity {
 
                 if (statusAPI) {
                     Toast.makeText(ProfileActivity.this, ""+ message, Toast.LENGTH_LONG).show();
-                        Intent goLogin = new Intent(ProfileActivity .this, LoginActivity.class);
-                        startActivity(goLogin);
+                    SessionHandler session = new SessionHandler();
+                    session.logout(ProfileActivity.this);
+                    Intent goLogin = new Intent(ProfileActivity .this, LoginActivity.class);
+                    startActivity(goLogin);
+                    finish();
                 } else {
                     Toast.makeText(ProfileActivity.this, "Gagal menghapus data pengguna", Toast.LENGTH_LONG).show();
                 }

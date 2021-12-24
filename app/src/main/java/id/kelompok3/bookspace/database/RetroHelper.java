@@ -4,7 +4,7 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class RetroHelper {
-    private static final String baseURL = "http://10.10.22.13:8000/api/"; //ganti url setiap membuka android studio, dari ipconfigs
+    private static final String baseURL = "http://192.168.137.1:8000/api/"; //ganti url setiap membuka android studio, dari ipconfigs
     private static Retrofit retro;
 
     public static Retrofit connectRetrofit(){

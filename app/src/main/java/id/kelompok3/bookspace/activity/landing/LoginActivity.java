@@ -99,7 +99,7 @@ public class LoginActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<PenggunaHandler> call, Throwable t) {
-                Toast.makeText(LoginActivity.this, "Gagal menghubungkan ke server : "+ t.getMessage(), Toast.LENGTH_LONG).show();
+                Toast.makeText(LoginActivity.this, "Gagal menghubungkan, nyalakan server! ", Toast.LENGTH_LONG).show();
             }
         });
     }

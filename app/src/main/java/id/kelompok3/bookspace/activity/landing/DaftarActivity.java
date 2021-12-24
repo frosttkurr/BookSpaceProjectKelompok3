@@ -147,8 +147,6 @@ public class DaftarActivity extends AppCompatActivity {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         createData();
-                        Intent gotoLogin = new Intent(DaftarActivity.this, LoginActivity.class);
-                        startActivity(gotoLogin);
                     }
                 })
                 .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
@@ -172,7 +170,8 @@ public class DaftarActivity extends AppCompatActivity {
                 String message = response.body().getMessage();
                 if (statusAPI == true) {
                     Toast.makeText(DaftarActivity.this, ""+ message, Toast.LENGTH_LONG).show();
-                    finish();
+                    Intent gotoLogin = new Intent(DaftarActivity.this, LoginActivity.class);
+                    startActivity(gotoLogin);
                 } else {
                     Toast.makeText(DaftarActivity.this, "" + message, Toast.LENGTH_LONG).show();
                 }
@@ -180,7 +179,7 @@ public class DaftarActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<PenggunaHandler> call, Throwable t) {
-                Toast.makeText(DaftarActivity.this, "Gagal menghubungkan ke server : "+ t.getMessage(), Toast.LENGTH_LONG).show();
+                Toast.makeText(DaftarActivity.this, "Gagal menghubungkan, nyalakan server! "+ t.getMessage(), Toast.LENGTH_LONG).show();
             }
         });
     }
