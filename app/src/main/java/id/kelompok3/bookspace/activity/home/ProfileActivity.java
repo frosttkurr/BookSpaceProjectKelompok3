@@ -69,18 +69,18 @@ public class ProfileActivity extends AppCompatActivity {
                         .setPositiveButton("Konfirmasi", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
-                                DBHelper dbHelper = new DBHelper(getApplicationContext());
-
-                                boolean hapusPengguna = dbHelper.hapusPengguna(String.valueOf(id));
-
-                                if (hapusPengguna) {
-                                    Toast.makeText(ProfileActivity.this, "Hapus Profile Berhasil", Toast.LENGTH_SHORT).show();
-                                    Intent goLogin = new Intent(ProfileActivity.this, LoginActivity.class);
-                                    startActivity(goLogin);
-                                } else {
-                                    Toast.makeText(ProfileActivity.this, "Hapus Profile Gagal", Toast.LENGTH_SHORT).show();
-                                }
-                                dbHelper.close();
+//                                DBHelper dbHelper = new DBHelper(getApplicationContext());
+//
+//                                boolean hapusPengguna = dbHelper.hapusPengguna(String.valueOf(id));
+//
+//                                if (hapusPengguna) {
+//                                    Toast.makeText(ProfileActivity.this, "Hapus Profile Berhasil", Toast.LENGTH_SHORT).show();
+//                                    Intent goLogin = new Intent(ProfileActivity.this, LoginActivity.class);
+//                                    startActivity(goLogin);
+//                                } else {
+//                                    Toast.makeText(ProfileActivity.this, "Hapus Profile Gagal", Toast.LENGTH_SHORT).show();
+//                                }
+//                                dbHelper.close();
                                 deleteData();
                             }
                         })
@@ -116,27 +116,27 @@ public class ProfileActivity extends AppCompatActivity {
             @Override
             public void onFailure(Call<List<PenggunaHandler>> call, Throwable t) {
                 Toast.makeText(ProfileActivity.this, "Anda offline : "+ t.getMessage(), Toast.LENGTH_SHORT).show();
-                DBHelper dbHelper = new DBHelper(ProfileActivity.this);
-
-                Cursor cursor = dbHelper.tampilkanPenggunaDariID(String.valueOf(id));
-
-                while (cursor.moveToNext()) {
-                    strNama = cursor.getString(1);
-                    strUsername = cursor.getString(6);
-                    strJenisKelamin = cursor.getString(3);
-                    strNo_telp = cursor.getString(4);
-                    strEmail = cursor.getString(5);
-                    strAlamat = cursor.getString(2);
-                    strMinatBaca = cursor.getString(8);
-                }
-
-                nama.setText(strNama);
-                username.setText(strUsername);
-                jenis_kelamin.setText(strJenisKelamin);
-                no_telp.setText(strNo_telp);
-                email.setText(strEmail);
-                alamat.setText(strAlamat);
-                minat_baca.setText(strMinatBaca);
+//                DBHelper dbHelper = new DBHelper(ProfileActivity.this);
+//
+//                Cursor cursor = dbHelper.tampilkanPenggunaDariID(String.valueOf(id));
+//
+//                while (cursor.moveToNext()) {
+//                    strNama = cursor.getString(1);
+//                    strUsername = cursor.getString(6);
+//                    strJenisKelamin = cursor.getString(3);
+//                    strNo_telp = cursor.getString(4);
+//                    strEmail = cursor.getString(5);
+//                    strAlamat = cursor.getString(2);
+//                    strMinatBaca = cursor.getString(8);
+//                }
+//
+//                nama.setText(strNama);
+//                username.setText(strUsername);
+//                jenis_kelamin.setText(strJenisKelamin);
+//                no_telp.setText(strNo_telp);
+//                email.setText(strEmail);
+//                alamat.setText(strAlamat);
+//                minat_baca.setText(strMinatBaca);
             }
         });
     }

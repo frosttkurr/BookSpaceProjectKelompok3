@@ -118,13 +118,13 @@ public class DetailPinjamActivity extends AppCompatActivity {
 
                                     if (suntingPinjam) {
                                         Toast.makeText(DetailPinjamActivity.this, "Sunting Peminjaman Berhasil", Toast.LENGTH_SHORT).show();
-                                        Intent goListPinjam = new Intent(DetailPinjamActivity.this,ListPinjamActivity.class);
-                                        startActivity(goListPinjam);
                                     } else {
                                         Toast.makeText(DetailPinjamActivity.this, "Sunting Peminjaman Gagal", Toast.LENGTH_SHORT).show();
                                     }
                                     dbHelper.close();
                                     updateData();
+                                    Intent goListPinjam = new Intent(DetailPinjamActivity.this,ListPinjamActivity.class);
+                                    startActivity(goListPinjam);
                                 }
                             })
                             .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
@@ -154,13 +154,13 @@ public class DetailPinjamActivity extends AppCompatActivity {
 
                                 if (hapusPinjam) {
                                     Toast.makeText(DetailPinjamActivity.this, "Hapus Peminjaman Berhasil", Toast.LENGTH_SHORT).show();
-                                    Intent goListPinjam = new Intent(DetailPinjamActivity.this,ListPinjamActivity.class);
-                                    startActivity(goListPinjam);
                                 } else {
                                     Toast.makeText(DetailPinjamActivity.this, "Hapus Peminjaman Gagal", Toast.LENGTH_SHORT).show();
                                 }
                                 dbHelper.close();
                                 deleteData();
+                                Intent goListPinjam = new Intent(DetailPinjamActivity.this,ListPinjamActivity.class);
+                                startActivity(goListPinjam);
                             }
                         })
                         .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
@@ -191,13 +191,13 @@ public class DetailPinjamActivity extends AppCompatActivity {
 
                                 if (kembaliPinjam) {
                                     Toast.makeText(DetailPinjamActivity.this, "Kembali Peminjaman Berhasil", Toast.LENGTH_SHORT).show();
-                                    Intent goListPinjam = new Intent(DetailPinjamActivity.this,ListPinjamActivity.class);
-                                    startActivity(goListPinjam);
                                 } else {
                                     Toast.makeText(DetailPinjamActivity.this, "Kembali Peminjaman Gagal", Toast.LENGTH_SHORT).show();
                                 }
                                 dbHelper.close();
                                 returnData();
+                                Intent goListPinjam = new Intent(DetailPinjamActivity.this,ListPinjamActivity.class);
+                                startActivity(goListPinjam);
                             }
                         })
                         .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {

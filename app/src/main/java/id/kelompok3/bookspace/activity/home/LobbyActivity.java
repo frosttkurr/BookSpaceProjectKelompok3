@@ -211,17 +211,17 @@ public class LobbyActivity extends AppCompatActivity {
             @Override
             public void onFailure(Call<List<PenggunaHandler>> call, Throwable t) {
                 Toast.makeText(LobbyActivity.this, "Anda offline : "+ t.getMessage(), Toast.LENGTH_SHORT).show();
-                DBHelper dbHelper = new DBHelper(LobbyActivity.this);
-
-                Cursor cursor = dbHelper.tampilkanPenggunaDariID(String.valueOf(id));
-
-                while (cursor.moveToNext()) {
-                    nama = cursor.getString(1);
-                    alamat = cursor.getString(2);
-                }
-
-                label_name.setText(nama);
-                label_alamat.setText(alamat);
+//                DBHelper dbHelper = new DBHelper(LobbyActivity.this);
+//
+//                Cursor cursor = dbHelper.tampilkanPenggunaDariID(String.valueOf(id));
+//
+//                while (cursor.moveToNext()) {
+//                    nama = cursor.getString(1);
+//                    alamat = cursor.getString(2);
+//                }
+//
+//                label_name.setText(nama);
+//                label_alamat.setText(alamat);
             }
         });
     }

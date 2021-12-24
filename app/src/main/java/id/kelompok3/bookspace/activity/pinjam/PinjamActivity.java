@@ -63,6 +63,8 @@ public class PinjamActivity extends AppCompatActivity {
         syarat = (CheckBox)findViewById(R.id.syarat_pinjam);
         btnPinjam = (Button)findViewById(R.id.btn_pinjam);
 
+        CalendarHandler calendarHandler = new CalendarHandler(PinjamActivity.this);
+
         minat.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
@@ -113,7 +115,7 @@ public class PinjamActivity extends AppCompatActivity {
 
                         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
                         String setCurrentDate = DateFormat.getDateInstance().format(setCalendar.getTime());
-                        tgl_pinjam.setText(setCurrentDate);
+                        tgl_pinjam.setText(calendarHandler.convertTanggalIndo(setCurrentDate));
                         strTgl_pinjam = dateFormat.format(setCalendar.getTime()).toString();
                     }
                 },getCalendar.get(Calendar.YEAR), getCalendar.get(Calendar.MONTH), getCalendar.get(Calendar.DAY_OF_MONTH));
@@ -135,7 +137,7 @@ public class PinjamActivity extends AppCompatActivity {
 
                         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
                         String setCurrentDate = DateFormat.getDateInstance().format(setCalendar.getTime());
-                        tgl_kembali.setText(setCurrentDate);
+                        tgl_kembali.setText(calendarHandler.convertTanggalIndo(setCurrentDate));
                         strTgl_kembali = dateFormat.format(setCalendar.getTime()).toString();
                     }
                 },getCalendar.get(Calendar.YEAR), getCalendar.get(Calendar.MONTH), getCalendar.get(Calendar.DAY_OF_MONTH));
@@ -194,8 +196,8 @@ public class PinjamActivity extends AppCompatActivity {
                         "Jenis Kelamin      : " +jk_peminjam+ "\n" +
                         "Alamat                   : " +alamat_peminjam+ "\n" +
                         "No Telpon             : " +notelp_peminjam+ "\n" +
-                        "Tgl Pinjam            : " +calendarHandler.convertTanggalIndo(tgl_pinjam.getText().toString())+ "\n" +
-                        "Tgl Kembali          : " +calendarHandler.convertTanggalIndo(tgl_kembali.getText().toString())+ "\n" +
+                        "Tgl Pinjam            : " +tgl_pinjam.getText().toString()+ "\n" +
+                        "Tgl Kembali          : " +tgl_kembali.getText().toString()+ "\n" +
                         "Minat Membaca : "+minat_baca.toString()+ "\n" +
                         "Syarat Pinjam      : "+syarat_pinjam.toString()+ "\n")
                 .setPositiveButton("Konfirmasi", new DialogInterface.OnClickListener() {
