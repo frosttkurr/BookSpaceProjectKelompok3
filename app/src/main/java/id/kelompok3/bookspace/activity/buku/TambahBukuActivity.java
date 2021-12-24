@@ -56,19 +56,19 @@ public class TambahBukuActivity extends AppCompatActivity {
                 .setPositiveButton("Konfirmasi", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-//                        DBHelper dbHelper = new DBHelper(getApplicationContext());
-//                        BukuHandler bukuHandler = new BukuHandler();
-//                        bukuHandler.setJudul(judul_buku.toUpperCase());
-//                        bukuHandler.setKategori(kategori_buku.toUpperCase());
-//
-//                        boolean tambahBuku = dbHelper.tambahBuku(bukuHandler);
-//
-//                        if (tambahBuku) {
-//                            Toast.makeText(TambahBukuActivity.this, "Tambah Buku Berhasil", Toast.LENGTH_SHORT).show();
-//                        } else {
-//                            Toast.makeText(TambahBukuActivity.this, "Tambah Buku Gagal", Toast.LENGTH_SHORT).show();
-//                        }
-//                        dbHelper.close();
+                        DBHelper dbHelper = new DBHelper(getApplicationContext());
+                        BukuHandler bukuHandler = new BukuHandler();
+                        bukuHandler.setJudul(judul_buku);
+                        bukuHandler.setKategori(kategori_buku.toUpperCase());
+
+                        boolean tambahBuku = dbHelper.tambahBuku(bukuHandler);
+
+                        if (tambahBuku) {
+                            Toast.makeText(TambahBukuActivity.this, "Tambah Buku Berhasil", Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(TambahBukuActivity.this, "Tambah Buku Gagal", Toast.LENGTH_SHORT).show();
+                        }
+                        dbHelper.close();
 
                         createData();
 
@@ -105,7 +105,7 @@ public class TambahBukuActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<BukuHandler> call, Throwable t) {
-                Toast.makeText(TambahBukuActivity.this, "Gagal menambah data buku : "+ t.getMessage(), Toast.LENGTH_LONG).show();
+                Toast.makeText(TambahBukuActivity.this, "Gagal menghubungkan ke server : "+ t.getMessage(), Toast.LENGTH_LONG).show();
             }
         });
     }

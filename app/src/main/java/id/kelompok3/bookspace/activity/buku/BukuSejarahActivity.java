@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.database.Cursor;
 import android.os.Bundle;
 import android.widget.Toast;
 
@@ -31,28 +32,11 @@ public class BukuSejarahActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_buku_sejarah);
 
-//        database = new DBHelper(this);
         recyclerView = (RecyclerView)findViewById(R.id.list_sejarah);
-
-//        final DBHelper dh = new DBHelper(getApplicationContext());
-//        Cursor cursor = dh.tampilkanBukuSejarah();
-//        cursor.moveToFirst();
-//        if (cursor.getCount() > 0) {
-//            while (!cursor.isAfterLast()) {
-//                BukuHandler bukuHandlerList = new BukuHandler();
-//                bukuHandlerList.setJudul((cursor.getString(cursor.getColumnIndexOrThrow("judul"))));
-//                bukuHandlerList.setKategori((cursor.getString(cursor.getColumnIndexOrThrow("kategori"))));
-//                bukuHandler.add(bukuHandlerList);
-//                cursor.moveToNext();
-//            }
-//            dh.close();
-//        }
 
         recyclerView.setHasFixedSize(true);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(mLayoutManager);
-//        bukuSejarahAdapter = new BukuSejarahAdapter(bukuHandler, BukuSejarahActivity.this, recyclerView);
-//        recyclerView.setAdapter(bukuSejarahAdapter);
         retrieveData();
     }
 
@@ -71,7 +55,22 @@ public class BukuSejarahActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<List<BukuHandler>> call, Throwable t) {
-                Toast.makeText(BukuSejarahActivity.this, "Gagal mengambil data buku : "+ t.getMessage(), Toast.LENGTH_LONG).show();
+                Toast.makeText(BukuSejarahActivity.this, "Anda offline : "+ t.getMessage(), Toast.LENGTH_LONG).show();
+                final DBHelper dh = new DBHelper(getApplicationContext());
+                Cursor cursor = dh.tampilkanBukuSejarah();
+                cursor.moveToFirst();
+                if (cursor.getCount() > 0) {
+                    while (!cursor.isAfterLast()) {
+                        BukuHandler bukuHandlerList = new BukuHandler();
+                        bukuHandlerList.setJudul((cursor.getString(cursor.getColumnIndexOrThrow("judul"))));
+                        bukuHandlerList.setKategori((cursor.getString(cursor.getColumnIndexOrThrow("kategori"))));
+                        bukuHandler.add(bukuHandlerList);
+                        cursor.moveToNext();
+                    }
+                    dh.close();
+                }
+                bukuSejarahAdapter = new BukuSejarahAdapter(bukuHandler, BukuSejarahActivity.this, recyclerView);
+                recyclerView.setAdapter(bukuSejarahAdapter);
             }
         });
     }

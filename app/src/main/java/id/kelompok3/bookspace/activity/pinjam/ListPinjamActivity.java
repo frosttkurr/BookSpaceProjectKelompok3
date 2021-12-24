@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.database.Cursor;
 import android.os.Bundle;
 import android.widget.Toast;
 
@@ -37,30 +38,9 @@ public class ListPinjamActivity extends AppCompatActivity {
 //        detail_pinjam = (ImageView) findViewById(R.id.detail_pinjam);
         recyclerView = (RecyclerView)findViewById(R.id.list_pinjam);
 
-//        final DBHelper dh = new DBHelper(getApplicationContext());
-//        Cursor cursor = dh.tampilkanPinjam();
-//        cursor.moveToFirst();
-//        if (cursor.getCount() > 0) {
-//            while (!cursor.isAfterLast()) {
-//                PinjamHandler pinjamHandlerList = new PinjamHandler();
-//                pinjamHandlerList.setId((cursor.getInt(cursor.getColumnIndexOrThrow("id"))));
-//                pinjamHandlerList.setJudul((cursor.getString(cursor.getColumnIndexOrThrow("judul"))));
-//                pinjamHandlerList.setNama((cursor.getString(cursor.getColumnIndexOrThrow("nama"))));
-//                pinjamHandlerList.setAlamat((cursor.getString(cursor.getColumnIndexOrThrow("alamat"))));
-//                pinjamHandlerList.setTgl_pinjam((cursor.getString(cursor.getColumnIndexOrThrow("tgl_pinjam"))));
-//                pinjamHandlerList.setTgl_kembali((cursor.getString(cursor.getColumnIndexOrThrow("tgl_kembali"))));
-//                pinjamHandlerList.setStatus((cursor.getString(cursor.getColumnIndexOrThrow("status"))));
-//                pinjamHandler.add(pinjamHandlerList);
-//                cursor.moveToNext();
-//            }
-//            dh.close();
-//        }
-//
         recyclerView.setHasFixedSize(true);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(mLayoutManager);
-//        listPinjamAdapter = new ListPinjamAdapter(pinjamHandler, ListPinjamActivity.this, recyclerView);
-//        recyclerView.setAdapter(listPinjamAdapter);
         retrieveData();
     }
 
@@ -79,7 +59,28 @@ public class ListPinjamActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<List<PinjamHandler>> call, Throwable t) {
-                Toast.makeText(ListPinjamActivity.this, "Gagal mengambil data pinjaman : "+ t.getMessage(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(ListPinjamActivity.this, "Anda offline : "+ t.getMessage(), Toast.LENGTH_SHORT).show();
+                final DBHelper dh = new DBHelper(getApplicationContext());
+                Cursor cursor = dh.tampilkanPinjam();
+                cursor.moveToFirst();
+                if (cursor.getCount() > 0) {
+                    while (!cursor.isAfterLast()) {
+                        PinjamHandler pinjamHandlerList = new PinjamHandler();
+                        pinjamHandlerList.setId((cursor.getInt(cursor.getColumnIndexOrThrow("id"))));
+                        pinjamHandlerList.setJudul((cursor.getString(cursor.getColumnIndexOrThrow("judul"))));
+                        pinjamHandlerList.setNama((cursor.getString(cursor.getColumnIndexOrThrow("nama"))));
+                        pinjamHandlerList.setAlamat((cursor.getString(cursor.getColumnIndexOrThrow("alamat"))));
+                        pinjamHandlerList.setTgl_pinjam((cursor.getString(cursor.getColumnIndexOrThrow("tgl_pinjam"))));
+                        pinjamHandlerList.setTgl_kembali((cursor.getString(cursor.getColumnIndexOrThrow("tgl_kembali"))));
+                        pinjamHandlerList.setStatus((cursor.getString(cursor.getColumnIndexOrThrow("status"))));
+                        pinjamHandler.add(pinjamHandlerList);
+                        cursor.moveToNext();
+                    }
+                    dh.close();
+
+                    listPinjamAdapter = new ListPinjamAdapter(pinjamHandler, ListPinjamActivity.this, recyclerView);
+                    recyclerView.setAdapter(listPinjamAdapter);
+                }
             }
         });
     }

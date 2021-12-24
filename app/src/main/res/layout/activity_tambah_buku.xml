@@ -99,7 +99,7 @@
                 android:layout_marginBottom="10dp"
                 android:background="@drawable/button_pink"
                 android:paddingHorizontal="45dp"
-                android:text="Tambah Data"
+                android:text="Tambah Buku"
                 android:textColor="@color/white"
                 app:backgroundTint="@null" />
 

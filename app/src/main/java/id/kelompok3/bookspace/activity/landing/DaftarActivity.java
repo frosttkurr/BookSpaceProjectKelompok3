@@ -146,27 +146,27 @@ public class DaftarActivity extends AppCompatActivity {
                 .setPositiveButton("Konfirmasi", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-//                        DBHelper dbHelper = new DBHelper(getApplicationContext());
-//                        PenggunaHandler penggunaHandler = new PenggunaHandler();
-//                        penggunaHandler.setNama_lengkap(nama.getText().toString());
-//                        penggunaHandler.setAlamat(alamat.getText().toString());
-//                        penggunaHandler.setJenis_kelamin(jk.getText().toString());
-//                        penggunaHandler.setNo_telpon(no_telpon.getText().toString());
-//                        penggunaHandler.setEmail(email.getText().toString());
-//                        penggunaHandler.setUsername(username.getText().toString());
-//                        penggunaHandler.setPassword(password.getText().toString());
-//                        penggunaHandler.setMinat_membaca(strSeekbar.toString());
-//
-//                        boolean tambahPengguna = dbHelper.tambahPengguna(penggunaHandler);
-//
-//                        if (tambahPengguna) {
-//                            Toast.makeText(DaftarActivity.this, "Registrasi Berhasil", Toast.LENGTH_SHORT).show();
-//                            Intent gotoLogin = new Intent(DaftarActivity.this, LoginActivity.class);
-//                            startActivity(gotoLogin);
-//                        } else {
-//                            Toast.makeText(DaftarActivity.this, "Registrasi Gagal", Toast.LENGTH_SHORT).show();
-//                        }
-//                        dbHelper.close();
+                        DBHelper dbHelper = new DBHelper(getApplicationContext());
+                        PenggunaHandler penggunaHandler = new PenggunaHandler();
+                        penggunaHandler.setNama_lengkap(nama.getText().toString());
+                        penggunaHandler.setAlamat(alamat.getText().toString());
+                        penggunaHandler.setJenis_kelamin(jk.getText().toString());
+                        penggunaHandler.setNo_telpon(no_telpon.getText().toString());
+                        penggunaHandler.setEmail(email.getText().toString());
+                        penggunaHandler.setUsername(username.getText().toString());
+                        penggunaHandler.setPassword(password.getText().toString());
+                        penggunaHandler.setMinat_membaca(strSeekbar.toString());
+
+                        boolean tambahPengguna = dbHelper.tambahPengguna(penggunaHandler);
+
+                        if (tambahPengguna) {
+                            Toast.makeText(DaftarActivity.this, "Registrasi Berhasil", Toast.LENGTH_SHORT).show();
+                            Intent gotoLogin = new Intent(DaftarActivity.this, LoginActivity.class);
+                            startActivity(gotoLogin);
+                        } else {
+                            Toast.makeText(DaftarActivity.this, "Registrasi Gagal", Toast.LENGTH_SHORT).show();
+                        }
+                        dbHelper.close();
                         createData();
                     }
                 })
@@ -199,7 +199,7 @@ public class DaftarActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<PenggunaHandler> call, Throwable t) {
-                Toast.makeText(DaftarActivity.this, "Gagal menambah data pengguna : "+ t.getMessage(), Toast.LENGTH_LONG).show();
+                Toast.makeText(DaftarActivity.this, "Gagal menghubungkan ke server : "+ t.getMessage(), Toast.LENGTH_LONG).show();
             }
         });
     }

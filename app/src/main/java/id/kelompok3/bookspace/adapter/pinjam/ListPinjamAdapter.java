@@ -17,6 +17,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+import id.kelompok3.bookspace.model.CalendarHandler;
 import id.kelompok3.bookspace.model.PinjamHandler;
 import id.kelompok3.bookspace.R;
 import id.kelompok3.bookspace.activity.pinjam.DetailPinjamActivity;
@@ -77,11 +78,14 @@ public class ListPinjamAdapter extends RecyclerView.Adapter<ListPinjamAdapter.Vi
         calKembali.setTime(dateKembali);
         String tglPinjam = DateFormat.getDateInstance().format(calPinjam.getTime());
         String tglKembali = DateFormat.getDateInstance().format(calKembali.getTime());
+        CalendarHandler calendarHandler = new CalendarHandler(context);
+        String newTglPinjam = calendarHandler.convertTanggalIndo(tglPinjam);
+        String newTglKembali = calendarHandler.convertTanggalIndo(tglKembali);
 
         holder.itemJudul.setText(String.valueOf(pinjamHandler.getJudul()));
         holder.itemNama.setText(String.valueOf(pinjamHandler.getNama()));
-        holder.itemTglPinjam.setText(String.valueOf(tglPinjam));
-        holder.itemTglKembali.setText(String.valueOf(tglKembali));
+        holder.itemTglPinjam.setText(String.valueOf(newTglPinjam));
+        holder.itemTglKembali.setText(String.valueOf(newTglKembali));
         holder.itemStatus.setText(String.valueOf(pinjamHandler.getStatus()));
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override

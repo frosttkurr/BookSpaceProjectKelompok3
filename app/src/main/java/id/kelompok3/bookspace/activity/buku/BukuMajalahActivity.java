@@ -1,5 +1,6 @@
 package id.kelompok3.bookspace.activity.buku;
 
+import android.database.Cursor;
 import android.os.Bundle;
 import android.widget.Toast;
 
@@ -31,28 +32,11 @@ public class BukuMajalahActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_buku_majalah);
 
-//        database = new DBHelper(this);
         recyclerView = (RecyclerView)findViewById(R.id.list_majalah);
-
-//        final DBHelper dh = new DBHelper(getApplicationContext());
-//        Cursor cursor = dh.tampilkanBukuMajalah();
-//        cursor.moveToFirst();
-//        if (cursor.getCount() > 0) {
-//            while (!cursor.isAfterLast()) {
-//                BukuHandler bukuHandlerList = new BukuHandler();
-//                bukuHandlerList.setJudul((cursor.getString(cursor.getColumnIndexOrThrow("judul"))));
-//                bukuHandlerList.setKategori((cursor.getString(cursor.getColumnIndexOrThrow("kategori"))));
-//                bukuHandler.add(bukuHandlerList);
-//                cursor.moveToNext();
-//            }
-//            dh.close();
-//        }
 
         recyclerView.setHasFixedSize(true);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(mLayoutManager);
-//        bukuMajalahAdapter = new BukuMajalahAdapter(bukuHandler, BukuMajalahActivity.this, recyclerView);
-//        recyclerView.setAdapter(bukuMajalahAdapter);
         retrieveData();
     }
 
@@ -71,7 +55,22 @@ public class BukuMajalahActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<List<BukuHandler>> call, Throwable t) {
-                Toast.makeText(BukuMajalahActivity.this, "Gagal mengambil data buku : "+ t.getMessage(), Toast.LENGTH_LONG).show();
+                Toast.makeText(BukuMajalahActivity.this, "Anda offline : "+ t.getMessage(), Toast.LENGTH_LONG).show();
+                final DBHelper dh = new DBHelper(getApplicationContext());
+                Cursor cursor = dh.tampilkanBukuMajalah();
+                cursor.moveToFirst();
+                if (cursor.getCount() > 0) {
+                    while (!cursor.isAfterLast()) {
+                        BukuHandler bukuHandlerList = new BukuHandler();
+                        bukuHandlerList.setJudul((cursor.getString(cursor.getColumnIndexOrThrow("judul"))));
+                        bukuHandlerList.setKategori((cursor.getString(cursor.getColumnIndexOrThrow("kategori"))));
+                        bukuHandler.add(bukuHandlerList);
+                        cursor.moveToNext();
+                    }
+                    dh.close();
+                }
+                bukuMajalahAdapter = new BukuMajalahAdapter(bukuHandler, BukuMajalahActivity.this, recyclerView);
+                recyclerView.setAdapter(bukuMajalahAdapter);
             }
         });
     }

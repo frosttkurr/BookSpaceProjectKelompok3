@@ -9,6 +9,7 @@ public class PenggunaHandler {
     private Boolean statusAPI;
     private String message;
     private List<PenggunaHandler> data = new ArrayList<>();
+    private String token;
 
     public Integer getId() {
         return id;
@@ -104,5 +105,13 @@ public class PenggunaHandler {
 
     public void setPenggunaHandler(List<PenggunaHandler> penggunaHandler) {
         this.data = penggunaHandler;
+    }
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
     }
 }

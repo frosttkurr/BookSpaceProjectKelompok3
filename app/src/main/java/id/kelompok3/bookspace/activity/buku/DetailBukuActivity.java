@@ -21,6 +21,7 @@ import java.util.Date;
 import java.util.List;
 
 import id.kelompok3.bookspace.R;
+import id.kelompok3.bookspace.activity.home.LobbyActivity;
 import id.kelompok3.bookspace.activity.pinjam.DetailPinjamActivity;
 import id.kelompok3.bookspace.activity.pinjam.ListPinjamActivity;
 import id.kelompok3.bookspace.database.DBHelper;
@@ -54,17 +55,6 @@ public class DetailBukuActivity extends AppCompatActivity {
         id = getData.getIntExtra("id", 0);
 
         if (id > 0) {
-//            final DBHelper dh = new DBHelper(getApplicationContext());
-//            Cursor cursor = dh.detailBuku(id);
-//            cursor.moveToFirst();
-//            if (cursor.getCount() > 0) {
-//                while (!cursor.isAfterLast()) {
-//                    judul.setText((cursor.getString(cursor.getColumnIndexOrThrow("judul"))));
-//                    kategori.setText((cursor.getString(cursor.getColumnIndexOrThrow("kategori"))));
-//                    cursor.moveToNext();
-//                }
-//                dh.close();
-//            }
             retrieveData();
         }
 
@@ -94,27 +84,20 @@ public class DetailBukuActivity extends AppCompatActivity {
                 .setPositiveButton("Konfirmasi", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-//                        DBHelper dbHelper = new DBHelper(getApplicationContext());
-//                        BukuHandler bukuHandler = new BukuHandler();
-//                        bukuHandler.setJudul(judul_buku.toUpperCase());
-//                        bukuHandler.setKategori(kategori_buku.toUpperCase());
-//
-//                        boolean suntingBuku = dbHelper.suntingBuku(bukuHandler, id);
-//
-//                        if (suntingBuku) {
-//                            Toast.makeText(DetailBukuActivity.this, "Sunting Buku Berhasil", Toast.LENGTH_SHORT).show();
-//                        } else {
-//                            Toast.makeText(DetailBukuActivity.this, "Sunting Buku Gagal", Toast.LENGTH_SHORT).show();
-//                        }
-//                        dbHelper.close();
-//
-//                        judul.getText().clear();
-//                        kategori.getText().clear();
+                        DBHelper dbHelper = new DBHelper(getApplicationContext());
+                        BukuHandler bukuHandler = new BukuHandler();
+                        bukuHandler.setJudul(judul_buku.toString());
+                        bukuHandler.setKategori(kategori_buku.toUpperCase());
 
+                        boolean suntingBuku = dbHelper.suntingBuku(bukuHandler, id);
+
+                        if (suntingBuku) {
+                            Toast.makeText(DetailBukuActivity.this, "Sunting Buku Berhasil", Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(DetailBukuActivity.this, "Sunting Buku Gagal", Toast.LENGTH_SHORT).show();
+                        }
+                        dbHelper.close();
                         updateData();
-
-//                        Intent goListBuku = new Intent(DetailBukuActivity .this, LobbyActivity.class);
-//                        startActivity(goListBuku);
                     }
                 })
                 .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
@@ -134,18 +117,16 @@ public class DetailBukuActivity extends AppCompatActivity {
                 .setPositiveButton("Konfirmasi", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-//                        DBHelper dbHelper = new DBHelper(getApplicationContext());
-//
-//                        boolean hapusBuku = dbHelper.hapusBuku(id);
-//
-//                        if (hapusBuku) {
-//                            Toast.makeText(DetailBukuActivity.this, "Hapus buku Berhasil", Toast.LENGTH_SHORT).show();
-//                        } else {
-//                            Toast.makeText(DetailBukuActivity.this, "Hapus buku Gagal", Toast.LENGTH_SHORT).show();
-//                        }
-//                        dbHelper.close();
-////                        Intent goListBuku = new Intent(DetailBukuActivity .this, LobbyActivity.class);
-////                        startActivity(goListBuku);
+                        DBHelper dbHelper = new DBHelper(getApplicationContext());
+
+                        boolean hapusBuku = dbHelper.hapusBuku(id);
+
+                        if (hapusBuku) {
+                            Toast.makeText(DetailBukuActivity.this, "Hapus buku Berhasil", Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(DetailBukuActivity.this, "Hapus buku Gagal", Toast.LENGTH_SHORT).show();
+                        }
+                        dbHelper.close();
                         deleteData();
                     }
                 })
@@ -173,7 +154,18 @@ public class DetailBukuActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<List<BukuHandler>> call, Throwable t) {
-                Toast.makeText(DetailBukuActivity.this, "Gagal mengambil data buku : "+ t.getMessage(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(DetailBukuActivity.this, "Anda offline : "+ t.getMessage(), Toast.LENGTH_LONG).show();
+                final DBHelper dh = new DBHelper(getApplicationContext());
+                Cursor cursor = dh.detailBuku(id);
+                cursor.moveToFirst();
+                if (cursor.getCount() > 0) {
+                    while (!cursor.isAfterLast()) {
+                        judul.setText((cursor.getString(cursor.getColumnIndexOrThrow("judul"))));
+                        kategori.setText((cursor.getString(cursor.getColumnIndexOrThrow("kategori"))));
+                        cursor.moveToNext();
+                    }
+                    dh.close();
+                }
             }
         });
     }
@@ -190,8 +182,8 @@ public class DetailBukuActivity extends AppCompatActivity {
 
                 if (statusAPI) {
                     Toast.makeText(DetailBukuActivity.this, ""+ message, Toast.LENGTH_LONG).show();
-//                        Intent goListBuku = new Intent(DetailBukuActivity .this, LobbyActivity.class);
-//                        startActivity(goListBuku);
+                        Intent goToLobby = new Intent(DetailBukuActivity.this, LobbyActivity.class);
+                        startActivity(goToLobby);
                 } else {
                     Toast.makeText(DetailBukuActivity.this, "Gagal mengupdate data buku", Toast.LENGTH_LONG).show();
                 }
@@ -200,7 +192,9 @@ public class DetailBukuActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<BukuHandler> call, Throwable t) {
-                Toast.makeText(DetailBukuActivity.this, "Gagal mengupdate data buku : "+ t.getMessage(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(DetailBukuActivity.this, "Anda offline : "+ t.getMessage(), Toast.LENGTH_LONG).show();
+                Intent goToLobby = new Intent(DetailBukuActivity.this, LobbyActivity.class);
+                startActivity(goToLobby);
             }
         });
     }
@@ -217,8 +211,8 @@ public class DetailBukuActivity extends AppCompatActivity {
 
                 if (statusAPI) {
                     Toast.makeText(DetailBukuActivity.this, ""+ message, Toast.LENGTH_LONG).show();
-//                        Intent goListBuku = new Intent(DetailBukuActivity .this, LobbyActivity.class);
-//                        startActivity(goListBuku);
+                        Intent goToLobby = new Intent(DetailBukuActivity.this, LobbyActivity.class);
+                        startActivity(goToLobby);
                 } else {
                     Toast.makeText(DetailBukuActivity.this, "Gagal menghapus data buku", Toast.LENGTH_LONG).show();
                 }
@@ -227,7 +221,9 @@ public class DetailBukuActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<BukuHandler> call, Throwable t) {
-                Toast.makeText(DetailBukuActivity.this, "Gagal menghapus data buku : "+ t.getMessage(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(DetailBukuActivity.this, "Anda offline : "+ t.getMessage(), Toast.LENGTH_LONG).show();
+                Intent goToLobby = new Intent(DetailBukuActivity.this, LobbyActivity.class);
+                startActivity(goToLobby);
             }
         });
     }

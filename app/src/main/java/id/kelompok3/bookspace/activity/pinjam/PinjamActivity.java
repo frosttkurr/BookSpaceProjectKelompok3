@@ -26,8 +26,10 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
+import id.kelompok3.bookspace.database.DBHelper;
 import id.kelompok3.bookspace.database.PinjamAPIHelper;
 import id.kelompok3.bookspace.database.RetroHelper;
+import id.kelompok3.bookspace.model.CalendarHandler;
 import id.kelompok3.bookspace.model.PinjamHandler;
 import id.kelompok3.bookspace.R;
 import retrofit2.Call;
@@ -183,6 +185,7 @@ public class PinjamActivity extends AppCompatActivity {
     }
 
     private void dialogAlert(){
+        CalendarHandler calendarHandler = new CalendarHandler(PinjamActivity.this);
         AlertDialog.Builder dialogAlertBuilder = new AlertDialog.Builder(PinjamActivity.this);
         dialogAlertBuilder.setTitle("Konfirmasi Pinjaman");
         dialogAlertBuilder
@@ -191,43 +194,34 @@ public class PinjamActivity extends AppCompatActivity {
                         "Jenis Kelamin      : " +jk_peminjam+ "\n" +
                         "Alamat                   : " +alamat_peminjam+ "\n" +
                         "No Telpon             : " +notelp_peminjam+ "\n" +
-                        "Tgl Pinjam            : " +tgl_pinjam.getText().toString()+ "\n" +
-                        "Tgl Kembali          : " +tgl_kembali.getText().toString()+ "\n" +
+                        "Tgl Pinjam            : " +calendarHandler.convertTanggalIndo(tgl_pinjam.getText().toString())+ "\n" +
+                        "Tgl Kembali          : " +calendarHandler.convertTanggalIndo(tgl_kembali.getText().toString())+ "\n" +
                         "Minat Membaca : "+minat_baca.toString()+ "\n" +
                         "Syarat Pinjam      : "+syarat_pinjam.toString()+ "\n")
                 .setPositiveButton("Konfirmasi", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-//                        DBHelper dbHelper = new DBHelper(getApplicationContext());
-//                        PinjamHandler pinjamHandler = new PinjamHandler();
-//                        pinjamHandler.setJudul(judul_buku.toUpperCase());
-//                        pinjamHandler.setNama(nama_peminjam.toUpperCase());
-//                        pinjamHandler.setJenis_kelamin(jk_peminjam.toUpperCase());
-//                        pinjamHandler.setAlamat(alamat_peminjam.toUpperCase());
-//                        pinjamHandler.setNo_telp(notelp_peminjam);
-//                        pinjamHandler.setTgl_pinjam(strTgl_pinjam);
-//                        pinjamHandler.setTgl_kembali(strTgl_kembali);
-//                        pinjamHandler.setMinat_baca(minat_baca.toString());
-//                        pinjamHandler.setSyarat_pinjam(syarat_pinjam.toString().toUpperCase());
-//                        pinjamHandler.setStatus(status.toString());
-//
-//                        boolean tambahPinjam = dbHelper.tambahPinjam(pinjamHandler);
-//
-//                        if (tambahPinjam) {
-//                            Toast.makeText(PinjamActivity.this, "Tambah Peminjaman Berhasil", Toast.LENGTH_SHORT).show();
-//                        } else {
-//                            Toast.makeText(PinjamActivity.this, "Tambah Peminjaman Gagal", Toast.LENGTH_SHORT).show();
-//                        }
-//                        dbHelper.close();
+                        DBHelper dbHelper = new DBHelper(getApplicationContext());
+                        PinjamHandler pinjamHandler = new PinjamHandler();
+                        pinjamHandler.setJudul(judul_buku);
+                        pinjamHandler.setNama(nama_peminjam);
+                        pinjamHandler.setJenis_kelamin(jk_peminjam);
+                        pinjamHandler.setAlamat(alamat_peminjam);
+                        pinjamHandler.setNo_telp(notelp_peminjam);
+                        pinjamHandler.setTgl_pinjam(strTgl_pinjam);
+                        pinjamHandler.setTgl_kembali(strTgl_kembali);
+                        pinjamHandler.setStatus(status.toString());
+
+                        boolean tambahPinjam = dbHelper.tambahPinjam(pinjamHandler);
+
+                        if (tambahPinjam) {
+                            Toast.makeText(PinjamActivity.this, "Tambah Peminjaman Berhasil", Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(PinjamActivity.this, "Tambah Peminjaman Gagal", Toast.LENGTH_SHORT).show();
+                        }
+                        dbHelper.close();
 
                         createData();
-
-                        judul.getText().clear();
-                        no_telp.getText().clear();
-                        nama.getText().clear();
-                        alamat.getText().clear();
-                        tgl_pinjam.getText().clear();
-                        tgl_kembali.getText().clear();
 
                         Intent goListPinjam = new Intent(PinjamActivity.this,ListPinjamActivity.class);
                         startActivity(goListPinjam);
@@ -261,7 +255,7 @@ public class PinjamActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<PinjamHandler> call, Throwable t) {
-                Toast.makeText(PinjamActivity.this, "Gagal menambah data pinjaman : "+ t.getMessage(), Toast.LENGTH_LONG).show();
+                Toast.makeText(PinjamActivity.this, "Gagal menghubungkan ke server : "+ t.getMessage(), Toast.LENGTH_LONG).show();
             }
         });
     }

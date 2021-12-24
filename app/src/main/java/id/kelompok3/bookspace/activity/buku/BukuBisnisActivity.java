@@ -1,5 +1,6 @@
 package id.kelompok3.bookspace.activity.buku;
 
+import android.database.Cursor;
 import android.os.Bundle;
 import android.widget.Toast;
 
@@ -31,28 +32,11 @@ public class BukuBisnisActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_buku_bisnis);
 
-//        database = new DBHelper(this);
         recyclerView = (RecyclerView)findViewById(R.id.list_bisnis);
-
-//        final DBHelper dh = new DBHelper(getApplicationContext());
-//        Cursor cursor = dh.tampilkanBukuBisnis();
-//        cursor.moveToFirst();
-//        if (cursor.getCount() > 0) {
-//            while (!cursor.isAfterLast()) {
-//                BukuHandler bukuHandlerList = new BukuHandler();
-//                bukuHandlerList.setJudul((cursor.getString(cursor.getColumnIndexOrThrow("judul"))));
-//                bukuHandlerList.setKategori((cursor.getString(cursor.getColumnIndexOrThrow("kategori"))));
-//                bukuHandler.add(bukuHandlerList);
-//                cursor.moveToNext();
-//            }
-//            dh.close();
-//        }
 
         recyclerView.setHasFixedSize(true);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(mLayoutManager);
-//        bukuBisnisAdapter = new BukuBisnisAdapter(bukuHandler, BukuBisnisActivity.this, recyclerView);
-//        recyclerView.setAdapter(bukuBisnisAdapter);
         retrieveData();
     }
 
@@ -71,7 +55,22 @@ public class BukuBisnisActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<List<BukuHandler>> call, Throwable t) {
-                Toast.makeText(BukuBisnisActivity.this, "Gagal mengambil data buku : "+ t.getMessage(), Toast.LENGTH_LONG).show();
+                Toast.makeText(BukuBisnisActivity.this, "Anda offline : "+ t.getMessage(), Toast.LENGTH_LONG).show();
+                final DBHelper dh = new DBHelper(getApplicationContext());
+                Cursor cursor = dh.tampilkanBukuBisnis();
+                cursor.moveToFirst();
+                if (cursor.getCount() > 0) {
+                    while (!cursor.isAfterLast()) {
+                        BukuHandler bukuHandlerList = new BukuHandler();
+                        bukuHandlerList.setJudul((cursor.getString(cursor.getColumnIndexOrThrow("judul"))));
+                        bukuHandlerList.setKategori((cursor.getString(cursor.getColumnIndexOrThrow("kategori"))));
+                        bukuHandler.add(bukuHandlerList);
+                        cursor.moveToNext();
+                    }
+                    dh.close();
+                }
+                bukuBisnisAdapter = new BukuBisnisAdapter(bukuHandler, BukuBisnisActivity.this, recyclerView);
+                recyclerView.setAdapter(bukuBisnisAdapter);
             }
         });
     }

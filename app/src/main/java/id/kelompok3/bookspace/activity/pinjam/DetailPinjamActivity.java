@@ -25,6 +25,7 @@ import java.util.List;
 import id.kelompok3.bookspace.database.DBHelper;
 import id.kelompok3.bookspace.database.DetailPinjamAPIHelper;
 import id.kelompok3.bookspace.database.RetroHelper;
+import id.kelompok3.bookspace.model.CalendarHandler;
 import id.kelompok3.bookspace.model.PinjamHandler;
 import id.kelompok3.bookspace.R;
 import retrofit2.Call;
@@ -53,6 +54,8 @@ public class DetailPinjamActivity extends AppCompatActivity {
         btnEdit = (Button)findViewById(R.id.btn_edit);
         btnHapus = (Button)findViewById(R.id.btn_hapus);
 
+        CalendarHandler calendarHandler = new CalendarHandler(DetailPinjamActivity.this);
+
         judul.setEnabled(false);
         no_telp.setEnabled(false);
         nama.setEnabled(false);
@@ -63,21 +66,6 @@ public class DetailPinjamActivity extends AppCompatActivity {
         id = getData.getIntExtra("id", 0);
 
         if (id > 0) {
-//            final DBHelper dh = new DBHelper(getApplicationContext());
-//            Cursor cursor = dh.detailPinjam(id);
-//            cursor.moveToFirst();
-//            if (cursor.getCount() > 0) {
-//                while (!cursor.isAfterLast()) {
-//                    judul.setText((cursor.getString(cursor.getColumnIndexOrThrow("judul"))));
-//                    nama.setText((cursor.getString(cursor.getColumnIndexOrThrow("nama"))));
-//                    alamat.setText((cursor.getString(cursor.getColumnIndexOrThrow("alamat"))));
-//                    no_telp.setText((cursor.getString(cursor.getColumnIndexOrThrow("no_telpon"))));
-//                    tgl_pinjam.setText((cursor.getString(cursor.getColumnIndexOrThrow("tgl_pinjam"))));
-//                    tgl_kembali.setText((cursor.getString(cursor.getColumnIndexOrThrow("tgl_kembali"))));
-//                    cursor.moveToNext();
-//                }
-//                dh.close();
-//            }
             retrieveData();
         }
 
@@ -95,7 +83,7 @@ public class DetailPinjamActivity extends AppCompatActivity {
 
                         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
                         String setCurrentDate = DateFormat.getDateInstance().format(setCalendar.getTime());
-                        tgl_kembali.setText(setCurrentDate);
+                        tgl_kembali.setText(calendarHandler.convertTanggalIndo(setCurrentDate));
                         strTgl_kembali = dateFormat.format(setCalendar.getTime()).toString();
                     }
                 },getCalendar.get(Calendar.YEAR), getCalendar.get(Calendar.MONTH), getCalendar.get(Calendar.DAY_OF_MONTH));
@@ -122,20 +110,20 @@ public class DetailPinjamActivity extends AppCompatActivity {
                             .setPositiveButton("Konfirmasi", new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialogInterface, int i) {
-//                                    DBHelper dbHelper = new DBHelper(getApplicationContext());
-//                                    PinjamHandler pinjamHandler = new PinjamHandler();
-//                                    pinjamHandler.setTgl_kembali(strTgl_kembali.toString());
-//
-//                                    boolean suntingPinjam = dbHelper.suntingPinjam(pinjamHandler, id);
-//
-//                                    if (suntingPinjam) {
-//                                        Toast.makeText(DetailPinjamActivity.this, "Sunting Peminjaman Berhasil", Toast.LENGTH_SHORT).show();
-//                                        Intent goListPinjam = new Intent(DetailPinjamActivity.this,ListPinjamActivity.class);
-//                                        startActivity(goListPinjam);
-//                                    } else {
-//                                        Toast.makeText(DetailPinjamActivity.this, "Sunting Peminjaman Gagal", Toast.LENGTH_SHORT).show();
-//                                    }
-//                                    dbHelper.close();
+                                    DBHelper dbHelper = new DBHelper(getApplicationContext());
+                                    PinjamHandler pinjamHandler = new PinjamHandler();
+                                    pinjamHandler.setTgl_kembali(strTgl_kembali.toString());
+
+                                    boolean suntingPinjam = dbHelper.suntingPinjam(pinjamHandler, id);
+
+                                    if (suntingPinjam) {
+                                        Toast.makeText(DetailPinjamActivity.this, "Sunting Peminjaman Berhasil", Toast.LENGTH_SHORT).show();
+                                        Intent goListPinjam = new Intent(DetailPinjamActivity.this,ListPinjamActivity.class);
+                                        startActivity(goListPinjam);
+                                    } else {
+                                        Toast.makeText(DetailPinjamActivity.this, "Sunting Peminjaman Gagal", Toast.LENGTH_SHORT).show();
+                                    }
+                                    dbHelper.close();
                                     updateData();
                                 }
                             })
@@ -160,18 +148,18 @@ public class DetailPinjamActivity extends AppCompatActivity {
                         .setPositiveButton("Konfirmasi", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
-//                                DBHelper dbHelper = new DBHelper(getApplicationContext());
-//
-//                                boolean hapusPinjam = dbHelper.hapusPinjam(id);
-//
-//                                if (hapusPinjam) {
-//                                    Toast.makeText(DetailPinjamActivity.this, "Hapus Peminjaman Berhasil", Toast.LENGTH_SHORT).show();
-//                                    Intent goListPinjam = new Intent(DetailPinjamActivity.this,ListPinjamActivity.class);
-//                                    startActivity(goListPinjam);
-//                                } else {
-//                                    Toast.makeText(DetailPinjamActivity.this, "Hapus Peminjaman Gagal", Toast.LENGTH_SHORT).show();
-//                                }
-//                                dbHelper.close();
+                                DBHelper dbHelper = new DBHelper(getApplicationContext());
+
+                                boolean hapusPinjam = dbHelper.hapusPinjam(id);
+
+                                if (hapusPinjam) {
+                                    Toast.makeText(DetailPinjamActivity.this, "Hapus Peminjaman Berhasil", Toast.LENGTH_SHORT).show();
+                                    Intent goListPinjam = new Intent(DetailPinjamActivity.this,ListPinjamActivity.class);
+                                    startActivity(goListPinjam);
+                                } else {
+                                    Toast.makeText(DetailPinjamActivity.this, "Hapus Peminjaman Gagal", Toast.LENGTH_SHORT).show();
+                                }
+                                dbHelper.close();
                                 deleteData();
                             }
                         })
@@ -195,21 +183,20 @@ public class DetailPinjamActivity extends AppCompatActivity {
                         .setPositiveButton("Konfirmasi", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
-//                                status = "DIKEMBALIKAN";
-//                                DBHelper dbHelper = new DBHelper(getApplicationContext());
-//                                PinjamHandler pinjamHandler = new PinjamHandler();
-//                                pinjamHandler.setStatus(status.toString());
-//
-//                                boolean kembaliPinjam = dbHelper.kembaliPinjam(pinjamHandler,id);
-//
-//                                if (kembaliPinjam) {
-//                                    Toast.makeText(DetailPinjamActivity.this, "Kembali Peminjaman Berhasil", Toast.LENGTH_SHORT).show();
-//                                    Intent goListPinjam = new Intent(DetailPinjamActivity.this,ListPinjamActivity.class);
-//                                    startActivity(goListPinjam);
-//                                } else {
-//                                    Toast.makeText(DetailPinjamActivity.this, "Kembali Peminjaman Gagal", Toast.LENGTH_SHORT).show();
-//                                }
-//                                dbHelper.close();
+                                DBHelper dbHelper = new DBHelper(getApplicationContext());
+                                PinjamHandler pinjamHandler = new PinjamHandler();
+                                pinjamHandler.setStatus(status.toString());
+
+                                boolean kembaliPinjam = dbHelper.kembaliPinjam(pinjamHandler,id);
+
+                                if (kembaliPinjam) {
+                                    Toast.makeText(DetailPinjamActivity.this, "Kembali Peminjaman Berhasil", Toast.LENGTH_SHORT).show();
+                                    Intent goListPinjam = new Intent(DetailPinjamActivity.this,ListPinjamActivity.class);
+                                    startActivity(goListPinjam);
+                                } else {
+                                    Toast.makeText(DetailPinjamActivity.this, "Kembali Peminjaman Gagal", Toast.LENGTH_SHORT).show();
+                                }
+                                dbHelper.close();
                                 returnData();
                             }
                         })
@@ -227,6 +214,7 @@ public class DetailPinjamActivity extends AppCompatActivity {
     public void retrieveData(){
         DetailPinjamAPIHelper detailPinjamRequestData = RetroHelper.connectRetrofit().create(DetailPinjamAPIHelper.class);
         Call<List<PinjamHandler>> getDetailPinjam = detailPinjamRequestData.detailPinjamRetrieveData(id);
+        CalendarHandler calendarHandler = new CalendarHandler(DetailPinjamActivity.this);
 
         getDetailPinjam.enqueue(new Callback<List<PinjamHandler>>() {
             @Override
@@ -253,13 +241,28 @@ public class DetailPinjamActivity extends AppCompatActivity {
                 nama.setText(pinjamHandler.get(0).getNama());
                 alamat.setText(pinjamHandler.get(0).getAlamat());
                 no_telp.setText(pinjamHandler.get(0).getNo_telp());
-                tgl_pinjam.setText(tglPinjam);
-                tgl_kembali.setText(tglKembali);
+                tgl_pinjam.setText(calendarHandler.convertTanggalIndo(tglPinjam));
+                tgl_kembali.setText(calendarHandler.convertTanggalIndo(tglKembali));
             }
 
             @Override
             public void onFailure(Call<List<PinjamHandler>> call, Throwable t) {
-                Toast.makeText(DetailPinjamActivity.this, "Gagal mengambil data detail peminjaman : "+ t.getMessage(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(DetailPinjamActivity.this, "Anda offline : "+ t.getMessage(), Toast.LENGTH_SHORT).show();
+                final DBHelper dh = new DBHelper(getApplicationContext());
+                Cursor cursor = dh.detailPinjam(id);
+                cursor.moveToFirst();
+                if (cursor.getCount() > 0) {
+                    while (!cursor.isAfterLast()) {
+                        judul.setText((cursor.getString(cursor.getColumnIndexOrThrow("judul"))));
+                        nama.setText((cursor.getString(cursor.getColumnIndexOrThrow("nama"))));
+                        alamat.setText((cursor.getString(cursor.getColumnIndexOrThrow("alamat"))));
+                        no_telp.setText((cursor.getString(cursor.getColumnIndexOrThrow("no_telpon"))));
+                        tgl_pinjam.setText((cursor.getString(cursor.getColumnIndexOrThrow("tgl_pinjam"))));
+                        tgl_kembali.setText((cursor.getString(cursor.getColumnIndexOrThrow("tgl_kembali"))));
+                        cursor.moveToNext();
+                    }
+                    dh.close();
+                }
             }
         });
     }
@@ -286,7 +289,7 @@ public class DetailPinjamActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<PinjamHandler> call, Throwable t) {
-                Toast.makeText(DetailPinjamActivity.this, "Gagal mengupdate data detail peminjaman : "+ t.getMessage(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(DetailPinjamActivity.this, "Gagal menghubungkan ke server : "+ t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -313,7 +316,7 @@ public class DetailPinjamActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<PinjamHandler> call, Throwable t) {
-                Toast.makeText(DetailPinjamActivity.this, "Gagal merubah status data detail peminjaman : "+ t.getMessage(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(DetailPinjamActivity.this, "Gagal menghubungkan ke server : "+ t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -340,7 +343,7 @@ public class DetailPinjamActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<PinjamHandler> call, Throwable t) {
-                Toast.makeText(DetailPinjamActivity.this, "Gagal menghapus status data peminjaman : "+ t.getMessage(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(DetailPinjamActivity.this, "Gagal menghubungkan ke server : "+ t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
     }

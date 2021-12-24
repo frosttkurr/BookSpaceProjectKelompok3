@@ -1,7 +1,9 @@
 package id.kelompok3.bookspace.activity.home;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
@@ -30,6 +32,7 @@ import id.kelompok3.bookspace.database.DBHelper;
 import id.kelompok3.bookspace.database.PenggunaAPIHelper;
 import id.kelompok3.bookspace.database.RetroHelper;
 import id.kelompok3.bookspace.model.PenggunaHandler;
+import id.kelompok3.bookspace.model.SessionHandler;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -62,21 +65,7 @@ public class LobbyActivity extends AppCompatActivity {
         add_category = (ImageView)findViewById(R.id.btn_tambah);
         logout = (ImageView)findViewById(R.id.icon_logout);
 
-        Intent getData = getIntent();
-        String strId = getData.getStringExtra("id");
-        id = Integer.valueOf(strId);
-
-//        DBHelper dbHelper = new DBHelper(this);
-//
-//        Cursor cursor = dbHelper.tampilkanPenggunaDariID(id);
-//
-//        while (cursor.moveToNext()) {
-//            nama = cursor.getString(1);
-//            alamat = cursor.getString(2);
-//        }
-//
-//        label_name.setText(nama);
-//        label_alamat.setText(alamat);
+        id = this.getSharedPreferences("pref_name", 0).getInt("key_id", 0);
 
         retrieveData();
 
@@ -180,9 +169,28 @@ public class LobbyActivity extends AppCompatActivity {
         logout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getApplicationContext(), "Berhasil Logout", Toast.LENGTH_SHORT).show();
-                Intent goLogin = new Intent(LobbyActivity.this, LoginActivity.class);
-                startActivity(goLogin);
+                AlertDialog.Builder dialogAlertBuilder = new AlertDialog.Builder(LobbyActivity.this);
+                dialogAlertBuilder.setTitle("Konfirmasi");
+                dialogAlertBuilder
+                        .setMessage("Ingin logout?")
+                        .setPositiveButton("Konfirmasi", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                SessionHandler session = new SessionHandler();
+                                session.logout(LobbyActivity.this);
+                                Toast.makeText(getApplicationContext(), "Berhasil Logout", Toast.LENGTH_SHORT).show();
+                                Intent goLogin = new Intent(LobbyActivity.this, LoginActivity.class);
+                                startActivity(goLogin);
+                                finish();
+                            }
+                        })
+                        .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                dialogInterface.cancel();
+                            }
+                        });
+                AlertDialog dialog = dialogAlertBuilder.create();
+                dialog.show();
             }
         });
     }
@@ -202,7 +210,18 @@ public class LobbyActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<List<PenggunaHandler>> call, Throwable t) {
-                Toast.makeText(LobbyActivity.this, "Gagal mengambil data pengguna : "+ t.getMessage(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(LobbyActivity.this, "Anda offline : "+ t.getMessage(), Toast.LENGTH_SHORT).show();
+                DBHelper dbHelper = new DBHelper(LobbyActivity.this);
+
+                Cursor cursor = dbHelper.tampilkanPenggunaDariID(String.valueOf(id));
+
+                while (cursor.moveToNext()) {
+                    nama = cursor.getString(1);
+                    alamat = cursor.getString(2);
+                }
+
+                label_name.setText(nama);
+                label_alamat.setText(alamat);
             }
         });
     }

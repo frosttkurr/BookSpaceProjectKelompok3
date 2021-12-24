@@ -18,6 +18,6 @@ public class AboutActivity extends AppCompatActivity {
         kelompok = (TextView)findViewById(R.id.about_kelompok);
 
         about.setText("BookSpace adalah aplikasi pencatatan peminjaman buku");
-        kelompok.setText("Kelompok 3");
+        kelompok.setText("Kelompok 3:\n1905551009 - I Gusti Ayu Mirah\n1905551031 - Desak Made Ari Puspa Yanti\n1905551038 - Luh Putu Murniasih Pertiwi\n1905551077 - Muhammad Syakurrahman\n1905554117 - I Kadek Arya Dilaga\n1905551130 - Arsyi Reyhan Ramadhan");
     }
 }

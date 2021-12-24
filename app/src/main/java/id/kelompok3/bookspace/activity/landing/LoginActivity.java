@@ -14,12 +14,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 import id.kelompok3.bookspace.R;
+import id.kelompok3.bookspace.activity.MainActivity;
 import id.kelompok3.bookspace.activity.home.LobbyActivity;
 import id.kelompok3.bookspace.activity.home.ProfileActivity;
 import id.kelompok3.bookspace.database.DBHelper;
 import id.kelompok3.bookspace.database.PenggunaAPIHelper;
 import id.kelompok3.bookspace.database.RetroHelper;
 import id.kelompok3.bookspace.model.PenggunaHandler;
+import id.kelompok3.bookspace.model.SessionHandler;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -37,6 +39,13 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+        SessionHandler session = new SessionHandler();
+
+        if (session.isLogin(LoginActivity.this)){
+            Intent goToLobby = new Intent(LoginActivity.this, LobbyActivity.class);
+            LoginActivity.this.startActivity(goToLobby);
+        }
 
         login = (Button)findViewById(R.id.btn_login);
         user = (EditText)findViewById(R.id.username);
@@ -67,24 +76,6 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
-//    public void checkUsername(){
-//        PenggunaAPIHelper penggunaRequestData = RetroHelper.connectRetrofit().create(PenggunaAPIHelper.class);
-//        Call<PenggunaHandler> getPengguna = penggunaRequestData.checkUsernameData(username);
-//
-//        getPengguna.enqueue(new Callback<PenggunaHandler>() {
-//            @Override
-//            public void onResponse(Call<PenggunaHandler> call, Response<PenggunaHandler> response) {
-//                Boolean statusUsername = response.body().getStatusAPI();
-//                String messageUser = response.body().getMessage();
-//            }
-//
-//            @Override
-//            public void onFailure(Call<PenggunaHandler> call, Throwable t) {
-//                Toast.makeText(LoginActivity.this, "Gagal mengambil username : "+ t.getMessage(), Toast.LENGTH_LONG).show();
-//            }
-//        });
-//    }
-
     public void checkUsernamePassword(){
         PenggunaAPIHelper penggunaRequestData = RetroHelper.connectRetrofit().create(PenggunaAPIHelper.class);
         Call<PenggunaHandler> getPengguna = penggunaRequestData.checkUsernamePassword(username, password);
@@ -95,11 +86,11 @@ public class LoginActivity extends AppCompatActivity {
                 Boolean statusAPI = response.body().getStatusAPI();
                 String message = response.body().getMessage();
                 List<PenggunaHandler> dataPenggunaList = response.body().getPenggunaHandler();
+                SessionHandler session = new SessionHandler();
 
                 if(dataPenggunaList.size() > 0) {
-//                    Toast.makeText(LoginActivity.this, "" + dataPenggunaList.get(0).getId(), Toast.LENGTH_LONG).show();
+                    session.login(dataPenggunaList.get(0).getId(), dataPenggunaList.get(0).getToken(), LoginActivity.this);
                     Intent gotoLoby = new Intent(LoginActivity.this, LobbyActivity.class);
-                    gotoLoby.putExtra("id", String.valueOf(dataPenggunaList.get(0).getId()));
                     startActivity(gotoLoby);
                 } else {
                     Toast.makeText(LoginActivity.this, "Username atau Password Salah!", Toast.LENGTH_LONG).show();
@@ -108,7 +99,7 @@ public class LoginActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<PenggunaHandler> call, Throwable t) {
-                Toast.makeText(LoginActivity.this, "Gagal mengambil username dan password : "+ t.getMessage(), Toast.LENGTH_LONG).show();
+                Toast.makeText(LoginActivity.this, "Gagal menghubungkan ke server : "+ t.getMessage(), Toast.LENGTH_LONG).show();
             }
         });
     }

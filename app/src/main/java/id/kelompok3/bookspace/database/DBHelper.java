@@ -21,9 +21,9 @@ public class DBHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL("CREATE TABLE tb_buku(id INTEGER PRIMARY KEY AUTOINCREMENT, judul TEXT, kategori TEXT)");
-        db.execSQL("CREATE TABLE tb_pinjam(id INTEGER PRIMARY KEY AUTOINCREMENT, nama TEXT, judul TEXT, alamat TEXT, no_telpon TEXT, tgl_pinjam TEXT, tgl_kembali TEXT, status TEXT)");
-        db.execSQL("CREATE TABLE tb_pengguna(id INTEGER PRIMARY KEY AUTOINCREMENT, nama_lengkap TEXT, alamat TEXT, jenis_kelamin TEXT, no_telpon TEXT, email TEXT, username TEXT, password TEXT, minat_membaca TEXT, deleted_at TEXT)");
+        db.execSQL("CREATE TABLE tb_buku(id INTEGER PRIMARY KEY AUTOINCREMENT, judul TEXT, kategori TEXT, created_at TEXT, updated_at TEXT)");
+        db.execSQL("CREATE TABLE tb_pinjam(id INTEGER PRIMARY KEY AUTOINCREMENT, nama TEXT, judul TEXT, alamat TEXT, no_telpon TEXT, tgl_pinjam TEXT, tgl_kembali TEXT, status TEXT, created_at TEXT, updated_at TEXT)");
+        db.execSQL("CREATE TABLE tb_pengguna(id INTEGER PRIMARY KEY AUTOINCREMENT, nama_lengkap TEXT, alamat TEXT, jenis_kelamin TEXT, no_telpon TEXT, email TEXT, username TEXT, password TEXT, minat_membaca TEXT, created_at TEXT, updated_at TEXT, deleted_at TEXT)");
     }
 
     @Override
